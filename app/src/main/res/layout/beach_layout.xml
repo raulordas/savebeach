@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutBeach"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/PADDING_15"
+    tools:context=".activities.Beach_Detail">
+
+    <TextView
+        android:id="@+id/tvBeachNombre"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bambino_light"
+        android:gravity="center"
+        android:text="@string/VAL_BEACH_NOMBRE"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="40sp" />
+
+
+    <TableRow
+        android:id="@+id/trGrados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+
+        <TextView
+            android:id="@+id/tvBeachGrados"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:fontFamily="@font/bambino_light"
+            android:text="@string/VAL_BEACH_GRADOS"
+            android:textAlignment="textEnd"
+            android:textColor="@android:color/background_light"
+            android:textSize="35sp" />
+
+        <ImageView
+            android:id="@+id/imgBeachEstadoCielo"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:paddingLeft="@dimen/PADDING_10"
+            android:scaleType="fitStart"
+            android:tint="@color/amarilloSoleado"
+            app:srcCompat="@drawable/ic_sun94" />
+    </TableRow>
+
+    <RelativeLayout
+        android:id="@+id/rlBeachGrados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/PADDING_15"
+        android:layout_marginBottom="@dimen/PADDING_15"
+        android:layout_weight="1">
+
+    </RelativeLayout>
+
+    <TableRow
+        android:id="@+id/trEstadoCielo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="start"
+        android:paddingBottom="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgBeachEstadoCielo2"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:scaleType="fitEnd"
+            android:tint="@color/amarilloSoleado"
+            app:srcCompat="@drawable/ic_sun94" />
+
+        <TextView
+            android:id="@+id/tvBeachEstadoCielo2"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/VAL_BEACH_ESTADO_CIELO"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/trViento"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="start"
+        android:paddingBottom="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgBeachViento"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:scaleType="fitEnd"
+            android:tint="@color/azulViento"
+            app:srcCompat="@drawable/ic_wind_svgrepo_com" />
+
+        <TextView
+            android:id="@+id/tvBeachViento"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/VAL_VIENTO"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/trOleaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="start"
+        android:paddingBottom="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgBeachOleaje"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:scaleType="fitEnd"
+            android:tint="@color/blancoNieve"
+            app:srcCompat="@drawable/ic_sea_waves_svgrepo_com" />
+
+        <TextView
+            android:id="@+id/tvBeachOleaje"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/VAL_OLEAJE"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/trTagua"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="start"
+        android:paddingBottom="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgBeachTempAgua"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:scaleType="fitEnd"
+            android:tint="@android:color/black"
+            app:srcCompat="@drawable/ic_thermometer_temperature_control_tool_svgrepo_com" />
+
+        <TextView
+            android:id="@+id/tvBeachTempAgua"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/VAL_TEMP_AGUA"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/trUV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:gravity="start"
+        android:paddingBottom="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgBeachUV"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:scaleType="fitEnd"
+            android:tint="@color/blancoNieve"
+            app:srcCompat="@drawable/ic_uv_ray_warning_svgrepo_com" />
+
+        <TextView
+            android:id="@+id/tvBeachUV"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/VAL_UV"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp" />
+    </TableRow>
+
+    <LinearLayout
+        android:id="@+id/lvBeachMapsHz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/lvBeachMaps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgBeachMaps"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:onClick="verPlayaEnMapa"
+                android:rotation="20"
+                android:tint="@android:color/background_light"
+                app:srcCompat="@drawable/ic_wifi_zone_marker_svgrepo_com" />
+
+            <TextView
+                android:id="@+id/tvBeachFecha"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/PADDING_15"
+                android:text="@string/VAL_FECHA_ACT"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TableRow
+        android:id="@+id/trBeachAemet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:gravity="center_vertical|center|start"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/PADDING_30"
+        android:paddingTop="@dimen/PADDING_10"
+        android:paddingRight="@dimen/PADDING_30"
+        android:paddingBottom="@dimen/PADDING_10"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvBeachAemet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:fontFamily="@font/bambino"
+            android:text="@string/VAL_AEMET"
+            android:textColor="@color/colorMarronClaro" />
+
+        <ImageView
+            android:id="@+id/imgBeachAemet"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/VAL_IMAGEN"
+            android:tint="@color/colorMarronClaro"
+            app:srcCompat="@drawable/ic_aemet" />
+    </TableRow>
+
+</LinearLayout>

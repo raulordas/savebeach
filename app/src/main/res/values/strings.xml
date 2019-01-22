@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">SaveTheBeach</string>
+    <!--SPLASH ACTIVITY-->
+    <string name="VAL_COMENZAR">COMENZAR</string>
+    <string name="VAL_LOGIN">Log-In</string>
+    <string name="VAL_IMAGEN">Image</string>
+    <string name="label_SignUp"><u>¿No eres usuario? Date de alta.</u></string>
+
+    <!--SIGN UP-->
+    <string name="VAL_SIGN_UP">Sign Up</string>
+    <string name="HINT_CORREO">Introduce tu correo electrónico</string>
+    <string name="HINT_PASSWORD">Introduce una contraseña</string>
+    <string name="HINT_PASSWORD_REP">Repite la contraseña</string>
+    <string name="VAL_REGISTRAR">REGISTRAR</string>
+    <string name="VAL_LOGIN_CAPS">Log in</string>
+    <string name="KEY__SIGN_UP_SUCCESS">SignUpSuccess</string>
+
+    <!--SIGN UP SUCCESS-->
+    <string name="VAL_BIENVENIDO">Bienvenido</string>
+    <string name="VAL_CORREO_CONFIRMACION">Te enviaremos un correo a <b>%1$s</b> confirmando el alta de tu cuenta.</string>
+
+    <!--SPLASH LOG IN-->
+    <string name="HINT_USUARIO">Usuario</string>
+    <string name="HINT_PASS">Password</string>
+    <string name="VAL_BACK">REGRESAR</string>
+
+    <!--USER PROFILE-->
+    <string name="VALOR_USER_PROFILE">Tu Perfil</string>
+
+    <!--ERRORES Y ESTADOS-->
+    <string name="STRING_FILL">%1$s</string>
+    <string name="VAL_ERROR_GENERICO">Ha ocurrido un error al realizar la operación. Vuelva a intentarlo y sino póngase en contacto con el administrador de la aplicación.</string>
+    <string name="VAL_ERROR_PASSWORD_DIFERENTE">Error, las contraseñas que introduzca han de ser idénticas.</string>
+    <string name="VAL_ERROR_EMAIL">La dirección de correo que ha consignado no tiene formato adecuado.</string>
+    <string name="VAL_ERROR_EMPTY_FIELDS">Error, no puede dejar campos vacíos en este formulario.</string>
+    <string name="VAL_CONECTANDO">Conectando con el servidor</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+
+    <!--BEACH LAYOUT-->
+    <string name="VAL_BEACH_NOMBRE">%1$s</string>
+    <string name="VAL_BEACH_GRADOS">%1$d°</string>
+    <string name="VAL_AEMET">Informacion obtenida a través de:</string>
+    <string name="VAL_BEACH_ESTADO_CIELO">%1$s</string>
+    <string name="VAL_VIENTO">Viento %1$s</string>
+    <string name="VAL_OLEAJE">Oleaje %1$s</string>
+    <string name="VAL_TEMP_AGUA">Temperatura Agua %1$d</string>
+    <string name="VAL_UV">Indice UV: %1$d</string>
+    <string name="VAL_FECHA_ACT">Fecha Actualizacion %1$s</string>
+    <string name="KEY_PLAYA_SEL">PlayaSeleccionada</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="BEACH_LIST">Las Playas</string>
+    <string name="SELECCION_MUNICIPIO">Filtro: %1$s</string>
+    <string name="CONTEXT_MUNICIPIOS">Elegir Municipio</string>
+    <string name="TODAS_LAS_PLAYAS">Todas Las Playas</string>
+</resources>

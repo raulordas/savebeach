@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lvPlayas"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.Beach_List">
+
+    <LinearLayout
+        android:id="@+id/lvFilterPlayas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:background="@color/blancoNieve"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/PADDING_15">
+
+        <ImageView
+            android:id="@+id/imgFiltroPlayas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingLeft="@dimen/PADDING_30"
+            android:tint="@color/colorPrimary"
+            app:srcCompat="@drawable/ic_filter_list_black_24dp" />
+
+        <TextView
+            android:id="@+id/tvFiltroMunicipio"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:text="@string/SELECCION_MUNICIPIO" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/blancoNieve" />
+
+        <SearchView
+            android:id="@+id/searchViewPlayas"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:background="@color/blancoNieve"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/PADDING_15" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewPlayas"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_weight="7" />
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Beaches"
+            android:title="Las Playas" />
+        <item
+            android:id="@+id/nav_Beach_Alerts"
+            android:title="Beach Alerts" />
+        <item
+            android:id="@+id/nav_Beach_Map"
+            android:title="Mapa" />
+        <item
+            android:id="@+id/nav_Beach_Fans"
+            android:title="Beach Fans" />
+    </group>
+
+    <item android:title="Conexion">
+        <menu>
+            <item
+                android:id="@+id/nav_Login"
+                android:title="Log In" />
+            <item
+                android:id="@+id/nav_Logout"
+                android:title="Log Out" />
+        </menu>
+    </item>
+
+</menu>

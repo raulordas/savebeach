@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lvPlaya"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blancoNieve"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/PADDING_15"
+    android:paddingBottom="@dimen/PADDING_15">
+
+    <ImageView
+        android:id="@+id/imgPlaya"
+        android:layout_width="match_parent"
+        android:layout_height="179dp"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+    <TextView
+        android:id="@+id/tvNombrePlaya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/blancoNieve"
+        android:fontFamily="@font/bambino"
+        android:paddingLeft="@dimen/PADDING_30"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/tvMunicipioPlaya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/PADDING_30"
+        android:textColor="@color/colorPrimary" />
+
+</LinearLayout>
