@@ -9,15 +9,20 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+
+import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Playa;
 
 public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
-
+    private ArrayList<Playa> listaPlayas;
     private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        listaPlayas = ((ContextoCustom) (getApplicationContext())).getListadoPlayas();
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -51,19 +56,29 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
         mMap = googleMap;
         Playa playa = getIntent().getParcelableExtra(getString(R.string.KEY_PLAYA_SEL));
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(playa.getLatitud(), playa.getLongitud());
-        mMap.addMarker(new MarkerOptions().position(sydney).title(playa.getNombre()));
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                Toast.makeText(getApplicationContext(), "Y HACEMOS LO QUE SEA AQUI", Toast.LENGTH_LONG).show();
-                return true;
+        if (playa == null) {
+            for (Playa aux: listaPlayas) {
+                LatLng gms = new LatLng(aux.getLatitud(), aux.getLongitud());
+                mMap.addMarker(new MarkerOptions().position(gms).title(aux.getNombre()));
             }
-        });
-        mMap.addMarker(new MarkerOptions().position(sydney).title("ALERTA DE MEDUSAS"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+            LatLng gmsAux = new LatLng(listaPlayas.get(0).getLatitud(), listaPlayas.get(0).getLongitud());
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(7));
+        } else {
+            // Add a marker in Sydney and move the camera
+            LatLng localizacionPlaya = new LatLng(playa.getLatitud(), playa.getLongitud());
+            mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title(playa.getNombre()));
+            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    Toast.makeText(getApplicationContext(), "Y HACEMOS LO QUE SEA AQUI", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+            });
+            mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title("ALERTA DE MEDUSAS"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(localizacionPlaya));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
+        }
     }
 
     //Metodo pendiente de implementar

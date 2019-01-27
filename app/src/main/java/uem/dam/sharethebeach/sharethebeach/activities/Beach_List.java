@@ -1,16 +1,21 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
-import android.view.MenuItem;
+import android.transition.Slide;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,16 +31,20 @@ public class Beach_List extends Base_Activity {
     private RecyclerView.LayoutManager lm;
     private AdapterPlayas adapterPlayas;
     private Dialog errorDialog;
-    private ImageView imgFiltroPlayas;
     private HashSet<String> municipios;
-    private TextView tvFiltroMunicipio;
     private ArrayList<Playa> listaPlayas;
+    private TabLayout beachTabs;
+    private Dialog miniProgressBar;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tvFiltroMunicipio = findViewById(R.id.tvFiltroMunicipio);
-        tvFiltroMunicipio.setText(getString(R.string.TODAS_LAS_PLAYAS));
+        //Solicitamos la activacion de las transiciones. Siempre antes del setcontent
+
+        Slide slide = new Slide();
+        slide.setSlideEdge(Gravity.LEFT);
+        getWindow().setExitTransition(slide);
 
         //Capturamos el listado de playas del contexto y generamos un context menu para filtros
         municipios = new HashSet<>();
@@ -44,19 +53,44 @@ public class Beach_List extends Base_Activity {
         listaPlayas = new ArrayList<Playa>();
         listaPlayas.addAll(((ContextoCustom) (getApplicationContext())).getListadoPlayas());
 
-        for (Playa aux : listaPlayas) {
-            System.out.println(aux.getNombre());
-            municipios.add(aux.getMunicipio());
+        for (int i = 0; i < listaPlayas.size(); i++) {
+            municipios.add(listaPlayas.get(i).getMunicipio());
         }
 
-        imgFiltroPlayas = findViewById(R.id.imgFiltroPlayas);
-        imgFiltroPlayas.setOnClickListener(new View.OnClickListener() {
+        beachTabs = findViewById(R.id.beachTabs);
+        beachTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View view) {
-                view.performLongClick();
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.e("TAB", tab.getText().toString());
+
+                if (tab.getText().equals(getString(R.string.tab_filtrar))) {
+                    verDialogFilter();
+                } else if(tab.getText().equals(getString(R.string.tab_ordenar))) {
+                    verDialogOrdenar();
+                } else {
+                    Intent i = new Intent(Beach_List.this, MapsActivity.class);
+                    startActivity(i);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+                if (tab.getText().equals(getString(R.string.tab_filtrar))) {
+                    verDialogFilter();
+                } else if(tab.getText().equals(getString(R.string.tab_ordenar))) {
+                    verDialogOrdenar();
+                } else {
+                    Intent i = new Intent(Beach_List.this, MapsActivity.class);
+                    startActivity(i);
+                }
             }
         });
-        registerForContextMenu(imgFiltroPlayas);
 
         //Cargamos el recyclerView con las playas
         recyclerView = findViewById(R.id.recyclerViewPlayas);
@@ -69,14 +103,33 @@ public class Beach_List extends Base_Activity {
         adapterPlayas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos = recyclerView.getChildAdapterPosition(view);
-                PersistenciaAemet perAemet = new PersistenciaAemet(Beach_List.this);
-                Playa playaSeleccionada = adapterPlayas.getPlayaAtPos(pos);
-                //perAemet.getListadoPlayas().get(pos);
-                System.out.println(playaSeleccionada.getId());
-                perAemet.obtenerPlaya(playaSeleccionada);
+                mostrarMiniProgressBar();
+                final int pos = recyclerView.getChildAdapterPosition(view);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        //int pos = recyclerView.getChildAdapterPosition(view);
+                        PersistenciaAemet perAemet = new PersistenciaAemet(Beach_List.this);
+                        Playa playaSeleccionada = adapterPlayas.getPlayaAtPos(pos);
+                        perAemet.obtenerPlaya(playaSeleccionada);
+                    }
+                }, 500);
             }
         });
+
+          /*
+        Para agregar separadores entre los tabs debemos de interpretar que el TabLayout es un Linear
+        Layout y acceder a estas propiedades. No lo vamos a usar por que estéticamente no nos resulta
+        interesante en este proyecto.
+
+         ((LinearLayout) (beachTabs.getChildAt(0))).setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setColor(Color.GRAY);
+        drawable.setSize(1,1);
+        ((LinearLayout) (beachTabs.getChildAt(0))).setDividerDrawable(drawable);
+        ((LinearLayout) (beachTabs.getChildAt(0))).setDividerPadding(10);
+         */
     }
 
     @Override
@@ -92,38 +145,83 @@ public class Beach_List extends Base_Activity {
     /*
     La persistencia nos devuelve la información a través del callback
      */
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void lanzarActivityPlayaCallback(Playa playa){
 
         if (playa != null){
             Intent i = new Intent(this, Beach_Detail.class);
             i.putExtra(getString(R.string.KEY_PLAYA_SEL),  playa);
-            startActivity(i);
+            startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
 
         } else {
             errorDialog = new CustomDialog(this, R.string.VAL_ERROR_GENERICO);
             errorDialog.show();
         }
+
+        if (miniProgressBar.isShowing()) {
+            miniProgressBar.cancel();
+        }
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        getMenuInflater().inflate(R.menu.menu_context, menu);
 
+    public void verDialogOrdenar() {
+        final CharSequence[] lista = {"Ordenar por Nombre de A-Z", "Ordenar Por nombre de Z-A"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.ELEGIR_MUNICIPIO));
+
+        builder.setItems(lista, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if ( i == 0) {
+                    adapterPlayas.ordenarAZ();
+                } else {
+                    adapterPlayas.ordenarZA();
+                }
+            }
+        });
+
+        builder.setNeutralButton(getString(R.string.DIALOG_CANCEL), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        }).create().show();
+    }
+
+    public void verDialogFilter() {
         ArrayList<String> municipiosOrdenados = new ArrayList(municipios);
         Collections.sort(municipiosOrdenados);
 
-        for (String nombre : municipiosOrdenados) {
-            menu.add(nombre);
+        final CharSequence[] lista = new CharSequence[municipiosOrdenados.size()];
+
+        for (int i = 0; i < municipiosOrdenados.size(); i++){
+            lista[i] = municipiosOrdenados.get(i);
         }
-        menu.setHeaderTitle(getString(R.string.CONTEXT_MUNICIPIOS));
-        super.onCreateContextMenu(menu, v, menuInfo);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.ELEGIR_MUNICIPIO));
+
+
+        builder.setNeutralButton(getString(R.string.DIALOG_CANCEL), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+        builder.setItems(lista, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                logicaFiltroMunicipio(lista[i].toString());
+            }
+
+        }).create().show();
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        final String municipio = item.getTitle().toString();
+    public String logicaFiltroMunicipio(String muni) {
+        final String municipio = muni;
         final String filtro = String.format(getString(R.string.SELECCION_MUNICIPIO), municipio);
-        tvFiltroMunicipio.setText(filtro);
 
         if (!municipio.equals(getString(R.string.TODAS_LAS_PLAYAS))) {
             Handler h = new Handler();
@@ -134,9 +232,10 @@ public class Beach_List extends Base_Activity {
                 }
             });
         } else {
-            adapterPlayas.agregarPlayas(listaPlayas);
+            adapterPlayas.eliminarTodasLasPlayas();
+            adapterPlayas.agregarPlayas(((ContextoCustom) (getApplicationContext())).getListadoPlayas());
         }
-        return true;
+        return filtro;
     }
 
     public void filtrarPlayas(String municipio) {
@@ -157,4 +256,15 @@ public class Beach_List extends Base_Activity {
         //Agrega los nuevos elementos filtrados al adaptador
         adapterPlayas.agregarPlayas(listaFiltrada);
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void mostrarMiniProgressBar() {
+        miniProgressBar = new Dialog(this);
+        miniProgressBar.setContentView(R.layout.progbar_mini);
+        miniProgressBar.setCancelable(false);
+        miniProgressBar.show();
+    }
+
 }
+
+

@@ -3,7 +3,9 @@ package uem.dam.sharethebeach.sharethebeach.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Playa;
 
@@ -100,5 +105,25 @@ public class AdapterPlayas extends RecyclerView.Adapter<AdapterPlayas.HolderPlay
         int size = listaPlayas.size();
         listaPlayas.clear();
         notifyItemRangeRemoved(0, size);
+    }
+
+    public void ordenarAZ() {
+        Collections.sort(listaPlayas, new Comparator<Playa>() {
+            @Override
+            public int compare(Playa playa, Playa t1) {
+                return playa.getNombre().compareTo(t1.getNombre());
+            }
+        });
+        notifyDataSetChanged();
+    }
+
+    public void ordenarZA() {
+        Collections.sort(listaPlayas, new Comparator<Playa>() {
+            @Override
+            public int compare(Playa playa, Playa t1) {
+                return (playa.getNombre().compareTo(t1.getNombre())) * -1;
+            }
+        });
+        notifyDataSetChanged();
     }
 }

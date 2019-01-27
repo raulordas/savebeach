@@ -76,7 +76,6 @@
             android:layout_marginStart="0dp"
             android:layout_marginBottom="174dp"
             android:background="@android:color/background_light"
-            android:onClick="cargarDialogLogin"
             android:text="@string/VAL_LOGIN"
             android:textColor="@color/colorSecondary"
             android:textSize="18sp" />
@@ -89,7 +88,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginBottom="87dp"
-            android:background="@color/colorSecondary"
+            android:background="@drawable/pressed_button_effect"
             android:onClick="comenzar"
             android:text="@string/VAL_COMENZAR"
             android:textColor="@android:color/background_light"

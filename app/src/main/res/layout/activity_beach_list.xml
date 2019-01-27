@@ -1,61 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lvPlayas"
+    android:id="@+id/coordBeachList"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.Beach_List">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/lvFilterPlayas"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/beachTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:background="@color/blancoNieve"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/PADDING_15">
+        android:scaleX="1"
+        android:scaleY="1"
+        app:tabIndicatorColor="@color/colorPrimary">
 
-        <ImageView
-            android:id="@+id/imgFiltroPlayas"
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabFiltrado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:paddingLeft="@dimen/PADDING_30"
-            android:tint="@color/colorPrimary"
-            app:srcCompat="@drawable/ic_filter_list_black_24dp" />
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:text="@string/tab_filtrar" />
 
-        <TextView
-            android:id="@+id/tvFiltroMunicipio"
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/PADDING_15"
-            android:text="@string/SELECCION_MUNICIPIO" />
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_up_and_down_opposite_double_arrows_side_by_side"
+            android:text="@string/tab_ordenar" />
 
-        <View
-            android:id="@+id/divider"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/blancoNieve" />
-
-        <SearchView
-            android:id="@+id/searchViewPlayas"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0"
-            android:background="@color/blancoNieve"
-            android:orientation="horizontal"
-            android:paddingRight="@dimen/PADDING_15" />
-    </LinearLayout>
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_location_pin"
+            android:text="@string/tab_mapa" />
+    </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewPlayas"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_weight="7" />
+        android:layout_below="@+id/beachTabs"
+        />
 
-</LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressLoadBeach"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="240dp"
+        android:visibility="invisible" />
+
+</RelativeLayout>

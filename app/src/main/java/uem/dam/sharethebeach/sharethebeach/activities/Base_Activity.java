@@ -1,5 +1,6 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 
@@ -29,6 +32,9 @@ public abstract class Base_Activity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Activamos la funcionalidad de transiciones
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
         /*
         Asignamos el layout del Base activity que contiene la barra de navegación y su menu
@@ -47,7 +53,7 @@ public abstract class Base_Activity extends AppCompatActivity
         //toolbar.setNavigationIcon(R.drawable.ic_back_scalable);
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getLocalClassName());
+        //getSupportActionBar().setTitle(getLocalClassName());
 
         /*
         Generamos una variable de tipo View para almacenar el contenedor del XML que
@@ -148,6 +154,9 @@ public abstract class Base_Activity extends AppCompatActivity
             startActivity(new Intent(this, User_Profile_Activity.class));
 
         } else if (id == R.id.nav_Beach_Fans) {
+            if ( (((Activity) getBaseContext()) instanceof Login_Activity)) {
+
+            }
 
         } else if (id == R.id.nav_Beach_Alerts) {
 

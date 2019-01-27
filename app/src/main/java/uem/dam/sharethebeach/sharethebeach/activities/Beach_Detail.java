@@ -3,6 +3,7 @@ package uem.dam.sharethebeach.sharethebeach.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -59,42 +60,52 @@ public class Beach_Detail extends Base_Activity {
         imgBeachEstadoCielo2 = findViewById(R.id.imgBeachEstadoCielo2);
 
         //Comprobamos mediante un metodo el estado del cielo y le asignamos un icono
-        comprobarEstado(playa.getEstadoCielo(), ESTADOS_LLUVIOSOS, R.drawable.ic_raindrops2, R.color.azulViento);
-        comprobarEstado(playa.getEstadoCielo(), ESTADOS_DESPEJADOS, R.drawable.ic_sun94, R.color.amarilloSoleado);
-        comprobarEstado(playa.getEstadoCielo(), ESTADOS_CUBIERTOS, R.drawable.ic_cloudy, R.color.azulNubes);
-        comprobarEstado(playa.getEstadoCielo(), ESTADOS_NIEBLAS, R.drawable.ic_fog, R.color.azulViento);
-        comprobarEstado(playa.getEstadoCielo(), ESTADOS_NIEVE, R.drawable.ic_snowing, R.color.blancoNieve);
-        comprobarEstado(playa.getEstadoCielo(), TORMENTAS, R.drawable.ic_weather, R.color.azulViento);
+        if (playa != null) {
 
-        //Estado del cielo
-        tvBeachEstadoCielo2 = findViewById(R.id.tvBeachEstadoCielo2);
-        tvBeachEstadoCielo2.setText(String.format(getString(R.string.VAL_BEACH_ESTADO_CIELO), playa.getEstadoCielo()));
+            if (playa.getEstadoCielo() != null) {
+                comprobarEstado(playa.getEstadoCielo(), ESTADOS_LLUVIOSOS, R.drawable.ic_raindrops2, R.color.azulViento);
+                comprobarEstado(playa.getEstadoCielo(), ESTADOS_DESPEJADOS, R.drawable.ic_sun94, R.color.amarilloSoleado);
+                comprobarEstado(playa.getEstadoCielo(), ESTADOS_CUBIERTOS, R.drawable.ic_cloudy, R.color.azulNubes);
+                comprobarEstado(playa.getEstadoCielo(), ESTADOS_NIEBLAS, R.drawable.ic_fog, R.color.azulViento);
+                comprobarEstado(playa.getEstadoCielo(), ESTADOS_NIEVE, R.drawable.ic_snowing, R.color.blancoNieve);
+                comprobarEstado(playa.getEstadoCielo(), TORMENTAS, R.drawable.ic_weather, R.color.azulViento);
 
-        //Viento
-        tvBeachViento = findViewById(R.id.tvBeachViento);
-        tvBeachViento.setText(String.format(getString(R.string.VAL_VIENTO), playa.getViento()));
+                //Estado del cielo
+                tvBeachEstadoCielo2 = findViewById(R.id.tvBeachEstadoCielo2);
+                tvBeachEstadoCielo2.setText(String.format(getString(R.string.VAL_BEACH_ESTADO_CIELO), playa.getEstadoCielo()));
+            }
 
-        //Oleaje
-        tvBeachOleaje = findViewById(R.id.tvBeachOleaje);
-        tvBeachOleaje.setText(String.format(getString(R.string.VAL_OLEAJE), playa.getOleaje()));
+            if (playa.getViento() != null) {
+                //Viento
+                tvBeachViento = findViewById(R.id.tvBeachViento);
+                tvBeachViento.setText(String.format(getString(R.string.VAL_VIENTO), playa.getViento()));
+            }
 
-        //Temperatura Agua
-        tvBeachTempAgua = findViewById(R.id.tvBeachTempAgua);
-        tvBeachTempAgua.setText(String.format(getString(R.string.VAL_TEMP_AGUA), playa.getTemperaturaAgua()));
+            if (playa.getOleaje() != null) {
+                //Oleaje
+                tvBeachOleaje = findViewById(R.id.tvBeachOleaje);
+                tvBeachOleaje.setText(String.format(getString(R.string.VAL_OLEAJE), playa.getOleaje()));
+            }
 
-        //Indice Ultravioleta
-        tvBeachUV = findViewById(R.id.tvBeachUV);
-        tvBeachUV.setText(String.format(getString(R.string.VAL_UV), playa.getIndiceUV()));
+            //Temperatura Agua
+            tvBeachTempAgua = findViewById(R.id.tvBeachTempAgua);
+            tvBeachTempAgua.setText(String.format(getString(R.string.VAL_TEMP_AGUA), playa.getTemperaturaAgua()));
 
-        //Fecha
-        tvBeachFecha = findViewById(R.id.tvBeachFecha);
-        System.out.println(playa.getFecha_actualizacion());
+            //Indice Ultravioleta
+            tvBeachUV = findViewById(R.id.tvBeachUV);
+            tvBeachUV.setText(String.format(getString(R.string.VAL_UV), playa.getIndiceUV()));
 
-        //Convertimos la fecha a formato String desde Date
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
-        String fechaFinal = sdf.format(playa.getFecha_actualizacion());
+            if (playa.getFecha_actualizacion() != null) {
+                //Fecha
+                tvBeachFecha = findViewById(R.id.tvBeachFecha);
+                System.out.println(playa.getFecha_actualizacion());
 
-        tvBeachFecha.setText(String.format(getString(R.string.VAL_FECHA_ACT), fechaFinal));
+                //Convertimos la fecha a formato String desde Date
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/M/yyyy");
+                String fechaFinal = sdf.format(playa.getFecha_actualizacion());
+                tvBeachFecha.setText(String.format(getString(R.string.VAL_FECHA_ACT), fechaFinal));
+            }
+        }
     }
 
     @Override

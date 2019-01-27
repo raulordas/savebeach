@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
+import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 import uem.dam.sharethebeach.sharethebeach.persistencia.IPersistencia;
@@ -116,6 +116,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
      */
     @Override
     public void resultadoPersistencia(int res, Object obj) {
+
         Usuario user = (Usuario) obj;
 
         if (res != 0){
