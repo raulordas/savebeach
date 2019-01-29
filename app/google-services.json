@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "310086147073",
+    "firebase_url": "https://savethebeach-ac750.firebaseio.com",
+    "project_id": "savethebeach-ac750",
+    "storage_bucket": "savethebeach-ac750.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310086147073:android:60ef73d4ebd24881",
+        "android_client_info": {
+          "package_name": "uem.dam.sharethebeach.sharethebeach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310086147073-qs5bq3phdffcm8vqad1g45duvoqfplfe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uem.dam.sharethebeach.sharethebeach",
+            "certificate_hash": "c01b2ac7b3734608c44cd6b89ec74aa97f3a4cc8"
+          }
+        },
+        {
+          "client_id": "310086147073-lq3an15lkr3amhsgb24498e5q23jd4tn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3GOQDAeWQ2LbzVc18nRvEn-lvTt2RZ14"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310086147073-lq3an15lkr3amhsgb24498e5q23jd4tn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

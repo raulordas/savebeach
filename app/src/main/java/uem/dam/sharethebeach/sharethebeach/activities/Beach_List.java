@@ -163,7 +163,6 @@ public class Beach_List extends Base_Activity {
         }
     }
 
-
     public void verDialogOrdenar() {
         final CharSequence[] lista = {"Ordenar por Nombre de A-Z", "Ordenar Por nombre de Z-A"};
 
@@ -263,6 +262,7 @@ public class Beach_List extends Base_Activity {
         miniProgressBar.setContentView(R.layout.progbar_mini);
         miniProgressBar.setCancelable(false);
         miniProgressBar.show();
+        //Branch Change
     }
 
 }

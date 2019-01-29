@@ -13,9 +13,9 @@
     <LinearLayout
         android:id="@+id/linear_signup"
         android:layout_width="338dp"
-        android:layout_height="385dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="122dp"
+        android:layout_height="400dp"
+        android:layout_alignTop="@+id/btnSignUpBack"
+        android:layout_alignParentBottom="false"
         android:orientation="vertical">
 
         <TextView
@@ -39,7 +39,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:hint="@string/HINT_CORREO"
             android:inputType="textPersonName"
-            android:textColorHint="@color/colorPrimaryDark" tools:targetApi="o"/>
+            android:textColorHint="@color/colorPrimaryDark"
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/etxPass"
@@ -50,7 +51,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:hint="@string/HINT_PASSWORD"
             android:inputType="textPersonName"
-            android:textColorHint="@color/colorPrimaryDark" tools:targetApi="o"/>
+            android:textColorHint="@color/colorPrimaryDark"
+            tools:targetApi="o" />
 
         <EditText
             android:id="@+id/etxPassRep"
@@ -61,7 +63,8 @@
             android:backgroundTint="@color/colorPrimary"
             android:hint="@string/HINT_PASSWORD_REP"
             android:inputType="textPersonName"
-            android:textColorHint="@color/colorPrimaryDark" tools:targetApi="o"/>
+            android:textColorHint="@color/colorPrimaryDark"
+            tools:targetApi="o" />
 
     </LinearLayout>
 
@@ -81,9 +84,13 @@
         android:id="@+id/btnSignUpAceptar"
         android:layout_width="326dp"
         android:layout_height="58dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
+        android:layout_below="@+id/linear_signup"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="199dp"
         android:background="@color/colorMarronClaro"
         android:onClick="registrarUsuario"
         android:text="@string/VAL_REGISTRAR"

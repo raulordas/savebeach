@@ -4,14 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
-import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 import uem.dam.sharethebeach.sharethebeach.persistencia.IPersistencia;
@@ -23,6 +32,9 @@ import uem.dam.sharethebeach.sharethebeach.views.DialogProgressBar;
 import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 
 public class Login_Activity extends AppCompatActivity implements IPersistencia, IProgressBar {
+    //Atributo Firebase Auth
+    private FirebaseAuth mAuth;
+
     //Atributos Logica Negocio
     private Usuario user;
 
@@ -41,6 +53,9 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Inicializamos el FirebaseAuth
+        mAuth = FirebaseAuth.getInstance();
 
         //Cargamos el ArrayList con el listado de playas en el Context
         ((ContextoCustom) (getApplicationContext())).setListadoPlayas
@@ -71,6 +86,39 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
 
         //Inicialización del Atributo correspondiente a la clase de la vista de Dialogo Login
         dialogLogin = new DialogLogin(this);
+        dialogLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!dialogLogin.comprobarCamposVacios()) {
+                    Usuario user = dialogLogin.getDatos();
+                    Log.e("USERDIALOG", user.toString());
+
+                    mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                            .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d("EXITO", "signInWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        Usuario usuario = new Usuario();
+                                        usuario.setEmail(user.getEmail());
+                                        usuario.setUid(user.getUid());
+                                        ((ContextoCustom) (getApplicationContext())).setUser(usuario);
+                                        Log.e("USUARIO", ((ContextoCustom) (getApplicationContext())).getUser().toString());
+                                        Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w("FRACASO", "signInWithEmail:failure", task.getException());
+                                        Toast.makeText(Login_Activity.this, "USUARIO NO ENCONTRADO",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                }
+            }
+        });
         //DialogFragment newFragment = new Picador();
         //newFragment.show(getSupportFragmentManager(),"t");
 
@@ -155,7 +203,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
     }
 
     /*
-    Solicitamos a la persistencia información sobre una playa determinada
+    Comenzamos la aplicación en el menu principal.
      */
     public void comenzar(View view){
         Intent i = new Intent(this, Beach_List.class);

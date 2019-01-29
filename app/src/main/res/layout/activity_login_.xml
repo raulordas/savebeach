@@ -35,17 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/rl_splash_bg"
         android:orientation="vertical"
-        android:paddingTop="@dimen/PADDING_30">
+        android:paddingTop="60dp">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/logoPez"
             android:layout_width="match_parent"
-            android:layout_height="104dp"
+            android:layout_height="78dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/PADDING_30"
             android:paddingLeft="@dimen/PADDING_30"
             android:paddingRight="@dimen/PADDING_30"
-            app:srcCompat="@drawable/ic_saveisotipo" />
+            app:srcCompat="@drawable/ic_bancopeces" />
 
         <ImageView
             android:id="@+id/logo_saveTheBeach"
@@ -76,6 +76,7 @@
             android:layout_marginStart="0dp"
             android:layout_marginBottom="174dp"
             android:background="@android:color/background_light"
+            android:onClick="cargarDialogLogin"
             android:text="@string/VAL_LOGIN"
             android:textColor="@color/colorSecondary"
             android:textSize="18sp" />

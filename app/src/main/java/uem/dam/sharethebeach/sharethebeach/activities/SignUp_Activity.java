@@ -4,20 +4,25 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
-import uem.dam.sharethebeach.sharethebeach.persistencia.IPersistencia;
-import uem.dam.sharethebeach.sharethebeach.persistencia.PersistenciaUsuarios;
+import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 import static uem.dam.sharethebeach.sharethebeach.R.*;
 
-public class SignUp_Activity extends AppCompatActivity implements IProgressBar, IPersistencia {
+public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     //Atributos del Activity
     private EditText etxCorreo;
     private EditText etxPass;
@@ -31,10 +36,16 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar, 
     //Atributo Barra de Progreso
     private Dialog progressBar;
 
+    //Atributo FirebaseAuth
+    private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_sign_up);
+
+        //Inicialización FirebaseAuth
+        mAuth = FirebaseAuth.getInstance();
 
         //Inicialización de atributos del Dialog_Error
         errorDialog = new Dialog(this);
@@ -60,6 +71,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar, 
         startActivity(new Intent(this, Login_Activity.class));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void registrarUsuario(View view) {
         int res = 0;
 
@@ -81,16 +93,36 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar, 
 
             //Condición que permite dar de alta al usuario pasándole un objeto con los datos almacenados
         } else {
+            /*
             PersistenciaUsuarios per = new PersistenciaUsuarios(this);
             per.insertarUsuario(new Usuario(etxCorreo.getText().toString(),
-                    etxPass.getText().toString(), etxPassRep.getText().toString()));
+                    etxPass.getText().toString(), etxPassRep.getText().toString()));*/
+            mostrarProgressBar();
+
+            mAuth.createUserWithEmailAndPassword(etxCorreo.getText().toString(), etxPass.getText().toString())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                cerrarProgressBar();
+                                // Exito en el alta, recuperamos el usuario actual y le enviamos
+                                //un correo de verificación
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                user.sendEmailVerification();
+                                mAuth = null;
+
+                                //Lanzamos el activity del éxito en la operación
+                                Intent success = new Intent(SignUp_Activity.this, SignUp_Success_Activity.class);
+                                success.putExtra(getString(string.KEY__SIGN_UP_SUCCESS),etxCorreo.getText().toString());
+                                startActivity(success);
+
+                            } else {
+                                // Si ocurre un error en el intento de registro.
+                                conexionCancelada();
+                            }
+                        }
+                    });
         }
-    }
-
-    //Metodo que comprueba el resultado que devuelve la persistencia
-    public void resultadoPersistencia(int res){
-
-
     }
 
     public void conexionCancelada(){
@@ -120,21 +152,5 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar, 
     public void mostrarDialogError(int idError) {
         tvErrorGenerico.setText(String.format(getString(string.STRING_FILL), getString(idError)));
         errorDialog.show();
-    }
-
-    @Override
-    public void resultadoPersistencia(int res, Object obj) {
-        //Si el resultado del alta es satisfactorio, se lanza un intent hacia un activity que muestra el exito
-
-        cerrarProgressBar();
-        if (res != 0){
-            Intent success = new Intent(this, SignUp_Success_Activity.class);
-            success.putExtra(getString(string.KEY__SIGN_UP_SUCCESS),etxCorreo.getText().toString());
-            startActivity(success);
-
-            //En caso contrario se muestra un error.
-        } else {
-            mostrarDialogError(string.VAL_ERROR_GENERICO);
-        }
     }
 }

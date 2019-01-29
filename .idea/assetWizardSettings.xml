@@ -29,11 +29,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="985" />
-                            <entry key="outputName" value="ic_up_and_down_opposite_double_arrows_side_by_side" />
+                            <entry key="height" value="114" />
+                            <entry key="outputName" value="ic_bancopeces" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\up-and-down-opposite-double-arrows-side-by-side.svg" />
-                            <entry key="width" value="985" />
+                            <entry key="sourceFile" value="C:\BancoPeces.svg" />
+                            <entry key="width" value="164" />
                           </map>
                         </option>
                       </PersistentState>
