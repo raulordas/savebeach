@@ -2,14 +2,14 @@
 <resources>
     <color name="colorPrimary">#4b6575</color>
     <color name="colorPrimaryDark">#4b6575</color>
-    <color name="colorSecondary">#a47e68</color>
+    <color name="colorSecondary">#A47E68</color>
     <color name="colorSecondaryDark">#7f6758</color>
     <color name="colorAccent">#d81b60</color>
-    <color name="colorMarronClaro">#a28370</color>
+    <color name="colorMarronClaro">#A28370</color>
     <color name="amarilloSoleado">#f3c649</color>
     <color name="azulViento">#333c46</color>
     <color name="azulOlas">#5462de</color>
     <color name="rojoPeligroUV">#9a1c1c</color>
     <color name="azulNubes">#6699ff</color>
-    <color name="blancoNieve">#ffffff</color>
+    <color name="blancoNieve">#FFFFFF</color>
 </resources>

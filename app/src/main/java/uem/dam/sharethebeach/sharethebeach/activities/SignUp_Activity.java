@@ -118,6 +118,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
 
                             } else {
                                 // Si ocurre un error en el intento de registro.
+                                cerrarProgressBar();
                                 conexionCancelada();
                             }
                         }

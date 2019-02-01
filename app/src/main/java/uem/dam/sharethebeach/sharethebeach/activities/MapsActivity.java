@@ -1,11 +1,19 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,11 +62,13 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
         Playa playa = getIntent().getParcelableExtra(getString(R.string.KEY_PLAYA_SEL));
 
         if (playa == null) {
             for (Playa aux: listaPlayas) {
                 LatLng gms = new LatLng(aux.getLatitud(), aux.getLongitud());
+                //.setIcon(generateBitmapDescriptorFromRes(this, R.drawable.ic_cloudy))
                 mMap.addMarker(new MarkerOptions().position(gms).title(aux.getNombre()));
             }
             LatLng gmsAux = new LatLng(listaPlayas.get(0).getLatitud(), listaPlayas.get(0).getLongitud());
@@ -80,7 +90,21 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
             mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
         }
     }
-
+    public static BitmapDescriptor generateBitmapDescriptorFromRes(Context context, int resId) {
+        Drawable drawable = ContextCompat.getDrawable(context, resId);
+        drawable.setBounds(
+                0,
+                0,
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(
+                drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
+    }
     //Metodo pendiente de implementar
     public void verTodasLasPlayas(){
 

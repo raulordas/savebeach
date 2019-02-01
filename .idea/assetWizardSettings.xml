@@ -29,11 +29,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="114" />
-                            <entry key="outputName" value="ic_bancopeces" />
+                            <entry key="height" value="394" />
+                            <entry key="outputName" value="ic_ballenas" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\BancoPeces.svg" />
-                            <entry key="width" value="164" />
+                            <entry key="sourceFile" value="C:\ballenas.svg" />
+                            <entry key="width" value="394" />
                           </map>
                         </option>
                       </PersistentState>

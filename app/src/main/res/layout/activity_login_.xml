@@ -15,7 +15,7 @@
 
         <ImageView
             android:id="@+id/splash_bg"
-            android:layout_width="match_parent"
+            android:layout_width="532dp"
             android:layout_height="match_parent"
             android:alpha="0.3"
             android:contentDescription="@string/VAL_IMAGEN"
@@ -32,20 +32,21 @@
     <LinearLayout
         android:id="@+id/lv_Splash_Logo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/rl_splash_bg"
-        android:orientation="vertical"
-        android:paddingTop="60dp">
+        android:layout_height="400dp"
+        android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/logoPez"
-            android:layout_width="match_parent"
-            android:layout_height="78dp"
+            android:layout_width="429dp"
+            android:layout_height="186dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/PADDING_30"
+            android:layout_marginBottom="-20dp"
             android:paddingLeft="@dimen/PADDING_30"
+            android:paddingTop="90dp"
             android:paddingRight="@dimen/PADDING_30"
-            app:srcCompat="@drawable/ic_bancopeces" />
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            app:srcCompat="@drawable/ic_ballenas" />
 
         <ImageView
             android:id="@+id/logo_saveTheBeach"
