@@ -1,5 +1,6 @@
 package uem.dam.sharethebeach.sharethebeach;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.support.v4.app.DialogFragment;
@@ -14,7 +15,12 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import uem.dam.sharethebeach.sharethebeach.activities.User_Profile_Activity;
+
 public class Picador extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    private DatePickerDialog.OnDateSetListener listener;
+    private Activity activity;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,9 +39,17 @@ public class Picador extends DialogFragment implements DatePickerDialog.OnDateSe
 
 
     @Override
-    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+    public void onDateSet(DatePicker datePicker, int anio, int mes, int dia) {
+        ((User_Profile_Activity) (activity)).recibirFecha(anio, mes, dia);
 
     }
 
+    public void setOnClickListener(DatePickerDialog.OnDateSetListener listener) {
+        this.listener = listener;
+    }
+
+    public void setActivityr(Activity activity) {
+        this.activity = activity;
+    }
 
 }
