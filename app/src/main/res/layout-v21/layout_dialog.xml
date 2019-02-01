@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="350dp"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
+
+    <EditText
+        android:id="@+id/etNombreMod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:ems="10"
+        android:hint="Nombre"
+        android:inputType="textPersonName"
+        android:layout_alignParentLeft="true"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/etApellidoMod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/etNombreMod"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp"
+        android:ems="10"
+        android:hint="Apellidos"
+        android:inputType="textPersonName"
+        android:layout_alignLeft="@+id/etNombreMod" />
+
+    <ImageView
+        android:id="@+id/ivCalendar"
+        android:layout_width="79dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="141dp"
+        android:layout_marginLeft="141dp"
+        android:layout_marginBottom="114dp"
+        android:src="@drawable/calendarioo"
+        tools:srcCompat="@drawable/calendarioo" />
+
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginBottom="129dp"
+        android:paddingRight="30dp"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="44dp"
+        android:text="Button"
+        android:layout_marginLeft="44dp"
+        android:layout_alignParentLeft="true" />
+
+</RelativeLayout>

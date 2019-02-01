@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,24 +7,20 @@
     android:layout_marginTop="@dimen/PADDING_30"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:onClick="backToSplash"
-        app:srcCompat="@drawable/ic_back_scalable" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="193dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/PADDING_30"
+            android:layout_marginStart="@dimen/PADDING_30"
             android:layout_marginTop="@dimen/PADDING_30"
             android:fontFamily="@font/bluelight"
             android:gravity="center"
@@ -33,56 +29,97 @@
             android:textSize="90sp" />
 
         <ImageView
-            android:id="@+id/imgUserProfile"
+            android:id="@+id/ivFoto"
             android:layout_width="130dp"
             android:layout_height="130dp"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentEnd="false"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="@dimen/PADDING_30"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
-            tools:srcCompat="@tools:sample/avatars[4]" />
+            tools:srcCompat="@drawable/hombre" />
+
+        <ImageView
+            android:id="@+id/btnEditFoto"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:contentDescription="TODO"
+            app:srcCompat="@android:drawable/arrow_up_float" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/etxProfileNombre"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginTop="@dimen/PADDING_30"
-        android:layout_marginRight="@dimen/PADDING_30"
-        android:text="TextView" />
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="127dp"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <EditText
-        android:id="@+id/etxProfileDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginRight="@dimen/PADDING_30"
-        android:ems="10"
-        android:inputType="textMultiLine" />
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Nombre"
+            android:textColor="@android:color/black"
+            android:textSize="30sp" />
 
-    <TextView
-        android:id="@+id/etxProfileUsuario"
-        android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginRight="@dimen/PADDING_30"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/tvFechaNc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Fecha Nacimiento"
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/btnErrorRegresar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginRight="@dimen/PADDING_30"
-        android:layout_marginBottom="@dimen/PADDING_30"
-        android:layout_weight="2"
-        android:background="@color/colorPrimaryDark"
-        android:onClick="seleccionarFoto"
-        android:text="@string/VAL_BACK"
-        android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Email:"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tvEmailReal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="juan.notario20@gmail.com"
+                android:textColor="@android:color/black"
+                android:textSize="24sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btnEditDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:scrollbars="vertical"
+            android:text="Editar Perfil" />
+
+    </LinearLayout>
+
+</RelativeLayout>
