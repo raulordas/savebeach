@@ -160,6 +160,9 @@ public abstract class Base_Activity extends AppCompatActivity
 
         } else if (id == R.id.nav_Beach_Alerts) {
 
+            Intent i = new Intent(this,Alertas_Activity.class);
+            startActivity(i);
+
         } else if (id == R.id.nav_Login) {
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
