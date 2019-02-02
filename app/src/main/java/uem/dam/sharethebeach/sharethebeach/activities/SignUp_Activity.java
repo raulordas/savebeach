@@ -159,6 +159,6 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(anim.anim_slide_left, anim.anim_slide_right);
+        overridePendingTransition(anim.anim_slide_left,anim.anim_slide_right);
     }
 }
