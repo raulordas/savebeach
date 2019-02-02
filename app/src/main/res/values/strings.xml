@@ -70,4 +70,6 @@
     <string name="email">Email</string>
     <string name="descripci_n">Descripción</string>
     <string name="cuenta">Cuenta</string>
+    <string name="comunicate">Si tienes algún problema, puedes contactar comunicate con nosotros en:</string>
+    <string name="mail">savethebeachapp@gmail.com</string>
 </resources>

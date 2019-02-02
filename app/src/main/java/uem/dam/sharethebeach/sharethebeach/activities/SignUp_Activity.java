@@ -7,13 +7,11 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,9 +22,9 @@ import static uem.dam.sharethebeach.sharethebeach.R.*;
 
 public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     //Atributos del Activity
-    private EditText etxCorreo;
-    private EditText etxPass;
-    private EditText etxPassRep;
+    private TextInputEditText etxCorreo;
+    private TextInputEditText etxPass;
+    private TextInputEditText etxPassRep;
 
     //Atributos del XML Dialog_Error
     private Dialog errorDialog;

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -103,13 +104,16 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
                                         usuario.setUid(user.getUid());
                                         ((ContextoCustom) (getApplicationContext())).setUser(usuario);
                                         Log.e("USUARIO", ((ContextoCustom) (getApplicationContext())).getUser().toString());
-                                        Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
-                                                Toast.LENGTH_SHORT).show();
+
+                                        crearSnackBar("Se ha autenticado en la base de datos con ÉXITO");
+                                        //Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
+                                          //      Toast.LENGTH_SHORT).show();
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("FRACASO", "signInWithEmail:failure", task.getException());
-                                        Toast.makeText(Login_Activity.this, "USUARIO NO ENCONTRADO",
-                                                Toast.LENGTH_SHORT).show();
+                                        crearSnackBar("El usuario no se encuentra en la base de datos o ha habido un error");
+                                        //Toast.makeText(Login_Activity.this, "USUARIO NO ENCONTRADO",
+                                          //      Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -205,5 +209,10 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
     public void comenzar(View view){
         Intent i = new Intent(this, Beach_List.class);
         startActivity(i);
+    }
+
+    public void crearSnackBar(String mensaje) {
+        Snackbar snackbar = Snackbar.make(findViewById(R.id.rl_splash), mensaje, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 }
