@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 import static uem.dam.sharethebeach.sharethebeach.R.*;
 
@@ -40,6 +42,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(anim.anim_slide_left, anim.anim_slide_right);
         setContentView(layout.activity_sign_up);
 
         //Inicialización FirebaseAuth
@@ -66,7 +69,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     }
 
     public void regresarSplashScreen(View view){
-        startActivity(new Intent(this, Login_Activity.class));
+        onBackPressed();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -151,5 +154,11 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     public void mostrarDialogError(int idError) {
         tvErrorGenerico.setText(String.format(getString(string.STRING_FILL), getString(idError)));
         errorDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(anim.anim_slide_left, anim.anim_slide_right);
     }
 }
