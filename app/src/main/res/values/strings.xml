@@ -72,4 +72,7 @@
     <string name="cuenta">Cuenta</string>
     <string name="comunicate">Si tienes algún problema, puedes contactar comunicate con nosotros en:</string>
     <string name="mail">savethebeachapp@gmail.com</string>
+    <string name="creador_1_s">Creador: %1$s</string>
+    <string name="fecha">Fecha:</string>
+    <string name="hora">Hora:</string>
 </resources>
