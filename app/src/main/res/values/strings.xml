@@ -75,4 +75,10 @@
     <string name="creador_1_s">Creador: %1$s</string>
     <string name="fecha">Fecha:</string>
     <string name="hora">Hora:</string>
+    <string name="nueva_alerta">Nueva Alerta</string>
+    <string name="titulo">Titulo</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="continuar">Continuar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="seleccione_la_playa">Seleccione la playa:</string>
 </resources>
