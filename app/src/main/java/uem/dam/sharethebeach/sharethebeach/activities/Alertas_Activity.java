@@ -1,5 +1,6 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -45,6 +46,7 @@ public class Alertas_Activity extends Base_Activity {
         boton = findViewById(R.id.btnAniadirAlerta);
 
         //Si el usuario que ha entrado no esta registrado no podra añadir alertas
+        /*
         if(((ContextoCustom) (getApplicationContext())).getUser() == null){
 
             boton.setEnabled(false);
@@ -52,6 +54,7 @@ public class Alertas_Activity extends Base_Activity {
 
 
         }
+        */
 
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
@@ -71,6 +74,18 @@ public class Alertas_Activity extends Base_Activity {
             @Override
             public void onClick(View v) {
                 //AL PULSAR UNA ALERTA
+            }
+        });
+
+
+        //Abrir nueva activity para añadir una nueva alerta.
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(Alertas_Activity.this, Nueva_Alerta.class);
+                startActivity(i);
+
             }
         });
 
@@ -145,4 +160,5 @@ public class Alertas_Activity extends Base_Activity {
 
 
     }
+
 }
