@@ -161,19 +161,18 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnAniadirNA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/PADDING_15"
-            android:layout_marginTop="@dimen/mr_controller_volume_group_list_item_icon_size"
-            android:layout_marginRight="@dimen/PADDING_15"
-            android:layout_marginBottom="@dimen/PADDING_15"
-            android:background="@color/colorMarronClaro"
-            android:fontFamily="@font/bambino"
-            android:text="@string/continuar"
-            android:textColor="@color/blancoNieve"
-            android:textSize="18sp" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAniadirNA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/PADDING_10dp"
+        android:background="@color/colorMarronClaro"
+        android:fontFamily="@font/bambino"
+        android:text="@string/continuar"
+        android:textColor="@color/blancoNieve"
+        android:textSize="18sp" />
 </RelativeLayout>
