@@ -24,7 +24,7 @@
             android:text="@string/nueva_alerta"
             android:textAlignment="center"
             android:textColor="@color/azulViento"
-            android:textSize="36sp"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <android.support.design.widget.TextInputLayout
@@ -68,6 +68,75 @@
             android:id="@+id/spPlayas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/PADDING_15">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/PADDING_5">
+
+                <Button
+                    android:id="@+id/btnFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorMarronClaro"
+                    android:fontFamily="@font/bambino"
+                    android:onClick="Fecha"
+                    android:text="@string/fecha_"
+                    android:textColor="@color/blancoNieve" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnHora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorMarronClaro"
+                    android:fontFamily="@font/bambino"
+                    android:onClick="Hora"
+                    android:text="@string/hora_"
+                    android:textColor="@color/blancoNieve" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/PADDING3">
+
+                <TextView
+                    android:id="@+id/txtMuestraFecha"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bambino"
+                    android:textAlignment="center" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/txtMuestraHora"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bambino"
+                    android:textAlignment="center" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnAniadirNA"
