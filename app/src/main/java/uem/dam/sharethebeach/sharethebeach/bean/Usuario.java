@@ -6,23 +6,31 @@ import java.sql.Date;
 public class Usuario {
     private String uid;
     private String nombre;
-    private String apellido;
-    private Date fechaNac;
+    private String fechaNac;
     private String descripcion;
-    private Bitmap foto;
     private String email;
     private String usuario;
     private String password;
 
     //Constructor Completo
-    public Usuario(String uid, String nombre, String apellido, Date fechaNac, String descripcion,
-                   Bitmap foto, String email, String usuario, String password) {
+    public Usuario(String uid, String nombre, String fechaNac, String descripcion,
+                   String email, String ususario, String password) {
         this.uid = uid;
         this.nombre = nombre;
-        this.apellido = apellido;
         this.fechaNac = fechaNac;
         this.descripcion = descripcion;
-        this.foto = foto;
+        this.email = email;
+        this.usuario = usuario;
+        this.password = password;
+    }
+
+    //Constructor Semicompleto
+    public Usuario(String uid, String nombre, String fechaNac, String descripcion,
+                   String email) {
+        this.uid = uid;
+        this.nombre = nombre;
+        this.fechaNac = fechaNac;
+        this.descripcion = descripcion;
         this.email = email;
         this.usuario = usuario;
         this.password = password;
@@ -33,7 +41,7 @@ public class Usuario {
     //Constructor para identificar usuario mediante usuario y password
     public Usuario(String email, String password) {
         this.email = email;
-        this.password = password;
+        //this.password = password;
     }
 
     //Getters
@@ -45,11 +53,7 @@ public class Usuario {
         return nombre;
     }
 
-    public String getApellido() {
-        return apellido;
-    }
-
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 
@@ -57,20 +61,16 @@ public class Usuario {
         return descripcion;
     }
 
-    public Bitmap getFoto() {
-        return foto;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public String getUsuario() {
+        return usuario;
     }
 
     @Override
@@ -78,13 +78,10 @@ public class Usuario {
         return "Usuario{" +
                 "uid='" + uid + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
                 ", fechaNac=" + fechaNac +
                 ", descripcion='" + descripcion + '\'' +
-                ", foto=" + foto +
                 ", email='" + email + '\'' +
-                ", usuario='" + usuario + '\'' +
-                ", password='" + password + '\'' +
+                //", password='" + password + '\'' +
                 '}';
     }
 
@@ -96,11 +93,7 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 
@@ -108,16 +101,8 @@ public class Usuario {
         this.descripcion = descripcion;
     }
 
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
-    }
-
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     public void setPassword(String password) {

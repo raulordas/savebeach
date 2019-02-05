@@ -10,29 +10,55 @@ import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.support.media.ExifInterface;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.ByteArrayOutputStream;
 
 import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
+import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
 public class User_Profile_Activity extends Base_Activity {
-    private static final int COD_PICK_FOTO = 1;
+    private static final int COD_PICK_FOTO = 151;
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 150;
 
     ImageView btnFoto;
-    Button btnDatos;
     ImageView ivFoto;
+    TextView fechaNacP;
+    TextView email;
+    TextView tvNombre;
+    TextView tvDescripcion;
 
-    private ImageView ivCalendar;
     private TextView tvFecha;
+    FirebaseUser user;
+    String emailF;
+    String uid;
+    String nombre;
+    String fecha;
+    String descripcion;
+
+    FirebaseStorage storage;
+    DatabaseReference dbr;
+    ChildEventListener cel;
+
 
     private int dia;
     private int mes;
@@ -42,9 +68,29 @@ public class User_Profile_Activity extends Base_Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user__profile_);
 
+        user  = FirebaseAuth.getInstance().getCurrentUser();
+        emailF = "juan.notario20@gmail.com";
+        uid = "123456789";
+        if (user != null) {
+            //emailF = user.getEmail();
+            emailF = "juan.notario20@gmail.com";
+            uid = "123456789";
+            //uid = user.getUid();
+        } else {
+            //Aqui ira algo
+        }
+
+
         btnFoto = findViewById(R.id.btnEditFoto);
-        btnDatos = findViewById(R.id.btnEditDatos);
         ivFoto = findViewById(R.id.ivFoto);
+        fechaNacP = findViewById(R.id.tvFechaNc);
+        tvFecha = findViewById(R.id.tvFechaNc);
+        tvNombre = findViewById(R.id.tvNombre);
+        email = findViewById(R.id.tvEmailReal);
+        tvDescripcion = findViewById(R.id.tvDescripcion);
+        email.setText(emailF);
+
+        storage = FirebaseStorage.getInstance();
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,26 +115,31 @@ public class User_Profile_Activity extends Base_Activity {
             }
         });
 
-        btnDatos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(User_Profile_Activity.this);
-                dialog.setContentView(R.layout.layout_dialog);
-                ivCalendar = dialog.findViewById(R.id.ivCalendar);
-                tvFecha = dialog.findViewById(R.id.tvFecha);
-                dialog.show();
+        dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
 
-                ivCalendar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DialogFragment dg = new Picador();
-                        ((Picador) dg).setActivityr(User_Profile_Activity.this);
-                        dg.show(getSupportFragmentManager(), "Hola");
-                    }
-                });
-            }
-        });
+    }
 
+    public void aceptar(View view) {
+        nombre = tvNombre.getText().toString();
+        fecha = tvFecha.getText().toString();
+        descripcion = tvDescripcion.getText().toString();
+
+        Usuario usuario = new Usuario(uid, nombre, fecha, descripcion, emailF);
+
+        if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            dbr.child(uid).setValue(usuario);
+            Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void calendario(View view) {
+        final DialogFragment dg = new Picador();
+        ((Picador) dg).setActivityr(User_Profile_Activity.this);
+        dg.show(getSupportFragmentManager(), "Hola");
     }
 
     @Override
@@ -97,6 +148,7 @@ public class User_Profile_Activity extends Base_Activity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ivFoto.setImageBitmap(imageBitmap);
+
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
             Uri miPath = data.getData();
             ivFoto.setImageURI(miPath);
@@ -120,7 +172,8 @@ public class User_Profile_Activity extends Base_Activity {
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
-        tvFecha.setText(dia + "/" + mes + "/" + anio);
+        mes = mes + 1;
+        tvFecha.setText("Fecha Nacimiento: " + dia + "/" + mes + "/" + anio);
     }
 
     @Override
@@ -131,69 +184,6 @@ public class User_Profile_Activity extends Base_Activity {
     @Override
     public boolean setDrawer() {
         return false;
-    }
-
-    public void seleccionarFoto(View view){
-        Intent pickFoto = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickFoto , COD_PICK_FOTO);
-    }
-
-    /*@RequiresApi(api = Build.VERSION_CODES.N)
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch(requestCode) {
-            case 0:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        ExifInterface exif = new ExifInterface(selectedImage.getPath());
-                        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        int rotationInDegrees = exifToDegrees(rotation);
-                        System.out.println(rotationInDegrees);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ivFoto.setImageURI(selectedImage);
-                }
-
-                break;
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream in;
-                    try {
-                        in = getContentResolver().openInputStream(selectedImage);
-                        ExifInterface exif = new ExifInterface(in);
-                        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        int rotationInDegrees = exifToDegrees(rotation);
-                        System.out.println(rotationInDegrees);
-                        ivFoto.setRotation(rotationInDegrees);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ivFoto.setImageURI(selectedImage);
-                }
-                break;
-        }
-    }*/
-
-    private static int exifToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) { return 90; }
-        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
-        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
-        return 0;
-    }
-
-    public static byte[] getBytesFromBitmap(Bitmap bitmap) {
-        if (bitmap!=null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-            return stream.toByteArray();
-        }
-        return null;
     }
 
     public void backToSplash(View view){

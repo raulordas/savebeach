@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="250dp"
-    android:layout_height="350dp"
+    android:layout_height="400dp"
     android:paddingLeft="30dp"
     android:paddingRight="30dp">
 
@@ -12,36 +12,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="37dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="Nombre"
-        android:inputType="textPersonName"
-        android:layout_alignParentLeft="true"
-        android:autofillHints="" />
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/etApellidoMod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/etNombreMod"
+        android:layout_alignLeft="@+id/etNombreMod"
         android:layout_alignParentTop="true"
         android:layout_marginTop="114dp"
         android:ems="10"
         android:hint="Apellidos"
-        android:inputType="textPersonName"
-        android:layout_alignLeft="@+id/etNombreMod" />
+        android:inputType="textPersonName" />
 
     <ImageView
         android:id="@+id/ivCalendar"
-        android:layout_width="79dp"
-        android:layout_height="55dp"
+        android:layout_width="87dp"
+        android:layout_height="61dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="141dp"
-        android:layout_marginLeft="141dp"
-        android:layout_marginBottom="114dp"
+        android:layout_marginStart="133dp"
+        android:layout_marginLeft="133dp"
+        android:layout_marginBottom="166dp"
         android:src="@drawable/calendarioo"
         tools:srcCompat="@drawable/calendarioo" />
 
@@ -52,23 +52,38 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginLeft="61dp"
-        android:layout_marginBottom="129dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="183dp"
         android:paddingRight="30dp"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/button2"
+    <EditText
+        android:id="@+id/mltDescripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="255dp"
+        android:ems="10"
+        android:hint="Escriba su texto"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/btnAcepDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginBottom="44dp"
-        android:text="Button"
-        android:layout_marginLeft="44dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_marginStart="69dp"
+        android:layout_marginLeft="69dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorMarronClaro"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:text="Aceptar" />
 
 </RelativeLayout>
