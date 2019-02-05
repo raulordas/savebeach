@@ -1,8 +1,6 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -20,15 +18,13 @@ import com.google.firebase.auth.FirebaseUser;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
-import uem.dam.sharethebeach.sharethebeach.persistencia.IPersistencia;
 import uem.dam.sharethebeach.sharethebeach.persistencia.PersistenciaAemet;
-import uem.dam.sharethebeach.sharethebeach.persistencia.PersistenciaUsuarios;
 import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
 import uem.dam.sharethebeach.sharethebeach.views.DialogLogin;
 import uem.dam.sharethebeach.sharethebeach.views.DialogProgressBar;
 import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 
-public class Login_Activity extends AppCompatActivity implements IPersistencia, IProgressBar {
+public class Login_Activity extends AppCompatActivity implements IProgressBar {
     //Atributo Firebase Auth
     private FirebaseAuth mAuth;
 
@@ -88,7 +84,6 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
             public void onClick(View view) {
                 if (!dialogLogin.comprobarCamposVacios()) {
                     Usuario user = dialogLogin.getDatos();
-                    Log.e("USERDIALOG", user.toString());
 
                     mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
                             .addOnCompleteListener(Login_Activity.this, new OnCompleteListener<AuthResult>() {
@@ -98,11 +93,6 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("EXITO", "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        Usuario usuario = new Usuario();
-                                        usuario.setEmail(user.getEmail());
-                                        usuario.setUid(user.getUid());
-                                        ((ContextoCustom) (getApplicationContext())).setUser(usuario);
-                                        Log.e("USUARIO", ((ContextoCustom) (getApplicationContext())).getUser().toString());
 
                                         crearSnackBar("Se ha autenticado en la base de datos con ÉXITO");
                                         //Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
@@ -144,6 +134,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
     Método que comprueba al principio de la aplicación si hay algun usuario almacenado en el archivo
     sharedpreferences. En caso afirmativo, contrasta dicha información con la persistencia.
      */
+    /*
     public void comprobarUsuario() {
         String username = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("usuario", "");
         String password = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("pass", "");
@@ -156,12 +147,13 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
             per.identificarUsuario(user);
         }
     }
-
+    /*
     /*
     Método que procesa el resultado que devuelve la persistencia mediante callback
     En caso de que el resultado sea distinto de 0, almacena los datos del usuario en
     un archivo sharedpreferences y lanza el activity principal de la aplicación
      */
+    /*
     @Override
     public void resultadoPersistencia(int res, Object obj) {
 
@@ -178,7 +170,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
             startActivity(new Intent(this, User_Profile_Activity.class));
         }
     }
-
+    */
     //Muestra la barra de progreso de conexión al servidor
     @Override
     public void mostrarProgressBar(){

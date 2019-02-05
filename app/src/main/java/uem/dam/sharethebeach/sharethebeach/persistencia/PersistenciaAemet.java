@@ -377,10 +377,14 @@ public class PersistenciaAemet extends AsyncTask {
         return listadoPlayas;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onPostExecute(Object o) {
         if (activity instanceof Beach_List) {
-            ((Beach_List) (activity)).lanzarActivityPlayaCallback(((Playa) o));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ((Beach_List) (activity)).lanzarActivityPlayaCallback(((Playa) o));
+            }
         }
     }
 }

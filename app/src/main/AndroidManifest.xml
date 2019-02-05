@@ -17,9 +17,9 @@
     <application
         android:name=".ContextoCustom"
         android:allowBackup="true"
-        android:icon="@drawable/ic_ballenas"
+        android:icon="@drawable/ic_savebeachico"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_ballenas"
+        android:roundIcon="@drawable/ic_savebeachico"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
