@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/colorMarronClaro"
+                    android:background="@drawable/pressed_button_effect"
                     android:fontFamily="@font/bambino"
                     android:onClick="Fecha"
                     android:text="@string/fecha_"
@@ -102,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/colorMarronClaro"
+                    android:background="@drawable/pressed_button_effect"
                     android:fontFamily="@font/bambino"
                     android:onClick="Hora"
                     android:text="@string/hora_"
@@ -152,7 +152,7 @@
                 app:srcCompat="@drawable/imagen_alertas_pruebas" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/imgBotonAniadir"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/PADDING_10"
@@ -170,7 +170,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:background="@color/colorMarronClaro"
+        android:background="@drawable/pressed_button_effect"
         android:fontFamily="@font/bambino"
         android:text="@string/continuar"
         android:textColor="@color/blancoNieve"
