@@ -82,4 +82,6 @@
     <string name="continuar">Continuar</string>
     <string name="cancelar">Cancelar</string>
     <string name="seleccione_la_playa">Seleccione la playa:</string>
+    <string name="fecha_">Fecha</string>
+    <string name="hora_">Hora</string>
 </resources>
