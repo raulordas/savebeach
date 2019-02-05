@@ -10,17 +10,21 @@ public class Alerta {
     private String descripcion;
     private String titulo;
     private String id_playa;
+    private String fecha;
+    private String hora;
     private ArrayList<String> usuarios_apuntados;
 
     public Alerta() {
     }
 
-    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, ArrayList<String> usuarios_apuntados) {
+    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<String> usuarios_apuntados) {
         this.id = id;
         this.id_creador = id_creador;
         this.descripcion = descripcion;
         this.titulo = titulo;
         this.id_playa = id_playa;
+        this.fecha = fecha;
+        this.hora = hora;
         this.usuarios_apuntados = usuarios_apuntados;
     }
 
@@ -44,9 +48,18 @@ public class Alerta {
         return id_playa;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
     public ArrayList<String> getUsuarios_apuntados() {
         return usuarios_apuntados;
     }
+
 
     @Override
     public String toString() {
@@ -56,6 +69,8 @@ public class Alerta {
                 ", descripcion='" + descripcion + '\'' +
                 ", titulo='" + titulo + '\'' +
                 ", id_playa='" + id_playa + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", hora='" + hora + '\'' +
                 ", usuarios_apuntados=" + usuarios_apuntados +
                 '}';
     }

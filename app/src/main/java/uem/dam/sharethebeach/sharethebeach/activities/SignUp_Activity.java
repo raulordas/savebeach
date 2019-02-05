@@ -7,26 +7,26 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 import static uem.dam.sharethebeach.sharethebeach.R.*;
 
 public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     //Atributos del Activity
-    private EditText etxCorreo;
-    private EditText etxPass;
-    private EditText etxPassRep;
+    private TextInputEditText etxCorreo;
+    private TextInputEditText etxPass;
+    private TextInputEditText etxPassRep;
 
     //Atributos del XML Dialog_Error
     private Dialog errorDialog;
@@ -42,6 +42,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(anim.anim_slide_left, anim.anim_slide_right);
         setContentView(layout.activity_sign_up);
 
         //Inicialización FirebaseAuth
@@ -68,7 +69,7 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     }
 
     public void regresarSplashScreen(View view){
-        startActivity(new Intent(this, Login_Activity.class));
+        onBackPressed();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -153,5 +154,11 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
     public void mostrarDialogError(int idError) {
         tvErrorGenerico.setText(String.format(getString(string.STRING_FILL), getString(idError)));
         errorDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(anim.anim_slide_left,anim.anim_slide_right);
     }
 }

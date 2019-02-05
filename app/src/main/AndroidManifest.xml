@@ -23,7 +23,9 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.Login_Activity">
+        <activity
+            android:name=".activities.Login_Activity"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,6 +63,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+        <activity android:name=".activities.Alertas_Activity" />
+        <activity android:name=".activities.Nueva_Alerta"></activity>
     </application>
 
 </manifest>

@@ -1,24 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordBeachList"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.Alertas_Activity">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/btnAniadirAlerta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="320dp"
-        android:layout_marginTop="500dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         android:clickable="true"
+        android:focusable="true"
         android:src="@android:drawable/ic_input_add"
-        android:tint="@color/blancoNieve"
-        app:backgroundTint="@color/colorPrimary"
-        tools:layout_editor_absoluteX="313dp"
-        tools:layout_editor_absoluteY="481dp"
-        android:focusable="true" />
+        android:tint="@color/common_google_signin_btn_text_dark_default"
+        app:backgroundTint="@color/colorPrimary" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/beachTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="1"
+        android:scaleY="1"
+        app:tabIndicatorColor="@color/colorPrimary">
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabFiltrado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_filter_list_black_24dp"
+            android:text="@string/tab_filtrar" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_up_and_down_opposite_double_arrows_side_by_side"
+            android:text="@string/tab_ordenar" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_location_pin"
+            android:text="@string/tab_mapa" />
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewAlertas"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_below="@+id/beachTabs" />
+
+    <ProgressBar
+        android:id="@+id/progressLoadBeach"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="240dp"
+        android:visibility="invisible" />
+
 </RelativeLayout>

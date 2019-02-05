@@ -3,16 +3,16 @@ package uem.dam.sharethebeach.sharethebeach.views;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
 public class DialogLogin extends Dialog implements View.OnClickListener {
     private Button btnCerrarLogin;
-    private EditText etxLoginNombre;
-    private EditText etxLoginPassword;
+    private TextInputEditText etxLoginNombre;
+    private TextInputEditText etxLoginPassword;
     private Button btnLogin;
     private Context context;
     private View.OnClickListener listener;
@@ -22,7 +22,7 @@ public class DialogLogin extends Dialog implements View.OnClickListener {
         this.context = context;
         //Asignamos los componentes del Dialog Login a los atributos
         setContentView(R.layout.dialog_login);
-        etxLoginNombre = findViewById(R.id.etxLoginNombre);
+        etxLoginNombre = findViewById(R.id.etxCorreo);
         etxLoginPassword = findViewById(R.id.etxLoginPassword);
         btnCerrarLogin = findViewById(R.id.btnCerrarLogin);
         btnLogin = findViewById(R.id.btnLogin);
