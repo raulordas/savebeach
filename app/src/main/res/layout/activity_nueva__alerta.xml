@@ -59,8 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bambino"
-            android:paddingTop="@dimen/PADDING_30"
-            android:paddingBottom="@dimen/PADDING_30"
+            android:paddingTop="@dimen/PADDING_10"
+            android:paddingBottom="20dp"
             android:text="@string/seleccione_la_playa"
             android:textSize="24sp" />
 
@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/PADDING_10dp"
+        android:layout_marginBottom="0dp"
         android:background="@color/colorMarronClaro"
         android:fontFamily="@font/bambino"
         android:text="@string/continuar"
