@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -111,7 +110,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("FRACASO", "signInWithEmail:failure", task.getException());
-                                        crearSnackBar("El usuario no se encuentra en la base de datos o ha habido un error");
+                                        crearSnackBar(task.getException().toString());
                                         //Toast.makeText(Login_Activity.this, "USUARIO NO ENCONTRADO",
                                           //      Toast.LENGTH_SHORT).show();
                                     }
@@ -132,6 +131,7 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
 
     //Metodo que abre la ventana de dialogo Login
     public void cargarDialogLogin(View view) {
+        dialogLogin.clearDialog();
         dialogLogin.show();
     }
 
@@ -148,7 +148,6 @@ public class Login_Activity extends AppCompatActivity implements IPersistencia, 
         String username = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("usuario", "");
         String password = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("pass", "");
         user = new Usuario(username, password);
-        System.out.println(password);
 
         if (!user.getUsuario().equals("")) {
             //Comprobar credenciales. Si son correctas intent a la ventana principal, sino mensaje

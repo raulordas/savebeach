@@ -12,11 +12,35 @@
     tools:context=".activities.SignUp_Activity">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/linear_signup"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvProblemas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bambino_light"
+            android:gravity="center"
+            android:text="@string/comunicate" />
+
+        <TextView
+            android:id="@+id/tvCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bambino_bold"
+            android:gravity="center"
+            android:text="@string/mail"
+            android:textAlignment="gravity"
+            android:textColor="@color/colorPrimary" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linear_signup"
         android:layout_width="338dp"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btnSignUpBack"
-        android:layout_alignParentBottom="false"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -49,6 +73,7 @@
                 android:drawablePadding="@dimen/PADDING_10"
                 android:fontFamily="@font/bambino_light"
                 android:hint="@string/HINT_CORREO"
+                android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/etxLoginPassword"
                 android:singleLine="true"
                 android:textColorHint="@color/colorMarronClaro"
@@ -60,7 +85,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/PADDING_15"
             android:layout_weight="0"
-            android:textColorHint="@color/colorMarronClaro">
+            android:textColorHint="@color/colorMarronClaro"
+            app:passwordToggleEnabled="true">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/etxPass"
@@ -73,14 +99,16 @@
                 android:nextFocusDown="@id/etxLoginPassword"
                 android:singleLine="true"
                 android:textColorHint="@color/colorMarronClaro"
-                android:textColorLink="@color/colorPrimary" />
+                android:textColorLink="@color/colorPrimary"
+                android:typeface="serif" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textColorHint="@color/colorMarronClaro">
+            android:textColorHint="@color/colorMarronClaro"
+            app:passwordToggleEnabled="true">
 
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/etxPassRep"
@@ -93,7 +121,8 @@
                 android:nextFocusDown="@id/etxLoginPassword"
                 android:singleLine="true"
                 android:textColorHint="@color/colorMarronClaro"
-                android:textColorLink="@color/colorPrimary" />
+                android:textColorLink="@color/colorPrimary"
+                android:typeface="serif" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -108,38 +137,6 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/tvProblemas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/PADDING_30"
-            android:layout_weight="0"
-            android:fontFamily="@font/bambino_light"
-            android:gravity="center"
-            android:text="@string/comunicate" />
-
-        <TextView
-            android:id="@+id/tvCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:fontFamily="@font/bambino_bold"
-            android:gravity="center"
-            android:text="@string/mail"
-            android:textColor="@color/colorPrimary" />
-
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btnSignUpBack"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginTop="@dimen/PADDING_30"
-        android:layout_marginBottom="-88dp"
-        android:background="@drawable/ic_back_scalable"
-        android:onClick="regresarSplashScreen" />
 
 </RelativeLayout>

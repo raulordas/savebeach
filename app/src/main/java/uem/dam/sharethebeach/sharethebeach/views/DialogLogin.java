@@ -2,12 +2,24 @@ package uem.dam.sharethebeach.sharethebeach.views;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
+
+import static uem.dam.sharethebeach.sharethebeach.R.drawable.ic_check_black_24dp;
 
 public class DialogLogin extends Dialog implements View.OnClickListener {
     private Button btnCerrarLogin;
@@ -38,6 +50,30 @@ public class DialogLogin extends Dialog implements View.OnClickListener {
 
         //Listener de la ventana de Dialogo Login (Boton Log-In)
         btnLogin.setOnClickListener(this);
+        etxLoginNombre.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (Patterns.EMAIL_ADDRESS.matcher(charSequence).matches()) {
+                    etxLoginNombre.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(R.drawable.ic_person_black_24dp), null, context.getDrawable(R.drawable.ic_check_black_24dp), null);
+                } else {
+                    etxLoginNombre.setCompoundDrawablesWithIntrinsicBounds(context.getDrawable(R.drawable.ic_person_black_24dp), null, null, null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        etxLoginPassword.setTypeface( Typeface.DEFAULT );
+        etxLoginPassword.setTransformationMethod(new PasswordTransformationMethod());
     }
     //Método que comprueba si los campos del Dialogo Login estan vacios
     public boolean comprobarCamposVacios(){
@@ -62,5 +98,10 @@ public class DialogLogin extends Dialog implements View.OnClickListener {
 
     public Usuario getDatos() {
        return new Usuario(etxLoginNombre.getText().toString(), etxLoginPassword.getText().toString());
+    }
+
+    public void clearDialog() {
+        etxLoginNombre.setText("");
+        etxLoginPassword.setText("");
     }
 }

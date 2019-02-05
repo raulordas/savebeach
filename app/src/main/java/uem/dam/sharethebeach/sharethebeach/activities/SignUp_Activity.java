@@ -3,12 +3,17 @@ package uem.dam.sharethebeach.sharethebeach.activities;
 import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -59,6 +64,29 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
         etxPass = findViewById(id.etxPass);
         etxPassRep = findViewById(id.etxPassRep);
 
+
+        etxCorreo.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (Patterns.EMAIL_ADDRESS.matcher(charSequence).matches()) {
+                    etxCorreo.setCompoundDrawablesWithIntrinsicBounds(getApplicationContext().getDrawable(R.drawable.ic_person_black_24dp), null, getApplicationContext().getDrawable(R.drawable.ic_check_black_24dp), null);
+                } else {
+                    etxCorreo.setCompoundDrawablesWithIntrinsicBounds(getApplicationContext().getDrawable(R.drawable.ic_person_black_24dp), null, null, null);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         //Cierra el cuadro de diálogo de errores en caso de que este suceda
         btnErrorRegresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +94,12 @@ public class SignUp_Activity extends AppCompatActivity implements IProgressBar {
                 errorDialog.dismiss();
             }
         });
+
+
+        etxPass.setTypeface( Typeface.DEFAULT );
+        etxPass.setTransformationMethod(new PasswordTransformationMethod());
+        etxPassRep.setTypeface( Typeface.DEFAULT );
+        etxPassRep.setTransformationMethod(new PasswordTransformationMethod());
     }
 
     public void regresarSplashScreen(View view){

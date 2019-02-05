@@ -10,6 +10,7 @@
     <string name="VAL_SIGN_UP">Sign Up</string>
     <string name="HINT_CORREO">Introduce tu correo electrónico</string>
     <string name="HINT_PASSWORD">Introduce una contraseña</string>
+    <string name="HINT_PASSWORD_SHORT">Contraseña</string>
     <string name="HINT_PASSWORD_REP">Repite la contraseña</string>
     <string name="VAL_REGISTRAR">REGISTRAR</string>
     <string name="VAL_LOGIN_CAPS">Log in</string>
