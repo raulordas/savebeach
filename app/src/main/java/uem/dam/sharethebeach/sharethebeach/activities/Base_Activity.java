@@ -154,9 +154,7 @@ public abstract class Base_Activity extends AppCompatActivity
             startActivity(new Intent(this, User_Profile_Activity.class));
 
         } else if (id == R.id.nav_Beach_Fans) {
-            if ( (((Activity) getBaseContext()) instanceof Login_Activity)) {
-
-            }
+            startActivity(new Intent(this, User_List.class));
 
         } else if (id == R.id.nav_Beach_Alerts) {
 

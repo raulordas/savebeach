@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-feature android:name="android.hardware.camera" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -23,6 +22,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.User_List"></activity>
         <activity
             android:name=".activities.Login_Activity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -53,7 +53,7 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".activities.Beach_List" />
         <activity android:name=".activities.Alertas_Activity" />
-        <activity android:name=".activities.Nueva_Alerta"></activity>
+        <activity android:name=".activities.Nueva_Alerta" />
     </application>
 
 </manifest>
