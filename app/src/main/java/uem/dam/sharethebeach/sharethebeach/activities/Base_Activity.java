@@ -134,9 +134,8 @@ public abstract class Base_Activity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //NavUtils.navigateUpFromSameTask(this);
-            return true;
+        if (id == R.id.action_cuenta) {
+            startActivity(new Intent(this, User_Profile_Activity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -151,7 +150,7 @@ public abstract class Base_Activity extends AppCompatActivity
         if (id == R.id.nav_Beaches) {
 
         } else if (id == R.id.nav_Beach_Map) {
-            startActivity(new Intent(this, User_Profile_Activity.class));
+
 
         } else if (id == R.id.nav_Beach_Fans) {
             startActivity(new Intent(this, User_List.class));

@@ -1,49 +1,75 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.support.media.ExifInterface;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
+import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
 public class User_Profile_Activity extends Base_Activity {
-    private static final int COD_PICK_FOTO = 1;
+    private static final int COD_PICK_FOTO = 151;
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 150;
 
     ImageView btnFoto;
-    Button btnDatos;
     ImageView ivFoto;
+    TextView fechaNacP;
+    TextView email;
+    TextView tvNombre;
+    TextView tvDescripcion;
 
-    private ImageView ivCalendar;
     private TextView tvFecha;
-    private TextView tvEmailReal;
+    FirebaseUser user;
+    String emailF;
+    String uid;
+    String nombre;
+    String fecha;
+    String descripcion;
+    String URL;
+
+    StorageReference destino;
+    StorageReference storage;
+    DatabaseReference dbr;
+    ChildEventListener cel;
+
 
     private int dia;
     private int mes;
@@ -53,25 +79,29 @@ public class User_Profile_Activity extends Base_Activity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_user__profile_);
 
-        btnFoto = findViewById(R.id.btnEditFoto);
-        btnDatos = findViewById(R.id.btnEditDatos);
-        ivFoto = findViewById(R.id.ivFoto);
-        tvEmailReal = findViewById(R.id.tvEmailReal);
-
-        //FirebaseAuth.getInstance().signOut();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
+        user  = FirebaseAuth.getInstance().getCurrentUser();
+        emailF = "juan.notario20@gmail.com";
+        uid = "123456789";
         if (user != null) {
-            Log.e("USER", String.valueOf(user.getEmail()));
-            Log.e("USER", String.valueOf(user.isEmailVerified()));
-            tvEmailReal.setText(user.getEmail().toString());
-
-            if (!user.isEmailVerified()) {
-                //user.sendEmailVerification();
-            }
-
+            //emailF = user.getEmail();
+            emailF = "juan.notario20@gmail.com";
+            uid = "123456789";
+            //uid = user.getUid();
+        } else {
+            //Aqui ira algo
         }
+
+        storage = FirebaseStorage.getInstance().getReference();
+
+
+        btnFoto = findViewById(R.id.btnEditFoto);
+        ivFoto = findViewById(R.id.ivFoto);
+        fechaNacP = findViewById(R.id.tvFechaNc);
+        tvFecha = findViewById(R.id.tvFechaNc);
+        tvNombre = findViewById(R.id.tvNombre);
+        email = findViewById(R.id.tvEmailReal);
+        tvDescripcion = findViewById(R.id.tvDescripcion);
+        email.setText(emailF);
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,36 +126,31 @@ public class User_Profile_Activity extends Base_Activity {
             }
         });
 
-        btnDatos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Dialog dialog = new Dialog(User_Profile_Activity.this);
-                dialog.setContentView(R.layout.layout_dialog);
-                ivCalendar = dialog.findViewById(R.id.ivCalendar);
-                tvFecha = dialog.findViewById(R.id.tvFecha);
-                dialog.show();
-
-                ivCalendar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        DialogFragment dg = new Picador();
-                        ((Picador) dg).setActivityr(User_Profile_Activity.this);
-                        dg.show(getSupportFragmentManager(), "Hola");
-                    }
-                });
-            }
-        });
+        dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
 
     }
 
-    @Override
-    public int cargarLayout() {
-        return R.layout.activity_user__profile_;
+    public void aceptar(View view) {
+        nombre = tvNombre.getText().toString();
+        fecha = tvFecha.getText().toString();
+        descripcion = tvDescripcion.getText().toString();
+
+        Usuario usuario = new Usuario(uid,emailF, nombre, fecha, descripcion, URL);
+
+        if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            dbr.child(uid).setValue(usuario);
+            Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    @Override
-    public boolean setDrawer() {
-        return false;
+    public void calendario(View view) {
+        final DialogFragment dg = new Picador();
+        ((Picador) dg).setActivityr(User_Profile_Activity.this);
+        dg.show(getSupportFragmentManager(), "Hola");
     }
 
     @Override
@@ -134,35 +159,14 @@ public class User_Profile_Activity extends Base_Activity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ivFoto.setImageBitmap(imageBitmap);
+
+
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
             Uri miPath = data.getData();
-            Log.e("PATH", miPath.toString());
-            //ivFoto.setImageURI(miPath);
 
+            subirImagen(miPath);
 
-            StorageReference storage = FirebaseStorage.getInstance().getReference().child("images/" + miPath.getLastPathSegment());
-            storage.putFile(miPath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            // Get a URL to the uploaded content
-                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                            uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    Log.e("URI RESULT", uri.toString());
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            // ...
-                        }
-                    });
-
+            System.out.println(URL);
         }
     }
 
@@ -183,74 +187,53 @@ public class User_Profile_Activity extends Base_Activity {
         this.dia = dia;
         this.mes = mes;
         this.anio = anio;
-        tvFecha.setText(dia + "/" + mes + "/" + anio);
+        mes = mes + 1;
+        tvFecha.setText("Fecha Nacimiento: " + dia + "/" + mes + "/" + anio);
     }
 
-
-    public void seleccionarFoto(View view){
-        Intent pickFoto = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickFoto , COD_PICK_FOTO);
+    @Override
+    public int cargarLayout() {
+        return R.layout.activity_user__profile_;
     }
 
-    /*@RequiresApi(api = Build.VERSION_CODES.N)
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch(requestCode) {
-            case 0:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        ExifInterface exif = new ExifInterface(selectedImage.getPath());
-                        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        int rotationInDegrees = exifToDegrees(rotation);
-                        System.out.println(rotationInDegrees);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ivFoto.setImageURI(selectedImage);
-                }
-
-                break;
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    InputStream in;
-                    try {
-                        in = getContentResolver().openInputStream(selectedImage);
-                        ExifInterface exif = new ExifInterface(in);
-                        int rotation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        int rotationInDegrees = exifToDegrees(rotation);
-                        System.out.println(rotationInDegrees);
-                        ivFoto.setRotation(rotationInDegrees);
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    ivFoto.setImageURI(selectedImage);
-                }
-                break;
-        }
-    }*/
-
-    private static int exifToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) { return 90; }
-        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {  return 180; }
-        else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {  return 270; }
-        return 0;
-    }
-
-    public static byte[] getBytesFromBitmap(Bitmap bitmap) {
-        if (bitmap!=null) {
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-            return stream.toByteArray();
-        }
-        return null;
+    @Override
+    public boolean setDrawer() {
+        return true;
     }
 
     public void backToSplash(View view){
         startActivity(new Intent(this, Login_Activity.class));
+    }
+
+    public void subirImagen(Uri uri) {
+
+        destino = storage.child("fotoUsuario").child(String.valueOf(uri.getLastPathSegment()));
+
+        UploadTask uploadTask = destino.putFile(uri);
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+
+                return destino.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    URL = downloadUri.toString();  //URL DE DESCARGA
+                    System.out.println(URL);
+                    Glide.with(User_Profile_Activity.this).load(URL).into(ivFoto); //Mostramos imagen en imageview
+
+                } else {
+                    //Posibles errores
+                }
+            }
+        });
     }
 }

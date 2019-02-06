@@ -7,16 +7,25 @@ public class Usuario {
     private String email;
     private String password;
     private String nombre_completo;
-    private Date fechaNac;
+    private String fechaNac;
     private String descripcion;
     private String urlFoto;
 
     public Usuario(){}
 
-    public Usuario(String uid, String email, String password, String nombre_completo, Date fechaNac, String descripcion, String urlFoto) {
+    public Usuario(String uid, String email, String password, String nombre_completo, String fechaNac, String descripcion, String urlFoto) {
         this.uid = uid;
         this.email = email;
         this.password = password;
+        this.nombre_completo = nombre_completo;
+        this.fechaNac = fechaNac;
+        this.descripcion = descripcion;
+        this.urlFoto = urlFoto;
+    }
+
+    public Usuario(String uid, String email, String nombre_completo, String fechaNac, String descripcion, String urlFoto) {
+        this.uid = uid;
+        this.email = email;
         this.nombre_completo = nombre_completo;
         this.fechaNac = fechaNac;
         this.descripcion = descripcion;
@@ -44,7 +53,7 @@ public class Usuario {
         return nombre_completo;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 
@@ -72,7 +81,7 @@ public class Usuario {
         this.nombre_completo = nombre_completo;
     }
 
-    public void setFechaNac(Date fechaNac) {
+    public void setFechaNac(String fechaNac) {
         this.fechaNac = fechaNac;
     }
 
