@@ -152,11 +152,11 @@ public class Alertas_Activity extends Base_Activity {
 
 
 
-        Alerta alert = new Alerta(key,"id usuario","descripcion","titulo",
-                "id_playas","25/05/2015","09:00AM",lista);
+        //Alerta alert = new Alerta(key,"id usuario","descripcion","titulo",
+               // "id_playas","25/05/2015","09:00AM",lista);
 
 
-        dbR.child(key).setValue(alert);
+       // dbR.child(key).setValue(alert);
 
 
     }

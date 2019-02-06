@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import uem.dam.sharethebeach.sharethebeach.R;
@@ -42,9 +44,7 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
     public void onBindViewHolder(@NonNull HolderAlerta holder, int position) {
 
         //Demomento solo meto una imagen aleatoria.
-        //ESTO AUMENTA EL API MINIMO A 21
-        holder.imgAlerta.setImageDrawable(context.getDrawable(R.drawable.imagen_alertas_pruebas));
-
+        Glide.with(context).load(listaAlertas.get(position).getUrlImg()).into(holder.imgAlerta);
         //Resto atributos
         holder.txtTituloAlerta.setText(listaAlertas.get(position).getTitulo());
         holder.txtFecha.setText(listaAlertas.get(position).getFecha());
