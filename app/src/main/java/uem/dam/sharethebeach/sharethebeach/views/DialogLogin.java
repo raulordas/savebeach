@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
@@ -14,12 +13,8 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
-
-import static uem.dam.sharethebeach.sharethebeach.R.drawable.ic_check_black_24dp;
 
 public class DialogLogin extends Dialog implements View.OnClickListener {
     private Button btnCerrarLogin;

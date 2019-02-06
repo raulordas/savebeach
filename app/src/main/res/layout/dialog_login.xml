@@ -6,6 +6,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingLeft="@dimen/PADDING_30"
+    android:paddingTop="@dimen/PADDING_30"
     android:paddingRight="@dimen/PADDING_30">
 
     <Button

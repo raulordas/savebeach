@@ -135,7 +135,7 @@ public class User_Profile_Activity extends Base_Activity {
         fecha = tvFecha.getText().toString();
         descripcion = tvDescripcion.getText().toString();
 
-        Usuario usuario = new Usuario(uid, nombre, fecha, descripcion, emailF, URL);
+        Usuario usuario = new Usuario(uid,emailF, nombre, fecha, descripcion, URL);
 
         if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Rellena todos los campos", Toast.LENGTH_SHORT).show();

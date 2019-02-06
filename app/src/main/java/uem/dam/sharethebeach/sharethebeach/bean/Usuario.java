@@ -1,66 +1,44 @@
 package uem.dam.sharethebeach.sharethebeach.bean;
 
-import android.graphics.Bitmap;
 import java.sql.Date;
 
 public class Usuario {
     private String uid;
-    private String nombre;
+    private String email;
+    private String password;
+    private String nombre_completo;
     private String fechaNac;
     private String descripcion;
-    private String email;
-    private String usuario;
-    private String password;
-    private String URL;
-
-    //Constructor Completo
-    public Usuario(String uid, String nombre, String fechaNac, String descripcion,
-                   String email, String ususario, String password) {
-        this.uid = uid;
-        this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.descripcion = descripcion;
-        this.email = email;
-        this.usuario = usuario;
-        this.password = password;
-    }
-
-    //Constructor Semicompleto
-    public Usuario(String uid, String nombre, String fechaNac, String descripcion,
-                   String email, String URL) {
-        this.uid = uid;
-        this.nombre = nombre;
-        this.fechaNac = fechaNac;
-        this.descripcion = descripcion;
-        this.email = email;
-        this.usuario = usuario;
-        this.password = password;
-        this.URL = URL;
-    }
+    private String urlFoto;
 
     public Usuario(){}
 
-    //Constructor para identificar usuario mediante usuario y password
+    public Usuario(String uid, String email, String password, String nombre_completo, String fechaNac, String descripcion, String urlFoto) {
+        this.uid = uid;
+        this.email = email;
+        this.password = password;
+        this.nombre_completo = nombre_completo;
+        this.fechaNac = fechaNac;
+        this.descripcion = descripcion;
+        this.urlFoto = urlFoto;
+    }
+
+    public Usuario(String uid, String email, String nombre_completo, String fechaNac, String descripcion, String urlFoto) {
+        this.uid = uid;
+        this.email = email;
+        this.nombre_completo = nombre_completo;
+        this.fechaNac = fechaNac;
+        this.descripcion = descripcion;
+        this.urlFoto = urlFoto;
+    }
+
     public Usuario(String email, String password) {
         this.email = email;
-        //this.password = password;
+        this.password = password;
     }
 
-    //Getters
     public String getUid() {
         return uid;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getFechaNac() {
-        return fechaNac;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
     }
 
     public String getEmail() {
@@ -71,28 +49,36 @@ public class Usuario {
         return password;
     }
 
-    public String getUsuario() {
-        return usuario;
+    public String getNombre_completo() {
+        return nombre_completo;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "uid='" + uid + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", fechaNac=" + fechaNac +
-                ", descripcion='" + descripcion + '\'' +
-                ", email='" + email + '\'' +
-                //", password='" + password + '\'' +
-                '}';
+    public String getFechaNac() {
+        return fechaNac;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
     }
 
     public void setUid(String uid) {
         this.uid = uid;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setNombre_completo(String nombre_completo) {
+        this.nombre_completo = nombre_completo;
     }
 
     public void setFechaNac(String fechaNac) {
@@ -103,11 +89,7 @@ public class Usuario {
         this.descripcion = descripcion;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 }
