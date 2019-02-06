@@ -136,7 +136,7 @@ public class Alertas_Activity extends Base_Activity {
 
     @Override
     public boolean setDrawer() {
-        return false;
+        return true;
     }
 
     public void creacio_Alerta_Pruebas(){

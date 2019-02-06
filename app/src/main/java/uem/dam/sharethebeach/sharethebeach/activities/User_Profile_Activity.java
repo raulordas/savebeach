@@ -10,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,7 +41,7 @@ public class User_Profile_Activity extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user__profile_);
+        //setContentView(R.layout.activity_user__profile_);
 
         btnFoto = findViewById(R.id.btnEditFoto);
         btnDatos = findViewById(R.id.btnEditDatos);
@@ -92,6 +93,16 @@ public class User_Profile_Activity extends Base_Activity {
     }
 
     @Override
+    public int cargarLayout() {
+        return R.layout.activity_user__profile_;
+    }
+
+    @Override
+    public boolean setDrawer() {
+        return false;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
@@ -123,15 +134,6 @@ public class User_Profile_Activity extends Base_Activity {
         tvFecha.setText(dia + "/" + mes + "/" + anio);
     }
 
-    @Override
-    public int cargarLayout() {
-        return R.layout.activity_user__profile_;
-    }
-
-    @Override
-    public boolean setDrawer() {
-        return false;
-    }
 
     public void seleccionarFoto(View view){
         Intent pickFoto = new Intent(Intent.ACTION_PICK,

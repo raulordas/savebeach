@@ -30,6 +30,7 @@ public class User_List extends Base_Activity {
         u.setNombre_completo("Raul Perez");
         listaUsuarios.add(u);
 
+        //Inicialización del RecyclerView y sus compoenentes
         recyclerUserList = findViewById(R.id.recycler_user_list);
         lm = new LinearLayoutManager(this);
         recyclerUserList.setLayoutManager(lm);

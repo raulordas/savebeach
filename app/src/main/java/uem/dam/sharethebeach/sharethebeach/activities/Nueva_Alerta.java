@@ -16,7 +16,7 @@ import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdapterSpinner;
 
-public class Nueva_Alerta extends AppCompatActivity {
+public class Nueva_Alerta extends Base_Activity {
 
     Spinner pSpi;
     AdapterSpinner adaptador;
@@ -28,7 +28,7 @@ public class Nueva_Alerta extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nueva__alerta);
+        //setContentView(R.layout.activity_nueva__alerta);
 
 
         pSpi = findViewById(R.id.spPlayas);
@@ -39,6 +39,15 @@ public class Nueva_Alerta extends AppCompatActivity {
         horaTxt = findViewById(R.id.txtMuestraHora);
     }
 
+    @Override
+    public int cargarLayout() {
+        return R.layout.activity_nueva__alerta;
+    }
+
+    @Override
+    public boolean setDrawer() {
+        return false;
+    }
 
 
     public void Fecha(View v){
