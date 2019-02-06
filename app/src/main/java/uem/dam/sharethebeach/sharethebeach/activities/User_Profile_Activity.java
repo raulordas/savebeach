@@ -77,7 +77,7 @@ public class User_Profile_Activity extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_user__profile_);
+        setContentView(R.layout.activity_user__profile_);
 
         user  = FirebaseAuth.getInstance().getCurrentUser();
         emailF = "juan.notario20@gmail.com";
@@ -198,7 +198,7 @@ public class User_Profile_Activity extends Base_Activity {
 
     @Override
     public boolean setDrawer() {
-        return true;
+        return false;
     }
 
     public void backToSplash(View view){
