@@ -1,22 +1,31 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import android.support.media.ExifInterface;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
@@ -34,6 +43,7 @@ public class User_Profile_Activity extends Base_Activity {
 
     private ImageView ivCalendar;
     private TextView tvFecha;
+    private TextView tvEmailReal;
 
     private int dia;
     private int mes;
@@ -46,6 +56,22 @@ public class User_Profile_Activity extends Base_Activity {
         btnFoto = findViewById(R.id.btnEditFoto);
         btnDatos = findViewById(R.id.btnEditDatos);
         ivFoto = findViewById(R.id.ivFoto);
+        tvEmailReal = findViewById(R.id.tvEmailReal);
+
+        //FirebaseAuth.getInstance().signOut();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        if (user != null) {
+            Log.e("USER", String.valueOf(user.getEmail()));
+            Log.e("USER", String.valueOf(user.isEmailVerified()));
+            tvEmailReal.setText(user.getEmail().toString());
+
+            if (!user.isEmailVerified()) {
+                //user.sendEmailVerification();
+            }
+
+        }
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +136,33 @@ public class User_Profile_Activity extends Base_Activity {
             ivFoto.setImageBitmap(imageBitmap);
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
             Uri miPath = data.getData();
-            ivFoto.setImageURI(miPath);
+            Log.e("PATH", miPath.toString());
+            //ivFoto.setImageURI(miPath);
+
+
+            StorageReference storage = FirebaseStorage.getInstance().getReference().child("images/" + miPath.getLastPathSegment());
+            storage.putFile(miPath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            // Get a URL to the uploaded content
+                            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                            uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Log.e("URI RESULT", uri.toString());
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+
         }
     }
 

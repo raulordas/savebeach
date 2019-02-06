@@ -62,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:fontFamily="@font/bambino_light"
             android:gravity="center"
             android:text="Nombre"
             android:textColor="@android:color/black"
@@ -72,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:fontFamily="@font/bambino_light"
             android:gravity="center"
             android:text="Fecha Nacimiento"
             android:textColor="@android:color/black"
@@ -97,6 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/bambino_light"
                 android:text="juan.notario20@gmail.com"
                 android:textColor="@android:color/black"
                 android:textSize="24sp" />
@@ -107,6 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:fontFamily="@font/bambino_light"
             android:text="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
