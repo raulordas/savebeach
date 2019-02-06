@@ -2,11 +2,14 @@ package uem.dam.sharethebeach.sharethebeach.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
@@ -22,14 +25,20 @@ import android.support.media.ExifInterface;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
@@ -54,8 +63,10 @@ public class User_Profile_Activity extends Base_Activity {
     String nombre;
     String fecha;
     String descripcion;
+    String URL;
 
-    FirebaseStorage storage;
+    StorageReference destino;
+    StorageReference storage;
     DatabaseReference dbr;
     ChildEventListener cel;
 
@@ -80,6 +91,8 @@ public class User_Profile_Activity extends Base_Activity {
             //Aqui ira algo
         }
 
+        storage = FirebaseStorage.getInstance().getReference();
+
 
         btnFoto = findViewById(R.id.btnEditFoto);
         ivFoto = findViewById(R.id.ivFoto);
@@ -89,8 +102,6 @@ public class User_Profile_Activity extends Base_Activity {
         email = findViewById(R.id.tvEmailReal);
         tvDescripcion = findViewById(R.id.tvDescripcion);
         email.setText(emailF);
-
-        storage = FirebaseStorage.getInstance();
 
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +135,7 @@ public class User_Profile_Activity extends Base_Activity {
         fecha = tvFecha.getText().toString();
         descripcion = tvDescripcion.getText().toString();
 
-        Usuario usuario = new Usuario(uid, nombre, fecha, descripcion, emailF);
+        Usuario usuario = new Usuario(uid, nombre, fecha, descripcion, emailF, URL);
 
         if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Rellena todos los campos", Toast.LENGTH_SHORT).show();
@@ -149,9 +160,13 @@ public class User_Profile_Activity extends Base_Activity {
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             ivFoto.setImageBitmap(imageBitmap);
 
+
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
             Uri miPath = data.getData();
-            ivFoto.setImageURI(miPath);
+
+            subirImagen(miPath);
+
+            System.out.println(URL);
         }
     }
 
@@ -188,5 +203,37 @@ public class User_Profile_Activity extends Base_Activity {
 
     public void backToSplash(View view){
         startActivity(new Intent(this, Login_Activity.class));
+    }
+
+    public void subirImagen(Uri uri) {
+
+        destino = storage.child("fotoUsuario").child(String.valueOf(uri.getLastPathSegment()));
+
+        UploadTask uploadTask = destino.putFile(uri);
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+
+                return destino.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    URL = downloadUri.toString();  //URL DE DESCARGA
+                    System.out.println(URL);
+                    Glide.with(User_Profile_Activity.this).load(URL).into(ivFoto); //Mostramos imagen en imageview
+
+                } else {
+                    //Posibles errores
+                }
+            }
+        });
     }
 }

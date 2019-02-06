@@ -11,6 +11,7 @@ public class Usuario {
     private String email;
     private String usuario;
     private String password;
+    private String URL;
 
     //Constructor Completo
     public Usuario(String uid, String nombre, String fechaNac, String descripcion,
@@ -26,7 +27,7 @@ public class Usuario {
 
     //Constructor Semicompleto
     public Usuario(String uid, String nombre, String fechaNac, String descripcion,
-                   String email) {
+                   String email, String URL) {
         this.uid = uid;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
@@ -34,6 +35,7 @@ public class Usuario {
         this.email = email;
         this.usuario = usuario;
         this.password = password;
+        this.URL = URL;
     }
 
     public Usuario(){}
