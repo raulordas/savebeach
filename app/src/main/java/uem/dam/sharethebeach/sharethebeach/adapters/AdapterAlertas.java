@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Alerta;
@@ -87,7 +89,25 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
         }
     }
 
+    public void ordenarAZ() {
+        Collections.sort(listaAlertas, new Comparator<Alerta>() {
+            @Override
+            public int compare(Alerta alerta, Alerta t1) {
+                return alerta.getTitulo().compareTo(t1.getTitulo());
+            }
+        });
+        notifyDataSetChanged();
+    }
 
+    public void ordenarZA() {
+        Collections.sort(listaAlertas, new Comparator<Alerta>() {
+            @Override
+            public int compare(Alerta alerta, Alerta t1) {
+                return (alerta.getTitulo().compareTo(t1.getTitulo())) * -1;
+            }
+        });
+        notifyDataSetChanged();
+    }
 
 
 }

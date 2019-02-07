@@ -1,14 +1,18 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -36,6 +40,7 @@ public class Alertas_Activity extends Base_Activity {
     LinearLayoutManager miLayoutManager;
     ArrayList<Alerta> lista = new ArrayList<>();
     FloatingActionButton boton;
+    private TabLayout alertsTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,35 @@ public class Alertas_Activity extends Base_Activity {
             }
         });
 
+         alertsTabs = findViewById(R.id.alertasTabs);
+         alertsTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Log.e("TAB", tab.getText().toString());
+
+                if (tab.getText().equals(getString(R.string.tab_filtrar))) {
+
+                } else if(tab.getText().equals(getString(R.string.tab_ordenar))) {
+                    verDialogOrdenar();
+                }
+            }
+
+             @Override
+             public void onTabUnselected(TabLayout.Tab tab) {
+
+             }
+
+             @Override
+             public void onTabReselected(TabLayout.Tab tab) {
+
+                 if (tab.getText().equals(getString(R.string.tab_filtrar))) {
+
+                 } else if(tab.getText().equals(getString(R.string.tab_ordenar))) {
+                     verDialogOrdenar();
+                 }
+             }
+         });
+
 
         addChildEvent();
     }
@@ -139,26 +173,29 @@ public class Alertas_Activity extends Base_Activity {
         return true;
     }
 
-    public void creacio_Alerta_Pruebas(){
+    public void verDialogOrdenar() {
+        final CharSequence[] lista = {"Ordenar por Nombre de A-Z", "Ordenar Por nombre de Z-A"};
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.ELEGIR_MUNICIPIO));
 
-        ArrayList<String> lista = new ArrayList<>();
-        lista.add("USU1");
-        lista.add("USU2");
-        lista.add("USU3");
-        lista.add("USU4");
+        builder.setItems(lista, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if ( i == 0) {
+                    adaptador.ordenarAZ();
+                } else {
+                    adaptador.ordenarZA();
+                }
+            }
+        });
 
-        String key = dbR.push().getKey();
-
-
-
-        //Alerta alert = new Alerta(key,"id usuario","descripcion","titulo",
-               // "id_playas","25/05/2015","09:00AM",lista);
-
-
-       // dbR.child(key).setValue(alert);
-
-
+        builder.setNeutralButton(getString(R.string.DIALOG_CANCEL), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        }).create().show();
     }
 
 }
