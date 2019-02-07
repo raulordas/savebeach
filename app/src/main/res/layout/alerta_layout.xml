@@ -3,56 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/PADDING_5">
 
     <ImageView
         android:id="@+id/imgAlerta"
-        android:layout_width="match_parent"
-        android:layout_height="117dp"
-        android:scaleType="fitXY"
+        android:layout_width="405dp"
+        android:layout_height="127dp"
+        android:layout_weight="1"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
-
-    <TextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bambino"
-        android:paddingTop="@dimen/PADDING3"
-        android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/PADDING3">
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bambino"
+            android:textColor="@color/azulViento"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/txtFecha"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:fontFamily="@font/bambino"
-            android:text="@string/fecha"
-            android:textSize="18sp" />
+            android:text="@string/fecha_1_s"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/txtHora"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:fontFamily="@font/bambino"
-            android:text="@string/hora"
+            android:paddingTop="@dimen/PADDING3"
+            android:text="@string/hora_1_s" />
+
+        <TextView
+            android:id="@+id/txtUsuCreador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bambino"
+            android:text="@string/creador_1_s"
             android:textSize="18sp" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtCreador"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/bambino"
-        android:paddingTop="@dimen/PADDING3"
-        android:text="@string/creador_1_s"
-        android:textSize="18sp" />
 </LinearLayout>

@@ -6,26 +6,26 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_Beaches"
-            android:title="Las Playas" />
+            android:title="@string/las_playas" />
         <item
             android:id="@+id/nav_Beach_Alerts"
-            android:title="Beach Alerts" />
+            android:title="@string/beach_alerts" />
         <item
             android:id="@+id/nav_Beach_Map"
-            android:title="Mapa" />
+            android:title="@string/mapa" />
         <item
             android:id="@+id/nav_Usuarios"
-            android:title="Beach Fans" />
+            android:title="@string/beach_fans" />
     </group>
 
-    <item android:title="Conexion">
+    <item android:title="@string/conexion">
         <menu>
             <item
                 android:id="@+id/nav_Login"
-                android:title="Log In" />
+                android:title="@string/log_in" />
             <item
                 android:id="@+id/nav_Logout"
-                android:title="Log Out" />
+                android:title="@string/log_out" />
         </menu>
     </item>
 

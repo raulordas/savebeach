@@ -47,9 +47,9 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
         Glide.with(context).load(listaAlertas.get(position).getUrlImg()).into(holder.imgAlerta);
         //Resto atributos
         holder.txtTituloAlerta.setText(listaAlertas.get(position).getTitulo());
-        holder.txtFecha.setText(listaAlertas.get(position).getFecha());
-        holder.txtUsuCreador.setText(listaAlertas.get(position).getId_creador());
-        holder.txtHora.setText(listaAlertas.get(position).getHora());
+        holder.txtFecha.setText(String.format(context.getString(R.string.fecha_1_s),listaAlertas.get(position).getFecha()));
+        holder.txtUsuCreador.setText(String.format(context.getString(R.string.creador_1_s),listaAlertas.get(position).getId_creador()));
+        holder.txtHora.setText(String.format(context.getString(R.string.hora_1_s),listaAlertas.get(position).getHora()));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
         public HolderAlerta(View itemView) {
             super(itemView);
             txtTituloAlerta = itemView.findViewById(R.id.txtTitulo);
-            txtUsuCreador = itemView.findViewById(R.id.txtCreador);
+            txtUsuCreador = itemView.findViewById(R.id.txtUsuCreador);
             txtFecha = itemView.findViewById(R.id.txtFecha);
             txtHora = itemView.findViewById(R.id.txtHora);
             imgAlerta = itemView.findViewById(R.id.imgAlerta);
