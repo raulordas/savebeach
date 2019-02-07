@@ -21,7 +21,7 @@ import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdaptadorUsuarios;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
-public class Todos_Usuarios extends AppCompatActivity {
+public class Todos_Usuarios extends Base_Activity {
 
     AdaptadorUsuarios adapter;
     ArrayList<Usuario> datos;
@@ -34,7 +34,6 @@ public class Todos_Usuarios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_todos__usuarios);
 
         datos = new ArrayList<Usuario>();
         adapter = new AdaptadorUsuarios(datos, this);
@@ -46,6 +45,16 @@ public class Todos_Usuarios extends AppCompatActivity {
         rVUsuarios.setAdapter(adapter);
         rVUsuarios.setItemAnimator(new DefaultItemAnimator());
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
+    }
+
+    @Override
+    public int cargarLayout() {
+        return R.layout.activity_todos__usuarios;
+    }
+
+    @Override
+    public boolean setDrawer() {
+        return true;
     }
 
     private void addChildEventListener() {

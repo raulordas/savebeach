@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/PADDING_10"
     android:paddingBottom="@dimen/PADDING_30">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -23,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bambino_light"
-            android:hint="Nombre"
+            android:hint="@string/nombre"
             android:paddingLeft="@dimen/PADDING_15"
             android:textSize="24sp" />
 
@@ -31,7 +32,7 @@
             android:id="@+id/tvFechaNac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fecha de Nacimiento"
+            android:hint="@string/fecha_de_nacimiento"
             android:paddingLeft="@dimen/PADDING_15" />
 
     </LinearLayout>

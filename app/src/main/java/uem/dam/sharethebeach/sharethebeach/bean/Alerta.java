@@ -1,6 +1,7 @@
 package uem.dam.sharethebeach.sharethebeach.bean;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Alerta {
 
@@ -13,11 +14,12 @@ public class Alerta {
     private String fecha;
     private String hora;
     private ArrayList<String> usuarios_apuntados;
+    private String urlImg;
 
     public Alerta() {
     }
 
-    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<String> usuarios_apuntados) {
+    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<String> usuarios_apuntados,String urlImg) {
         this.id = id;
         this.id_creador = id_creador;
         this.descripcion = descripcion;
@@ -26,6 +28,7 @@ public class Alerta {
         this.fecha = fecha;
         this.hora = hora;
         this.usuarios_apuntados = usuarios_apuntados;
+        this.urlImg = urlImg;
     }
 
     public String getId() {
@@ -60,6 +63,13 @@ public class Alerta {
         return usuarios_apuntados;
     }
 
+    public String getUrlImg() {
+        return urlImg;
+    }
+
+    public void setUrlImg(String urlImg) {
+        this.urlImg = urlImg;
+    }
 
     @Override
     public String toString() {
@@ -72,6 +82,7 @@ public class Alerta {
                 ", fecha='" + fecha + '\'' +
                 ", hora='" + hora + '\'' +
                 ", usuarios_apuntados=" + usuarios_apuntados +
+                ", urlImg='" + urlImg + '\'' +
                 '}';
     }
 }
