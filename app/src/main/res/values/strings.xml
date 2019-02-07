@@ -73,7 +73,6 @@
     <string name="cuenta">Cuenta</string>
     <string name="comunicate">Si tienes algún problema, puedes contactar comunicate con nosotros en:</string>
     <string name="mail">savethebeachapp@gmail.com</string>
-    <string name="creador_1_s">Creador: %1$s</string>
     <string name="fecha">Fecha:</string>
     <string name="hora">Hora:</string>
     <string name="nueva_alerta">Nueva Alerta</string>
@@ -89,4 +88,14 @@
     <string name="fotousuario">fotoUsuario</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
     <string name="TV_DESCRIPCION">Introduce información interesante acerca de ti :)</string>
+    <string name="las_playas">Las Playas</string>
+    <string name="beach_alerts">Beach Alerts</string>
+    <string name="mapa">Mapa</string>
+    <string name="beach_fans">Beach Fans</string>
+    <string name="conexion">Conexion</string>
+    <string name="log_in">Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="fecha_1_s">Fecha: %1$s</string>
+    <string name="hora_1_s">Hora: %1$s</string>
+    <string name="creador_1_s">Creador: %1$s</string>
 </resources>

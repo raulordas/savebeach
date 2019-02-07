@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -43,6 +44,7 @@ import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdapterSpinner;
 import uem.dam.sharethebeach.sharethebeach.bean.Alerta;
+import uem.dam.sharethebeach.sharethebeach.bean.Playa;
 
 public class Nueva_Alerta extends Base_Activity {
 
@@ -55,6 +57,7 @@ public class Nueva_Alerta extends Base_Activity {
     TextView descripcion;
     ImageView imgBoton;
     ImageView imgUsuario;
+    Playa playaSel;
     private static final int GALERIA = 1;
     private static final int FOTO = 2;
     Uri foto;
@@ -110,6 +113,23 @@ public class Nueva_Alerta extends Base_Activity {
 
             }
         });
+
+
+        pSpi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                playaSel = ((ContextoCustom) (getApplicationContext())).getListadoPlayas().get(position);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
     }
 
@@ -219,7 +239,6 @@ public class Nueva_Alerta extends Base_Activity {
                         throw task.getException();
                     }
 
-
                     return destino.getDownloadUrl();
                 }
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -235,7 +254,7 @@ public class Nueva_Alerta extends Base_Activity {
                         String key = dbR.push().getKey();
 
                         Alerta alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
-                                "id_playa",fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
+                                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
                         System.out.println(alert);
                         dbR.child(key).setValue(alert);
 
