@@ -1,15 +1,12 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -19,22 +16,13 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import android.support.media.ExifInterface;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,10 +32,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-
+import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
@@ -58,14 +44,12 @@ public class User_Profile_Activity extends Base_Activity {
     private static final int REQUEST_IMAGE_CAPTURE = 150;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 123;
 
-    ImageView btnFoto;
-    ImageView ivFoto;
-    TextView fechaNacP;
+    CircleImageView ivFoto;
     TextView email;
     TextView tvNombre;
     TextView tvDescripcion;
 
-    private TextView tvFecha;
+    EditText tvFecha;
     FirebaseUser user;
     String emailF;
     String uid;
@@ -101,17 +85,14 @@ public class User_Profile_Activity extends Base_Activity {
 
         storage = FirebaseStorage.getInstance().getReference();
 
-
-        btnFoto = findViewById(R.id.btnEditFoto);
         ivFoto = findViewById(R.id.ivFoto);
-        fechaNacP = findViewById(R.id.tvFechaNc);
         tvFecha = findViewById(R.id.tvFechaNc);
         tvNombre = findViewById(R.id.tvNombre);
         email = findViewById(R.id.tvEmailReal);
         tvDescripcion = findViewById(R.id.tvDescripcion);
         email.setText(emailF);
 
-        btnFoto.setOnClickListener(new View.OnClickListener() {
+        ivFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final CharSequence[] options = {"Hacer foto", "Galería", "Cancelar"};

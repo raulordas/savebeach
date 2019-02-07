@@ -88,4 +88,5 @@
     <string name="a_adir">Añadir</string>
     <string name="fotousuario">fotoUsuario</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
+    <string name="TV_DESCRIPCION">Introduce información interesante acerca de ti :)</string>
 </resources>
