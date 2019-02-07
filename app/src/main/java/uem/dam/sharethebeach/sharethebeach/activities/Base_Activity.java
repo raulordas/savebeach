@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 
@@ -134,9 +136,8 @@ public abstract class Base_Activity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //NavUtils.navigateUpFromSameTask(this);
-            return true;
+        if (id == R.id.action_cuenta) {
+            startActivity(new Intent(this, User_Profile_Activity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -151,7 +152,7 @@ public abstract class Base_Activity extends AppCompatActivity
         if (id == R.id.nav_Beaches) {
 
         } else if (id == R.id.nav_Beach_Map) {
-            startActivity(new Intent(this, User_Profile_Activity.class));
+
 
         } else if (id == R.id.nav_Beach_Alerts) {
 
@@ -162,7 +163,9 @@ public abstract class Base_Activity extends AppCompatActivity
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
-            ((ContextoCustom) getApplicationContext()).setUser(null);
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                FirebaseAuth.getInstance().signOut();
+            }
         } else if (id == R.id.nav_Usuarios) {
             Intent i = new Intent(this,Todos_Usuarios.class);
             startActivity(i);

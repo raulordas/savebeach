@@ -62,6 +62,7 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        BitmapDescriptor des = generateBitmapDescriptorFromRes(this, R.drawable.ic_marker_maps_ballena);
 
         Playa playa = getIntent().getParcelableExtra(getString(R.string.KEY_PLAYA_SEL));
 
@@ -69,7 +70,7 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
             for (Playa aux: listaPlayas) {
                 LatLng gms = new LatLng(aux.getLatitud(), aux.getLongitud());
                 //.setIcon(generateBitmapDescriptorFromRes(this, R.drawable.ic_cloudy))
-                mMap.addMarker(new MarkerOptions().position(gms).title(aux.getNombre()));
+                mMap.addMarker(new MarkerOptions().position(gms).title(aux.getNombre())).setIcon(des);
             }
             LatLng gmsAux = new LatLng(listaPlayas.get(0).getLatitud(), listaPlayas.get(0).getLongitud());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(gmsAux));
@@ -77,7 +78,7 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
         } else {
             // Add a marker in Sydney and move the camera
             LatLng localizacionPlaya = new LatLng(playa.getLatitud(), playa.getLongitud());
-            mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title(playa.getNombre()));
+            mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title(playa.getNombre())).setIcon(des);
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -85,7 +86,7 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
                     return true;
                 }
             });
-            mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title("ALERTA DE MEDUSAS"));
+            //mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title("ALERTA DE MEDUSAS"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(localizacionPlaya));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
         }
