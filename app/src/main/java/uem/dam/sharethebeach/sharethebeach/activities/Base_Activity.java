@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 
@@ -161,7 +163,9 @@ public abstract class Base_Activity extends AppCompatActivity
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
-            ((ContextoCustom) getApplicationContext()).setUser(null);
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                FirebaseAuth.getInstance().signOut();
+            }
         } else if (id == R.id.nav_Usuarios) {
             Intent i = new Intent(this,Todos_Usuarios.class);
             startActivity(i);
