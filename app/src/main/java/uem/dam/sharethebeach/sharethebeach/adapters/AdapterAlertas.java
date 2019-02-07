@@ -44,7 +44,12 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
     public void onBindViewHolder(@NonNull HolderAlerta holder, int position) {
 
         //Demomento solo meto una imagen aleatoria.
-        Glide.with(context).load(listaAlertas.get(position).getUrlImg()).into(holder.imgAlerta);
+        if(listaAlertas.get(position).getUrlImg().equals("DEFAULT")){
+            holder.imgAlerta.setImageDrawable(context.getDrawable(R.drawable.imagen_alertas_pruebas));
+        }else{
+            Glide.with(context).load(listaAlertas.get(position).getUrlImg()).into(holder.imgAlerta);
+        }
+
         //Resto atributos
         holder.txtTituloAlerta.setText(listaAlertas.get(position).getTitulo());
         holder.txtFecha.setText(String.format(context.getString(R.string.fecha_1_s),listaAlertas.get(position).getFecha()));
