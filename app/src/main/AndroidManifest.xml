@@ -35,8 +35,7 @@
         </activity>
         <activity android:name=".activities.SignUp_Activity" />
         <activity android:name=".activities.SignUp_Success_Activity" />
-        <activity android:name=".activities.User_Profile_Activity">
-        </activity>
+        <activity android:name=".activities.User_Profile_Activity" />
         <activity android:name=".activities.Beach_Detail" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
