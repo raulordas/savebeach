@@ -1,8 +1,11 @@
 package uem.dam.sharethebeach.sharethebeach.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.sql.Date;
 
-public class Usuario {
+public class Usuario implements Parcelable {
     private String uid;
     private String email;
     private String password;
@@ -36,6 +39,28 @@ public class Usuario {
         this.email = email;
         this.password = password;
     }
+
+    protected Usuario(Parcel in) {
+        uid = in.readString();
+        email = in.readString();
+        password = in.readString();
+        nombre_completo = in.readString();
+        fechaNac = in.readString();
+        descripcion = in.readString();
+        urlFoto = in.readString();
+    }
+
+    public static final Creator<Usuario> CREATOR = new Creator<Usuario>() {
+        @Override
+        public Usuario createFromParcel(Parcel in) {
+            return new Usuario(in);
+        }
+
+        @Override
+        public Usuario[] newArray(int size) {
+            return new Usuario[size];
+        }
+    };
 
     public String getUid() {
         return uid;
@@ -91,5 +116,21 @@ public class Usuario {
 
     public void setUrlFoto(String urlFoto) {
         this.urlFoto = urlFoto;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(uid);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(nombre_completo);
+        dest.writeString(fechaNac);
+        dest.writeString(descripcion);
+        dest.writeString(urlFoto);
     }
 }
