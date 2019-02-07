@@ -57,7 +57,7 @@ public class Beach_List extends Base_Activity {
             municipios.add(listaPlayas.get(i).getMunicipio());
         }
 
-        beachTabs = findViewById(R.id.beachTabs);
+        beachTabs = findViewById(R.id.usersTabs);
         beachTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

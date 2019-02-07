@@ -22,7 +22,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.User_List"></activity>
+        <activity android:name=".activities.User_List" />
         <activity
             android:name=".activities.Login_Activity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -54,6 +54,7 @@
         <activity android:name=".activities.Beach_List" />
         <activity android:name=".activities.Alertas_Activity" />
         <activity android:name=".activities.Nueva_Alerta" />
+        <activity android:name=".activities.Todos_Usuarios"></activity>
     </application>
 
 </manifest>

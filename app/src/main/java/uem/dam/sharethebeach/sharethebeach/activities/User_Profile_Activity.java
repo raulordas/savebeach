@@ -77,16 +77,15 @@ public class User_Profile_Activity extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user__profile_);
+        //setContentView(R.layout.activity_user__profile_);
 
         user  = FirebaseAuth.getInstance().getCurrentUser();
-        emailF = "juan.notario20@gmail.com";
-        uid = "123456789";
+        //emailF = "juan.notario20@gmail.com";
+        //uid = "123456789";
+
         if (user != null) {
-            //emailF = user.getEmail();
-            emailF = "juan.notario20@gmail.com";
-            uid = "123456789";
-            //uid = user.getUid();
+            emailF = user.getEmail();
+            uid = user.getUid();
         } else {
             //Aqui ira algo
         }
@@ -158,7 +157,9 @@ public class User_Profile_Activity extends Base_Activity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            ivFoto.setImageBitmap(imageBitmap);
+
+            ivFoto.setImageURI(getImageUri(this, imageBitmap));
+            //ivFoto.setImageBitmap(imageBitmap);
 
 
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
@@ -209,6 +210,7 @@ public class User_Profile_Activity extends Base_Activity {
 
         destino = storage.child("fotoUsuario").child(String.valueOf(uri.getLastPathSegment()));
 
+
         UploadTask uploadTask = destino.putFile(uri);
 
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
@@ -235,5 +237,12 @@ public class User_Profile_Activity extends Base_Activity {
                 }
             }
         });
+    }
+
+    private Uri getImageUri(Context context, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }

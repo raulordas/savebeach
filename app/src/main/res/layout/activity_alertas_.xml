@@ -22,7 +22,7 @@
         app:backgroundTint="@color/colorPrimary" />
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/beachTabs"
+        android:id="@+id/usersTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleX="1"
@@ -54,7 +54,7 @@
         android:id="@+id/recyclerViewAlertas"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_below="@+id/beachTabs" />
+        android:layout_below="@+id/usersTabs" />
 
     <ProgressBar
         android:id="@+id/progressLoadBeach"

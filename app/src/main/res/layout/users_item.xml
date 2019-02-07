@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/PADDING_30">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/fotoUsuario"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/ic_user"
+        app:civ_border_color="#FF000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bambino_light"
+            android:hint="Nombre"
+            android:paddingLeft="@dimen/PADDING_15"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvFechaNac"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de Nacimiento"
+            android:paddingLeft="@dimen/PADDING_15" />
+
+    </LinearLayout>
+
+</LinearLayout>
