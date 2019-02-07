@@ -1,5 +1,6 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +46,16 @@ public class Todos_Usuarios extends Base_Activity {
         rVUsuarios.setAdapter(adapter);
         rVUsuarios.setItemAnimator(new DefaultItemAnimator());
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
+
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Usuario u = datos.get(rVUsuarios.getChildAdapterPosition(v));
+                Intent intent = new Intent(Todos_Usuarios.this, Consulta_Usuarios_Final.class);
+                intent.putExtra("CLAVE", u);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
