@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -24,12 +25,24 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdapterSpinner;
+import uem.dam.sharethebeach.sharethebeach.bean.Alerta;
 
 public class Nueva_Alerta extends Base_Activity {
 
@@ -46,6 +59,10 @@ public class Nueva_Alerta extends Base_Activity {
     private static final int FOTO = 2;
     Uri foto;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 123;
+    private DatabaseReference dbR;
+    private StorageReference storage;
+    private StorageReference destino;
+
 
 
     @Override
@@ -53,6 +70,8 @@ public class Nueva_Alerta extends Base_Activity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_nueva__alerta);
 
+        dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
+        storage = FirebaseStorage.getInstance().getReference();
 
         pSpi = findViewById(R.id.spPlayas);
         adaptador = new AdapterSpinner(this,((ContextoCustom) (getApplicationContext())).getListadoPlayas());
@@ -101,7 +120,8 @@ public class Nueva_Alerta extends Base_Activity {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             System.out.println(imageBitmap);
-            imgUsuario.setImageURI(getImageUri(this,imageBitmap));
+            foto = getImageUri(this,imageBitmap);
+            imgUsuario.setImageURI(foto);
 
 
 
@@ -186,6 +206,49 @@ public class Nueva_Alerta extends Base_Activity {
             toast1.show();
 
         }else{
+
+            destino = storage.child("fotoUsuario").child(String.valueOf(foto.getLastPathSegment()));
+            //subida foto
+            UploadTask uploadTask =  destino.putFile(foto);
+
+
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+
+
+                    return destino.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+
+                        Uri downloadUri = task.getResult();
+
+                        String url = downloadUri.toString();    //URL DE DESCARGA
+                        System.out.println(url);
+                        //Subida de la alerta finalizada al firebase
+                        String key = dbR.push().getKey();
+
+                        Alerta alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
+                                "id_playa",fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
+                        System.out.println(alert);
+                        dbR.child(key).setValue(alert);
+
+
+                    } else {
+                        //Posibles errores
+                    }
+                }
+            });
+
+
+
+
 
 
 

@@ -2,18 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/lvUser"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingLeft="@dimen/PADDING_30"
-    android:paddingTop="@dimen/PADDING_30"
-    android:paddingRight="@dimen/PADDING_30"
+    android:padding="@dimen/PADDING_10"
     android:paddingBottom="@dimen/PADDING_30">
 
-
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_user"
+        android:id="@+id/fotoUsuario"
         android:layout_width="96dp"
         android:layout_height="96dp"
         android:src="@drawable/ic_user"
@@ -25,18 +20,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvUserName"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvNombre"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/bambino_light"
-            android:text="TextView"
+            android:hint="@string/nombre"
+            android:paddingLeft="@dimen/PADDING_15"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/tvUserAge"
+            android:id="@+id/tvFechaNac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:hint="@string/fecha_de_nacimiento"
+            android:paddingLeft="@dimen/PADDING_15" />
 
     </LinearLayout>
 

@@ -152,9 +152,6 @@ public abstract class Base_Activity extends AppCompatActivity
         } else if (id == R.id.nav_Beach_Map) {
 
 
-        } else if (id == R.id.nav_Beach_Fans) {
-            startActivity(new Intent(this, User_List.class));
-
         } else if (id == R.id.nav_Beach_Alerts) {
 
             Intent i = new Intent(this,Alertas_Activity.class);
@@ -165,6 +162,9 @@ public abstract class Base_Activity extends AppCompatActivity
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
             ((ContextoCustom) getApplicationContext()).setUser(null);
+        } else if (id == R.id.nav_Usuarios) {
+            Intent i = new Intent(this,Todos_Usuarios.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

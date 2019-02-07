@@ -172,7 +172,8 @@
         android:layout_marginBottom="0dp"
         android:background="@drawable/pressed_button_effect"
         android:fontFamily="@font/bambino"
-        android:text="@string/continuar"
+        android:onClick="subir_Alerta"
+        android:text="@string/a_adir"
         android:textColor="@color/blancoNieve"
         android:textSize="18sp" />
 </RelativeLayout>

@@ -85,4 +85,7 @@
     <string name="fecha_">Fecha</string>
     <string name="hora_">Hora</string>
     <string name="toast_nueva_alerta">Ninguno de los campos debe estar en blanco</string>
+    <string name="a_adir">Añadir</string>
+    <string name="fotousuario">fotoUsuario</string>
+    <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
 </resources>

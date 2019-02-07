@@ -14,7 +14,7 @@
             android:id="@+id/nav_Beach_Map"
             android:title="Mapa" />
         <item
-            android:id="@+id/nav_Beach_Fans"
+            android:id="@+id/nav_Usuarios"
             android:title="Beach Fans" />
     </group>
 
