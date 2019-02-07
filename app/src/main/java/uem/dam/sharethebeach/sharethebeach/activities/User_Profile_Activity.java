@@ -217,30 +217,6 @@ public class User_Profile_Activity extends Base_Activity {
     }
 
     public void subirImagen(Uri uri) {
-
-        FirebaseStorage.getInstance().getReference().child("pepe").child(uri.getLastPathSegment())
-                .putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // Get a URL to the uploaded content
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                uriTask.addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.e("URI", uri.toString());
-                    }
-                });
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                    }
-                });
-
-    /*
         destino = storage.child("fotoUsuario").child(String.valueOf(uri.getLastPathSegment()));
 
 
@@ -270,7 +246,6 @@ public class User_Profile_Activity extends Base_Activity {
                 }
             }
         });
-        */
     }
 
     private Uri getImageUri(Context context, Bitmap inImage) {
