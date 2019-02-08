@@ -183,6 +183,10 @@ public class User_Profile_Activity extends Base_Activity {
         tvFecha.setText("Fecha Nacimiento: " + dia + "/" + mes + "/" + anio);
     }
 
+    public void caca(View v) {
+
+    }
+
     @Override
     public int cargarLayout() {
         return R.layout.activity_user__profile_;
