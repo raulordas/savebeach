@@ -98,4 +98,6 @@
     <string name="fecha_1_s">Fecha: %1$s</string>
     <string name="hora_1_s">Hora: %1$s</string>
     <string name="creador_1_s">Creador: %1$s</string>
+    <string name="seleccionar_opcion">Seleccione una opcion:</string>
+    <string name="seleccionar_playa">Seleccione una playa:</string>
 </resources>
