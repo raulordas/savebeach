@@ -3,9 +3,12 @@ package uem.dam.sharethebeach.sharethebeach.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,10 +20,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
+import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
 /*
 Esta clase incorpora la barra de navegación Toolbar y asigna el layout del activity que
@@ -31,10 +45,14 @@ el código en cada una de los activities en los que queremos hacer uso del menú
 public abstract class Base_Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private CircleImageView imgPerfil;
+    private DatabaseReference dbr;
+    private ChildEventListener cel;
+    private ArrayList<Usuario> listaUsuarios;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         //Activamos la funcionalidad de transiciones
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
 
@@ -81,7 +99,7 @@ public abstract class Base_Activity extends AppCompatActivity
         });
 
         //Carga el Drawer
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
@@ -101,8 +119,59 @@ public abstract class Base_Activity extends AppCompatActivity
         });
 
         //Carga la navegación
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView =  navigationView.getHeaderView(0);
+
+        //Carga la foto de perfil en el bar header si el usuario esta loggeado
+        imgPerfil = hView.findViewById(R.id.imgPerfil);
+        listaUsuarios = new ArrayList<>();
+        dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
+
+        if (cel == null) {
+            cel = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Usuario user = dataSnapshot.getValue(Usuario.class);
+                    listaUsuarios.add(user);
+
+                    FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (userFirebase != null) {
+                        for (Usuario aux : listaUsuarios) {
+                            Log.e("usuari", aux.getUid());
+                            if (aux.getUid().equals(userFirebase.getUid())) {
+                                Glide.with(Base_Activity.this).load(aux.getUrlFoto()).into(imgPerfil);
+                                dbr.removeEventListener(cel);
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+            };
+            dbr.addChildEventListener(cel);
+        }
     }
 
     //Metodo abstracto que utilizamos desde la clase que extienda para cargar el layout.
@@ -165,6 +234,7 @@ public abstract class Base_Activity extends AppCompatActivity
         } else if (id == R.id.nav_Logout) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 FirebaseAuth.getInstance().signOut();
+                Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
             }
         } else if (id == R.id.nav_Usuarios) {
             Intent i = new Intent(this,Todos_Usuarios.class);
