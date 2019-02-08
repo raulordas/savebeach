@@ -194,6 +194,9 @@ public class User_Profile_Activity extends Base_Activity {
 
             dbr.child(uid).setValue(usuario);
             Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, Beach_List.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         }
     }
 

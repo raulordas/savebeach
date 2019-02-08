@@ -100,4 +100,6 @@
     <string name="creador_1_s">Creador: %1$s</string>
     <string name="debe_rellenar_todos_los_campos">Debe rellenar todos los campos</string>
     <string name="info">Recuerde: Debe pulsar el botón aceptar para guardar los cambios</string>
+    <string name="seleccionar_opcion">Seleccione una opcion:</string>
+    <string name="seleccionar_playa">Seleccione una playa:</string>
 </resources>
