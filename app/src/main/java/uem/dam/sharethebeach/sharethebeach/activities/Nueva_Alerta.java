@@ -61,6 +61,9 @@ public class Nueva_Alerta extends Base_Activity {
     private static final int GALERIA = 1;
     private static final int FOTO = 2;
     Uri foto;
+    Alerta alert;
+    private String url;
+    private boolean cambioFoto;
     public static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 123;
     private DatabaseReference dbR;
     private StorageReference storage;
@@ -72,6 +75,10 @@ public class Nueva_Alerta extends Base_Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_nueva__alerta);
+
+        cambioFoto = false;
+        //En caso de no haber cambiado la foto la url sera Default para que cargue una imagen por defecto que ya estan en la app.
+        url = "DEFAULT";
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
         storage = FirebaseStorage.getInstance().getReference();
@@ -142,13 +149,13 @@ public class Nueva_Alerta extends Base_Activity {
             System.out.println(imageBitmap);
             foto = getImageUri(this,imageBitmap);
             imgUsuario.setImageURI(foto);
-
+            cambioFoto = true;
 
 
         } else if (requestCode == GALERIA && resultCode == RESULT_OK) {
             foto = data.getData();
             imgUsuario.setImageURI(foto);
-
+            cambioFoto = true;
         }
     }
 
@@ -227,53 +234,57 @@ public class Nueva_Alerta extends Base_Activity {
 
         }else{
 
-            destino = storage.child("fotoUsuario").child(String.valueOf(foto.getLastPathSegment()));
-            //subida foto
-            UploadTask uploadTask =  destino.putFile(foto);
+            if(cambioFoto){
+                subirFoto();
 
-
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                    if (!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    return destino.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
-
-                        Uri downloadUri = task.getResult();
-
-                        String url = downloadUri.toString();    //URL DE DESCARGA
-                        System.out.println(url);
-                        //Subida de la alerta finalizada al firebase
-                        String key = dbR.push().getKey();
-
-                        Alerta alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
-                                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
-                        System.out.println(alert);
-                        dbR.child(key).setValue(alert);
-
-
-                    } else {
-                        //Posibles errores
-                    }
-                }
-            });
-
-
-
-
-
-
-
-
-
+            }else{
+                subirAlerta();
+            }
         }
+    }
+
+    private void subirAlerta() {
+        //Subida de la alerta finalizada al firebase
+        String key = dbR.push().getKey();
+
+        alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
+                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
+
+        dbR.child(key).setValue(alert);
+    }
+
+    private void subirFoto() {
+        destino = storage.child("fotoUsuario").child(String.valueOf(foto.getLastPathSegment()));
+        //subida foto
+        UploadTask uploadTask =  destino.putFile(foto);
+
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return destino.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+
+                    Uri downloadUri = task.getResult();
+
+                    url = downloadUri.toString();    //URL DE DESCARGA
+
+                    subirAlerta();
+
+
+                } else {
+                    //Posibles errores
+                }
+            }
+        });
 
 
 
