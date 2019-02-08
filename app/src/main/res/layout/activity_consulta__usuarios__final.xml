@@ -4,43 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
     android:orientation="vertical"
-    android:paddingTop="@dimen/PADDING_30"
     tools:context=".activities.Consulta_Usuarios_Final">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/foto_UserF"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:foregroundGravity="top"
+        android:src="@drawable/hombre"
+        app:civ_border_color="#FF000000" />
 
     <TextView
         android:id="@+id/tvNombreF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="Nombre"
+        android:paddingLeft="@dimen/PADDING_30"
         android:paddingTop="@dimen/PADDING_30"
+        android:paddingRight="@dimen/PADDING_30"
         android:textColor="@android:color/black"
         android:textSize="35sp" />
-
-    <TextView
-        android:id="@+id/tvFechaNacF"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Fecha de Nacimiento"
-        android:paddingTop="@dimen/PADDING_30"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/tvEmailF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="Email"
+        android:paddingTop="@dimen/PADDING_30"
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvFechaNacF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="Fecha de Nacimiento"
         android:paddingTop="@dimen/PADDING_30"
         android:textColor="@android:color/black"
         android:textSize="24sp" />
@@ -50,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="Descripción"
         android:paddingTop="@dimen/PADDING_30"
         android:textColor="@android:color/black"

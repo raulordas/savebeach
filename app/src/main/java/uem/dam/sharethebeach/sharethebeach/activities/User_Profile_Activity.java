@@ -2,6 +2,7 @@ package uem.dam.sharethebeach.sharethebeach.activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,11 +12,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,16 +30,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
+import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
+import uem.dam.sharethebeach.sharethebeach.views.info_UserProfile;
 
 public class User_Profile_Activity extends Base_Activity {
     private static final int COD_PICK_FOTO = 151;
@@ -48,6 +57,7 @@ public class User_Profile_Activity extends Base_Activity {
     TextView email;
     TextView tvNombre;
     TextView tvDescripcion;
+    Usuario u;
 
     EditText tvFecha;
     FirebaseUser user;
@@ -57,11 +67,13 @@ public class User_Profile_Activity extends Base_Activity {
     String fecha;
     String descripcion;
     String URL;
+    info_UserProfile infoUser;
 
     StorageReference destino;
     StorageReference storage;
     DatabaseReference dbr;
     ChildEventListener cel;
+    ArrayList<Usuario> listaUsuarios;
 
 
     private int dia;
@@ -73,12 +85,12 @@ public class User_Profile_Activity extends Base_Activity {
         //setContentView(R.layout.activity_user__profile_);
 
         user  = FirebaseAuth.getInstance().getCurrentUser();
-        //emailF = "juan.notario20@gmail.com";
-        //uid = "123456789";
+        listaUsuarios = new ArrayList<Usuario>();
 
         if (user != null) {
             emailF = user.getEmail();
             uid = user.getUid();
+
         } else {
             //Aqui ira algo
         }
@@ -117,6 +129,54 @@ public class User_Profile_Activity extends Base_Activity {
 
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
 
+        if (cel == null) {
+            cel = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Usuario user = dataSnapshot.getValue(Usuario.class);
+                    listaUsuarios.add(user);
+
+                    FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
+
+                    if (userFirebase != null) {
+                        for (Usuario aux : listaUsuarios) {
+                            Log.e("usuari", aux.getUid());
+                            if (aux.getUid().equals(userFirebase.getUid())) {
+                                Glide.with(User_Profile_Activity.this).load(aux.getUrlFoto()).into(ivFoto);
+                                tvNombre.setText(aux.getNombre_completo());
+                                tvFecha.setText(aux.getDescripcion());
+                                tvDescripcion.setText(aux.getDescripcion());
+                                dbr.removeEventListener(cel);
+                            }
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+
+            };
+            dbr.addChildEventListener(cel);
+        }
+
     }
 
     public void aceptar(View view) {
@@ -124,10 +184,11 @@ public class User_Profile_Activity extends Base_Activity {
         fecha = tvFecha.getText().toString();
         descripcion = tvDescripcion.getText().toString();
 
-        Usuario usuario = new Usuario(uid,emailF, nombre, fecha, descripcion, URL);
+        Usuario usuario = new Usuario(uid, emailF, nombre, fecha, descripcion, URL);
 
-        if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Rellena todos los campos", Toast.LENGTH_SHORT).show();
+        if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty() || emailF.trim().isEmpty()) {
+            CustomDialog custom = new CustomDialog(this, R.string.debe_rellenar_todos_los_campos);
+            custom.show();
 
         } else {
 
@@ -225,6 +286,9 @@ public class User_Profile_Activity extends Base_Activity {
                     URL = downloadUri.toString();  //URL DE DESCARGA
                     System.out.println(URL);
                     Glide.with(User_Profile_Activity.this).load(URL).into(ivFoto); //Mostramos imagen en imageview
+
+                    infoUser = new info_UserProfile(User_Profile_Activity.this);
+                    infoUser.show();
 
                 } else {
                     //Posibles errores

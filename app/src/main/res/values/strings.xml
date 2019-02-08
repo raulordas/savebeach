@@ -98,4 +98,6 @@
     <string name="fecha_1_s">Fecha: %1$s</string>
     <string name="hora_1_s">Hora: %1$s</string>
     <string name="creador_1_s">Creador: %1$s</string>
+    <string name="debe_rellenar_todos_los_campos">Debe rellenar todos los campos</string>
+    <string name="info">Recuerde: Debe pulsar el botón aceptar para guardar los cambios</string>
 </resources>
