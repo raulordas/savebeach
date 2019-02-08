@@ -22,7 +22,7 @@
         app:backgroundTint="@color/colorPrimary" />
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/usersTabs"
+        android:id="@+id/alertasTabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleX="1"
@@ -43,18 +43,13 @@
             android:icon="@drawable/ic_up_and_down_opposite_double_arrows_side_by_side"
             android:text="@string/tab_ordenar" />
 
-        <android.support.design.widget.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:icon="@drawable/ic_location_pin"
-            android:text="@string/tab_mapa" />
     </android.support.design.widget.TabLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewAlertas"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:layout_below="@+id/usersTabs" />
+        android:layout_below="@+id/alertasTabs" />
 
     <ProgressBar
         android:id="@+id/progressLoadBeach"
