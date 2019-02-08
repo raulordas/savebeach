@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.view.menu.MenuView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,7 +18,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -49,6 +50,7 @@ public abstract class Base_Activity extends AppCompatActivity
     private DatabaseReference dbr;
     private ChildEventListener cel;
     private ArrayList<Usuario> listaUsuarios;
+    private Menu menuv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -194,6 +196,12 @@ public abstract class Base_Activity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         //Infla el menu y añade los items al menu
         getMenuInflater().inflate(R.menu.test, menu);
+        this.menuv = menu;
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            menu.getItem(0).setVisible(false);
+        }
+
         return true;
     }
 
@@ -234,6 +242,7 @@ public abstract class Base_Activity extends AppCompatActivity
         } else if (id == R.id.nav_Logout) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 FirebaseAuth.getInstance().signOut();
+                menuv.getItem(0).setVisible(true);
                 Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
             }
         } else if (id == R.id.nav_Usuarios) {
