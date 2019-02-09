@@ -36,6 +36,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
+import uem.dam.sharethebeach.sharethebeach.views.DialogLogin;
 
 /*
 Esta clase incorpora la barra de navegación Toolbar y asigna el layout del activity que
@@ -51,6 +52,7 @@ public abstract class Base_Activity extends AppCompatActivity
     private ChildEventListener cel;
     private ArrayList<Usuario> listaUsuarios;
     private Menu menuv;
+    private DialogLogin dialogLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +176,8 @@ public abstract class Base_Activity extends AppCompatActivity
             };
             dbr.addChildEventListener(cel);
         }
+
+        dialogLogin = new DialogLogin(this);
     }
 
     //Metodo abstracto que utilizamos desde la clase que extienda para cargar el layout.
@@ -227,9 +231,11 @@ public abstract class Base_Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_Beaches) {
+            startActivity(new Intent(this, Beach_List.class));
 
         } else if (id == R.id.nav_Beach_Map) {
-
+            Intent i = new Intent(this, chatGeneral.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_Beach_Alerts) {
 
@@ -237,12 +243,14 @@ public abstract class Base_Activity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_Login) {
+            cargarDialogLogin();
+
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 FirebaseAuth.getInstance().signOut();
-                menuv.getItem(0).setVisible(true);
+                menuv.getItem(0).setVisible(false);
                 Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
             }
         } else if (id == R.id.nav_Usuarios) {
@@ -253,5 +261,11 @@ public abstract class Base_Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //Metodo que abre la ventana de dialogo Login
+    public void cargarDialogLogin() {
+        dialogLogin.clearDialog();
+        dialogLogin.show();
     }
 }

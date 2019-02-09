@@ -79,6 +79,8 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
             // Add a marker in Sydney and move the camera
             LatLng localizacionPlaya = new LatLng(playa.getLatitud(), playa.getLongitud());
             mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title(playa.getNombre())).setIcon(des);
+
+            /*
             mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                 @Override
                 public boolean onMarkerClick(Marker marker) {
@@ -86,6 +88,7 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
                     return true;
                 }
             });
+            */
             //mMap.addMarker(new MarkerOptions().position(localizacionPlaya).title("ALERTA DE MEDUSAS"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(localizacionPlaya));
             mMap.moveCamera(CameraUpdateFactory.zoomTo(12));
@@ -105,24 +108,5 @@ public class MapsActivity extends Base_Activity implements OnMapReadyCallback {
         Canvas canvas = new Canvas(bitmap);
         drawable.draw(canvas);
         return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
-    //Metodo pendiente de implementar
-    public void verTodasLasPlayas(){
-
-    }
-
-    //Metodo pendiente de implementar
-    public void cargarPlaya(){
-
-    }
-
-    //Metodo pendiente de implementar
-    public void mostrarAlertasPlayaSeleccionada(){
-
-    }
-
-    //Metodo pendiente de implementar
-    public void verAlertaSeleccionada(){
-
     }
 }

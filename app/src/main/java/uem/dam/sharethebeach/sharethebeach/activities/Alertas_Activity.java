@@ -28,6 +28,7 @@ import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdapterAlertas;
 import uem.dam.sharethebeach.sharethebeach.bean.Alerta;
+import uem.dam.sharethebeach.sharethebeach.bean.Playa;
 
 public class Alertas_Activity extends Base_Activity {
 
@@ -39,6 +40,11 @@ public class Alertas_Activity extends Base_Activity {
     RecyclerView recicler;
     LinearLayoutManager miLayoutManager;
     ArrayList<Alerta> lista = new ArrayList<>();
+
+    //Guardaremos todas las alertas en esta lista sin modificacion posible.
+    ArrayList<Alerta> listaCompleta = new ArrayList<>();
+
+    ArrayList<Alerta> listaFiltrada = new ArrayList<>();
     FloatingActionButton boton;
     private TabLayout alertsTabs;
 
@@ -116,7 +122,7 @@ public class Alertas_Activity extends Base_Activity {
              public void onTabReselected(TabLayout.Tab tab) {
 
                  if (tab.getText().equals(getString(R.string.tab_filtrar))) {
-
+                    verDialogFiltrar();
                  } else if(tab.getText().equals(getString(R.string.tab_ordenar))) {
                      verDialogOrdenar();
                  }
@@ -135,7 +141,9 @@ public class Alertas_Activity extends Base_Activity {
 
                     Alerta alert = dataSnapshot.getValue(Alerta.class);
                     lista.add(alert);
+                    listaCompleta.add(alert);
                     adaptador.notifyItemInserted(lista.size() - 1);
+                    filtrarLista("Todas las Alertas");
 
                 }
 
@@ -177,7 +185,7 @@ public class Alertas_Activity extends Base_Activity {
         final CharSequence[] lista = {"Ordenar por Nombre de A-Z", "Ordenar Por nombre de Z-A"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getString(R.string.ELEGIR_MUNICIPIO));
+        builder.setTitle(getString(R.string.seleccionar_opcion));
 
         builder.setItems(lista, new DialogInterface.OnClickListener() {
             @Override
@@ -196,6 +204,61 @@ public class Alertas_Activity extends Base_Activity {
                 dialogInterface.cancel();
             }
         }).create().show();
+    }
+
+    public void verDialogFiltrar(){
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.seleccionar_playa));
+
+
+        builder.setNeutralButton(getString(R.string.DIALOG_CANCEL), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+
+       ArrayList<Playa> listaP =  ((ContextoCustom) (getApplicationContext())).getListadoPlayas();
+        final CharSequence[] lista = new CharSequence[listaP.size() + 1];
+        final CharSequence[] listaIds = new CharSequence[listaP.size() + 1];
+
+        for (int i = 0; i < listaP.size();i++){
+            lista[i] = listaP.get(i).getNombre();
+            listaIds[i] = listaP.get(i).getId();
+        }
+
+        lista[lista.length -1] = "Todas las Alertas";
+        listaIds[listaIds.length -1] = "Todas las Alertas";
+
+        builder.setItems(lista, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                filtrarLista(listaIds[i].toString());
+            }
+
+        }).create().show();
+
+    }
+
+    public void filtrarLista(String id){
+
+        if(id.equals("Todas las Alertas")){
+            adaptador.eliminarTodasLasAlertas();
+            adaptador.agregarPlayas(listaCompleta);
+        }else{
+            listaFiltrada.clear();
+            for (int i = 0; i < listaCompleta.size();i++){
+                if(listaCompleta.get(i).getId_playa().equals(id)){
+                    listaFiltrada.add(listaCompleta.get(i));
+
+                }
+            }
+            adaptador.eliminarTodasLasAlertas();
+            adaptador.agregarPlayas(listaFiltrada);
+
+        }
     }
 
 }

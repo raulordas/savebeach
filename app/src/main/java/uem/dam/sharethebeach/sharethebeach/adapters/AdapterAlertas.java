@@ -93,7 +93,7 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
         Collections.sort(listaAlertas, new Comparator<Alerta>() {
             @Override
             public int compare(Alerta alerta, Alerta t1) {
-                return alerta.getTitulo().compareTo(t1.getTitulo());
+                return alerta.getTitulo().compareToIgnoreCase(t1.getTitulo());
             }
         });
         notifyDataSetChanged();
@@ -103,9 +103,21 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
         Collections.sort(listaAlertas, new Comparator<Alerta>() {
             @Override
             public int compare(Alerta alerta, Alerta t1) {
-                return (alerta.getTitulo().compareTo(t1.getTitulo())) * -1;
+                return (alerta.getTitulo().compareToIgnoreCase(t1.getTitulo())) * -1;
             }
         });
+        notifyDataSetChanged();
+    }
+
+    public void eliminarTodasLasAlertas(){
+        int size = listaAlertas.size();
+        listaAlertas.clear();
+        notifyItemRangeRemoved(0, size);
+    }
+
+    public void agregarPlayas(ArrayList<Alerta> alertas) {
+        listaAlertas.addAll(alertas);
+        //notifyItemRangeChanged(0, getItemCount());
         notifyDataSetChanged();
     }
 
