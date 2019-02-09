@@ -84,7 +84,15 @@ public class Alertas_Activity extends Base_Activity {
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //AL PULSAR UNA ALERTA
+
+                Alerta al = lista.get(recicler.getChildAdapterPosition(v));
+
+                Intent i = new Intent(Alertas_Activity.this,Informacion_alertas.class);
+
+                i.putExtra(getString(R.string.CLAVE_ALERTA), al);
+
+                startActivity(i);
+
             }
         });
 

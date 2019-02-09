@@ -58,7 +58,8 @@
         <activity android:name=".activities.Todos_Usuarios" />
         <activity android:name=".activities.Consulta_Usuarios_Final" />
         <activity android:name=".views.info_UserProfile" />
-        <activity android:name=".activities.chatGeneral"></activity>
+        <activity android:name=".activities.chatGeneral" />
+        <activity android:name=".activities.Informacion_alertas"></activity>
     </application>
 
 </manifest>

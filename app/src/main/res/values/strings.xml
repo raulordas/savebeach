@@ -103,4 +103,8 @@
     <string name="info">Recuerde: Debe pulsar el botón aceptar para guardar los cambios</string>
     <string name="seleccionar_opcion">Seleccione una opcion:</string>
     <string name="seleccionar_playa">Seleccione una playa:</string>
+    <string name="localizacion">Localizacion:</string>
+    <string name="textview">TextView</string>
+    <string name="usuarios_interesados">Usuarios interesados:</string>
+    <string name="CLAVE_ALERTA">CLAVE ALERTA</string>
 </resources>

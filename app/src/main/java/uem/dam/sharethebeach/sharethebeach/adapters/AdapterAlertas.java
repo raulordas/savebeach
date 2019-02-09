@@ -47,7 +47,7 @@ public class AdapterAlertas extends RecyclerView.Adapter<AdapterAlertas.HolderAl
 
         //Demomento solo meto una imagen aleatoria.
         if(listaAlertas.get(position).getUrlImg().equals("DEFAULT")){
-            holder.imgAlerta.setImageDrawable(context.getDrawable(R.drawable.imagen_alertas_pruebas));
+            holder.imgAlerta.setImageDrawable(context.getDrawable(R.drawable.beach_sample));
         }else{
             Glide.with(context).load(listaAlertas.get(position).getUrlImg()).into(holder.imgAlerta);
         }

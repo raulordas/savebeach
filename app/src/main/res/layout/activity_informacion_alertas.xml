@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/PADDING_10"
+    tools:context=".activities.Informacion_alertas">
+
+    <TextView
+        android:id="@+id/txtInfTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bambino"
+        android:text="@string/textview"
+        android:textColor="@color/azulViento"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/txtInfDescrip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bambino"
+        android:paddingTop="@dimen/PADDING3"
+        android:text="TextView"
+        android:textColor="@color/azulViento" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/PADDING_10">
+
+        <ImageView
+            android:id="@+id/imgAlertInfo"
+            android:layout_width="326dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtInfoFecho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bambino"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/azulViento"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtInfoHora"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bambino"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/azulViento"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtInfoLo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bambino"
+        android:paddingTop="@dimen/PADDING_15"
+        android:text="@string/localizacion"
+        android:textColor="@color/azulViento"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/PADDING3">
+
+        <ImageView
+            android:id="@+id/imgPlayaInfoAlert"
+            android:layout_width="200dp"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="9dp" />
+
+            <TextView
+                android:id="@+id/txtNombreLocal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bambino"
+                android:text="TextView"
+                android:textColor="@color/azulViento"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtNombreMuni"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bambino"
+                android:gravity="center_vertical"
+                android:text="TextView"
+                android:textColor="@color/azulViento" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtUsuAcu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bambino"
+        android:paddingTop="@dimen/PADDING_5"
+        android:text="@string/usuarios_interesados"
+        android:textColor="@color/azulViento"
+        android:textSize="18sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="177dp"
+        android:paddingTop="@dimen/PADDING_15" />
+
+    <Button
+        android:id="@+id/btnMeInteresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/PADDING_15"
+        android:background="@drawable/pressed_button_effect"
+        android:fontFamily="@font/bambino"
+        android:text="Me Interesa"
+        android:textColor="@color/blancoNieve"
+        android:textSize="18sp" />
+
+</LinearLayout>
