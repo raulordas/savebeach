@@ -38,7 +38,8 @@ public class AdaptadorUsuarioAlertaInfo  extends RecyclerView.Adapter<AdaptadorU
 
     @Override
     public void onBindViewHolder(@NonNull UsuHolder holder, int position) {
-        holder.bindMensaje(lista.get(position));
+        holder.nomUser.setText(lista.get(position).getNombre_completo());
+        Glide.with(contexto).load(lista.get(position).getUrlFoto()).into(holder.fotoUser);
     }
 
     @Override
@@ -53,13 +54,13 @@ public class AdaptadorUsuarioAlertaInfo  extends RecyclerView.Adapter<AdaptadorU
 
         public UsuHolder(View itemView) {
             super(itemView);
-            this.nomUser = itemView.findViewById(R.id.fotoUsuario);
-            this.fotoUser = itemView.findViewById(R.id.InfoAleUsuNom);
+            this.nomUser = itemView.findViewById(R.id.InfoAleUsuNom);
+            this.fotoUser = itemView.findViewById(R.id.fotoUsuario);
         }
 
-        public void bindMensaje(Usuario m){
-            nomUser.setText(m.getNombre_completo());
-            Glide.with(contexto).load(m.getUrlFoto()).into(fotoUser);
-        }
+    }
+
+    public void clear(){
+        lista.clear();
     }
 }

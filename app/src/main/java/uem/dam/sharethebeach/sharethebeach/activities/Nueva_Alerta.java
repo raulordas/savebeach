@@ -46,6 +46,7 @@ import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.adapters.AdapterSpinner;
 import uem.dam.sharethebeach.sharethebeach.bean.Alerta;
 import uem.dam.sharethebeach.sharethebeach.bean.Playa;
+import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 
 public class Nueva_Alerta extends Base_Activity {
 
@@ -84,6 +85,7 @@ public class Nueva_Alerta extends Base_Activity {
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
         storage = FirebaseStorage.getInstance().getReference();
+
 
         pSpi = findViewById(R.id.spPlayas);
         adaptador = new AdapterSpinner(this,((ContextoCustom) (getApplicationContext())).getListadoPlayas());
@@ -249,7 +251,7 @@ public class Nueva_Alerta extends Base_Activity {
         String key = dbR.push().getKey();
 
         alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
-                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
+                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<Usuario>(),url);
 
         dbR.child(key).setValue(alert);
     }

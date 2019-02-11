@@ -133,4 +133,17 @@ public class Usuario implements Parcelable {
         dest.writeString(descripcion);
         dest.writeString(urlFoto);
     }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "uid='" + uid + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", nombre_completo='" + nombre_completo + '\'' +
+                ", fechaNac='" + fechaNac + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", urlFoto='" + urlFoto + '\'' +
+                '}';
+    }
 }
