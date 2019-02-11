@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -51,12 +52,12 @@ public class Nueva_Alerta extends Base_Activity {
     Spinner pSpi;
     AdapterSpinner adaptador;
     private int ano,mes,dia,hora,minutos;
-    TextView fecha;
-    TextView horaTxt;
+    TextInputEditText fecha;
+    TextInputEditText horaTxt;
     TextView titulo;
     TextView descripcion;
-    ImageView imgBoton;
     ImageView imgUsuario;
+    ImageView imgCamera;
     Playa playaSel;
     private static final int GALERIA = 1;
     private static final int FOTO = 2;
@@ -74,6 +75,7 @@ public class Nueva_Alerta extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Nueva Alerta");
         //setContentView(R.layout.activity_nueva__alerta);
 
         cambioFoto = false;
@@ -87,16 +89,15 @@ public class Nueva_Alerta extends Base_Activity {
         adaptador = new AdapterSpinner(this,((ContextoCustom) (getApplicationContext())).getListadoPlayas());
         pSpi.setAdapter(adaptador);
 
-        fecha = findViewById(R.id.txtMuestraFecha);
-        horaTxt = findViewById(R.id.txtMuestraHora);
+        fecha = findViewById(R.id.btnFecha);
+        horaTxt = findViewById(R.id.btnHora);
         titulo = findViewById(R.id.txtTituloNA);
         descripcion = findViewById(R.id.txtDescripcionNA);
 
         imgUsuario = findViewById(R.id.imgAlerta);
-        imgBoton = findViewById(R.id.imgBotonAniadir);
-        imgBoton.setClickable(true);
+        imgCamera = findViewById(R.id.imgCamera);
 
-        imgBoton.setOnClickListener(new View.OnClickListener() {
+        imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.view.menu.MenuView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,11 +18,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -35,6 +39,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
+import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
+import uem.dam.sharethebeach.sharethebeach.views.DialogLogin;
+import uem.dam.sharethebeach.sharethebeach.views.DialogQuestion;
 
 /*
 Esta clase incorpora la barra de navegación Toolbar y asigna el layout del activity que
@@ -49,6 +56,9 @@ public abstract class Base_Activity extends AppCompatActivity
     private DatabaseReference dbr;
     private ChildEventListener cel;
     private ArrayList<Usuario> listaUsuarios;
+    private Menu menuv;
+    private DialogLogin dialogLogin;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +129,16 @@ public abstract class Base_Activity extends AppCompatActivity
         });
 
         //Carga la navegación
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_Login).setVisible(false);
+        }
+
 
         //Carga la foto de perfil en el bar header si el usuario esta loggeado
         imgPerfil = hView.findViewById(R.id.imgPerfil);
@@ -194,6 +211,12 @@ public abstract class Base_Activity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         //Infla el menu y añade los items al menu
         getMenuInflater().inflate(R.menu.test, menu);
+        this.menuv = menu;
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            menu.getItem(0).setVisible(false);
+        }
+
         return true;
     }
 
@@ -219,6 +242,7 @@ public abstract class Base_Activity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_Beaches) {
+            startActivity(new Intent(this, Beach_List.class));
 
         } else if (id == R.id.nav_Beach_Map) {
             //Aquí va algo
@@ -229,13 +253,35 @@ public abstract class Base_Activity extends AppCompatActivity
             startActivity(i);
 
         } else if (id == R.id.nav_Login) {
+            cargarDialogLogin();
+
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
+
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                FirebaseAuth.getInstance().signOut();
-                Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
+                String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                String desconectar = String.format(getString(R.string.DIALOG_SEGURO_LOG_OUT), email);
+                String res = String.format(getString(R.string.STRING_FILL), desconectar);
+
+                final DialogQuestion question = new DialogQuestion(this, res);
+
+                question.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseAuth.getInstance().signOut();
+                        menuv.getItem(0).setVisible(false);
+                        Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
+                        question.cancel();
+
+                        navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
+                        navigationView.getMenu().findItem(R.id.nav_Login).setVisible(true);
+                    }
+                });
+
+                question.show();
             }
+
         } else if (id == R.id.nav_Usuarios) {
             Intent i = new Intent(this,Todos_Usuarios.class);
             startActivity(i);
@@ -244,5 +290,52 @@ public abstract class Base_Activity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //Metodo que abre la ventana de dialogo Login
+    public void cargarDialogLogin() {
+        dialogLogin = new DialogLogin(this);
+        dialogLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!dialogLogin.comprobarCamposVacios()) {
+                    Usuario user = dialogLogin.getDatos();
+
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                            .addOnCompleteListener(Base_Activity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(true);
+                                        navigationView.getMenu().findItem(R.id.nav_Login).setVisible(false);
+                                        menuv.getItem(0).setVisible(true);
+
+                                        FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
+
+                                        if (userFirebase != null) {
+                                            for (Usuario aux : listaUsuarios) {
+                                                Log.e("usuari", aux.getUid());
+                                                if (aux.getUid().equals(userFirebase.getUid())) {
+                                                    Glide.with(Base_Activity.this).load(aux.getUrlFoto()).into(imgPerfil);
+                                                    dbr.removeEventListener(cel);
+                                                }
+                                            }
+                                        }
+
+                                        dialogLogin.cancel();
+
+                                    } else {
+                                        // Si falla mostramos un dialog que diga que no se ha podido conectar
+                                        //con dicha informacion. Pendiente de implementar
+
+                                    }
+                                }
+                            });
+                }
+            }
+        });
+        dialogLogin.show();
+
     }
 }

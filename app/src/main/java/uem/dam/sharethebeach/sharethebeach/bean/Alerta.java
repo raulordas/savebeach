@@ -1,9 +1,12 @@
 package uem.dam.sharethebeach.sharethebeach.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Alerta {
+public class Alerta implements Parcelable {
 
 
     private String id;
@@ -30,6 +33,48 @@ public class Alerta {
         this.usuarios_apuntados = usuarios_apuntados;
         this.urlImg = urlImg;
     }
+
+    protected Alerta(Parcel in) {
+        id = in.readString();
+        id_creador = in.readString();
+        descripcion = in.readString();
+        titulo = in.readString();
+        id_playa = in.readString();
+        fecha = in.readString();
+        hora = in.readString();
+        usuarios_apuntados = in.createStringArrayList();
+        urlImg = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(id_creador);
+        dest.writeString(descripcion);
+        dest.writeString(titulo);
+        dest.writeString(id_playa);
+        dest.writeString(fecha);
+        dest.writeString(hora);
+        dest.writeStringList(usuarios_apuntados);
+        dest.writeString(urlImg);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Alerta> CREATOR = new Creator<Alerta>() {
+        @Override
+        public Alerta createFromParcel(Parcel in) {
+            return new Alerta(in);
+        }
+
+        @Override
+        public Alerta[] newArray(int size) {
+            return new Alerta[size];
+        }
+    };
 
     public String getId() {
         return id;
