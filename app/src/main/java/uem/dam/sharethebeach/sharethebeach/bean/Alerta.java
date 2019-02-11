@@ -16,13 +16,13 @@ public class Alerta implements Parcelable {
     private String id_playa;
     private String fecha;
     private String hora;
-    private ArrayList<String> usuarios_apuntados;
+    private ArrayList<Usuario> usuarios_apuntados;
     private String urlImg;
 
     public Alerta() {
     }
 
-    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<String> usuarios_apuntados,String urlImg) {
+    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<Usuario> usuarios_apuntados,String urlImg) {
         this.id = id;
         this.id_creador = id_creador;
         this.descripcion = descripcion;
@@ -34,6 +34,7 @@ public class Alerta implements Parcelable {
         this.urlImg = urlImg;
     }
 
+
     protected Alerta(Parcel in) {
         id = in.readString();
         id_creador = in.readString();
@@ -42,7 +43,7 @@ public class Alerta implements Parcelable {
         id_playa = in.readString();
         fecha = in.readString();
         hora = in.readString();
-        usuarios_apuntados = in.createStringArrayList();
+        usuarios_apuntados = in.createTypedArrayList(Usuario.CREATOR);
         urlImg = in.readString();
     }
 
@@ -55,7 +56,7 @@ public class Alerta implements Parcelable {
         dest.writeString(id_playa);
         dest.writeString(fecha);
         dest.writeString(hora);
-        dest.writeStringList(usuarios_apuntados);
+        dest.writeTypedList(usuarios_apuntados);
         dest.writeString(urlImg);
     }
 
@@ -104,7 +105,7 @@ public class Alerta implements Parcelable {
         return hora;
     }
 
-    public ArrayList<String> getUsuarios_apuntados() {
+    public ArrayList<Usuario> getUsuarios_apuntados() {
         return usuarios_apuntados;
     }
 
@@ -114,6 +115,10 @@ public class Alerta implements Parcelable {
 
     public void setUrlImg(String urlImg) {
         this.urlImg = urlImg;
+    }
+
+    public void add_usuario(Usuario usu) {
+        this.usuarios_apuntados.add(usu);
     }
 
     @Override

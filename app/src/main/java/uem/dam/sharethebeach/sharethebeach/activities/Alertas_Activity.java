@@ -48,6 +48,8 @@ public class Alertas_Activity extends Base_Activity {
     FloatingActionButton boton;
     private TabLayout alertsTabs;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
