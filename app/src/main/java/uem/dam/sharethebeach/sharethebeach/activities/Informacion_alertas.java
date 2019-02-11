@@ -52,8 +52,8 @@ public class Informacion_alertas  extends Base_Activity {
 
         titulo.setText(al.getTitulo());
         descripcion.setText(al.getDescripcion());
-        fecha.setText(al.getFecha());
-        hora.setText(al.getHora());
+        fecha.setText( al.getFecha());
+        hora.setText( al.getHora());
 
         if(al.getUrlImg().equals("DEFAULT")){
             imgAlerta.setImageDrawable(getDrawable(R.drawable.beach_sample));
