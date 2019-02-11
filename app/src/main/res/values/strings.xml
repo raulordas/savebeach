@@ -107,4 +107,6 @@
     <string name="textview">TextView</string>
     <string name="usuarios_interesados">Usuarios interesados:</string>
     <string name="CLAVE_ALERTA">CLAVE ALERTA</string>
+    <string name="DIALOG_ACEPTAR">ACEPTAR</string>
+    <string name="DIALOG_SEGURO_LOG_OUT">Esta seguro que desea desconectar la cuenta : %1$s</string>
 </resources>

@@ -22,6 +22,9 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +39,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
+import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
 import uem.dam.sharethebeach.sharethebeach.views.DialogLogin;
+import uem.dam.sharethebeach.sharethebeach.views.DialogQuestion;
 
 /*
 Esta clase incorpora la barra de navegación Toolbar y asigna el layout del activity que
@@ -53,6 +58,7 @@ public abstract class Base_Activity extends AppCompatActivity
     private ArrayList<Usuario> listaUsuarios;
     private Menu menuv;
     private DialogLogin dialogLogin;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +129,16 @@ public abstract class Base_Activity extends AppCompatActivity
         });
 
         //Carga la navegación
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView =  navigationView.getHeaderView(0);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_Login).setVisible(false);
+        }
+
 
         //Carga la foto de perfil en el bar header si el usuario esta loggeado
         imgPerfil = hView.findViewById(R.id.imgPerfil);
@@ -176,8 +189,6 @@ public abstract class Base_Activity extends AppCompatActivity
             };
             dbr.addChildEventListener(cel);
         }
-
-        dialogLogin = new DialogLogin(this);
     }
 
     //Metodo abstracto que utilizamos desde la clase que extienda para cargar el layout.
@@ -248,11 +259,30 @@ public abstract class Base_Activity extends AppCompatActivity
 
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
+
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                FirebaseAuth.getInstance().signOut();
-                menuv.getItem(0).setVisible(false);
-                Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
+                String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                String desconectar = String.format(getString(R.string.DIALOG_SEGURO_LOG_OUT), email);
+                String res = String.format(getString(R.string.STRING_FILL), desconectar);
+
+                final DialogQuestion question = new DialogQuestion(this, res);
+
+                question.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseAuth.getInstance().signOut();
+                        menuv.getItem(0).setVisible(false);
+                        Glide.with(Base_Activity.this).load(R.mipmap.ic_saveicosave_round).into(imgPerfil);
+                        question.cancel();
+
+                        navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
+                        navigationView.getMenu().findItem(R.id.nav_Login).setVisible(true);
+                    }
+                });
+
+                question.show();
             }
+
         } else if (id == R.id.nav_Usuarios) {
             Intent i = new Intent(this,Todos_Usuarios.class);
             startActivity(i);
@@ -265,7 +295,48 @@ public abstract class Base_Activity extends AppCompatActivity
 
     //Metodo que abre la ventana de dialogo Login
     public void cargarDialogLogin() {
-        dialogLogin.clearDialog();
+        dialogLogin = new DialogLogin(this);
+        dialogLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!dialogLogin.comprobarCamposVacios()) {
+                    Usuario user = dialogLogin.getDatos();
+
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                            .addOnCompleteListener(Base_Activity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(true);
+                                        navigationView.getMenu().findItem(R.id.nav_Login).setVisible(false);
+                                        menuv.getItem(0).setVisible(true);
+
+                                        FirebaseUser userFirebase = FirebaseAuth.getInstance().getCurrentUser();
+
+                                        if (userFirebase != null) {
+                                            for (Usuario aux : listaUsuarios) {
+                                                Log.e("usuari", aux.getUid());
+                                                if (aux.getUid().equals(userFirebase.getUid())) {
+                                                    Glide.with(Base_Activity.this).load(aux.getUrlFoto()).into(imgPerfil);
+                                                    dbr.removeEventListener(cel);
+                                                }
+                                            }
+                                        }
+
+                                        dialogLogin.cancel();
+
+                                    } else {
+                                        // Si falla mostramos un dialog que diga que no se ha podido conectar
+                                        //con dicha informacion. Pendiente de implementar
+
+                                    }
+                                }
+                            });
+                }
+            }
+        });
         dialogLogin.show();
+
     }
 }
