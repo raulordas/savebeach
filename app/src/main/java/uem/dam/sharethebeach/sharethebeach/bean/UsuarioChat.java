@@ -4,6 +4,9 @@ public class UsuarioChat {
     private String mensaje;
     private String uid;
 
+    public UsuarioChat() {
+    }
+
     public UsuarioChat(String mensaje, String uid) {
         this.mensaje = mensaje;
         this.uid = uid;

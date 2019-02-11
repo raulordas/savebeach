@@ -221,8 +221,7 @@ public abstract class Base_Activity extends AppCompatActivity
         if (id == R.id.nav_Beaches) {
 
         } else if (id == R.id.nav_Beach_Map) {
-            Intent i = new Intent(this, chatGeneral.class);
-            startActivity(i);
+            //Aquí va algo
 
         } else if (id == R.id.nav_Beach_Alerts) {
 

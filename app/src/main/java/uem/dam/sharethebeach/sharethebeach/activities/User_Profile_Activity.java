@@ -144,8 +144,9 @@ public class User_Profile_Activity extends Base_Activity {
                             if (aux.getUid().equals(userFirebase.getUid())) {
                                 Glide.with(User_Profile_Activity.this).load(aux.getUrlFoto()).into(ivFoto);
                                 tvNombre.setText(aux.getNombre_completo());
-                                tvFecha.setText(aux.getDescripcion());
+                                tvFecha.setText(aux.getFechaNac());
                                 tvDescripcion.setText(aux.getDescripcion());
+                                URL = aux.getUrlFoto();
                                 dbr.removeEventListener(cel);
                             }
                         }
