@@ -10,10 +10,14 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +28,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
@@ -44,11 +50,17 @@ public class Informacion_alertas  extends Base_Activity {
     TextView nomPlaya;
     TextView muniPlaya;
     private DatabaseReference dbR;
+    private DatabaseReference dbRUpdate;
+    private DatabaseReference dbRUser;
     private ChildEventListener cel;
+    private ChildEventListener celUsu;
     RecyclerView recicler;
     LinearLayoutManager miLayoutManager;
     ArrayList<Usuario> lista = new ArrayList<>();
+    ArrayList<Usuario> listaCompletaUsuarios = new ArrayList<>();
     AdaptadorUsuarioAlertaInfo adaptador;
+    FirebaseUser user;
+    Alerta al;
 
 
 
@@ -67,9 +79,15 @@ public class Informacion_alertas  extends Base_Activity {
         imgAlerta = findViewById(R.id.imgAlertInfo);
         imgPlaya = findViewById(R.id.imgPlayaInfoAlert);
 
-        Alerta al = getIntent().getParcelableExtra(getString(R.string.CLAVE_ALERTA));
+        user  = FirebaseAuth.getInstance().getCurrentUser();
+
+        al = getIntent().getParcelableExtra(getString(R.string.CLAVE_ALERTA));
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta").child(al.getId()).child("usuarios_apuntados");
+        dbRUser = FirebaseDatabase.getInstance().getReference().child("Usuario");
+        dbRUpdate = FirebaseDatabase.getInstance().getReference().child("Alerta");
+
+        addChildEventUsu();
 
         recicler = findViewById(R.id.reciUsuInfo);
         recicler.setHasFixedSize(true);
@@ -121,16 +139,55 @@ public class Informacion_alertas  extends Base_Activity {
 
         addChildEvent();
     }
+    //Obtenemos la totalidad de los usuarios de la app
+    private void addChildEventUsu() {
+        if(celUsu == null) {
+            celUsu = new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    Usuario usu =  dataSnapshot.getValue(Usuario.class);
+                    listaCompletaUsuarios.add(usu);
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+            dbRUser.addChildEventListener(celUsu);
+        }
+    }
 
     private void addChildEvent() {
         if(cel == null) {
             cel = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    String id = dataSnapshot.getValue().toString();
 
-                    Usuario usu = dataSnapshot.getValue(Usuario.class);
-                    System.out.println(usu);
-                    lista.add(usu);
+                    for (int i= 0; i < listaCompletaUsuarios.size();i++){
+                        if(listaCompletaUsuarios.get(i).getUid().equals(id)){
+                            lista.add(listaCompletaUsuarios.get(i));
+                        }
+                    }
+
                     adaptador.notifyItemInserted(lista.size() - 1);
 
                 }
@@ -159,6 +216,37 @@ public class Informacion_alertas  extends Base_Activity {
         }
     }
 
+    public void apuntarse(View v){
+        if(!comprobarApuntado()){
+            for (int i= 0; i < listaCompletaUsuarios.size();i++){
+                if(listaCompletaUsuarios.get(i).getUid().equals(user.getUid())){
+
+                    al.add_idUsu(listaCompletaUsuarios.get(i).getUid());
+
+                    Map<String, Object> mapa = new HashMap<String, Object>();
+                    mapa.put(al.getId(),al);
+                    dbRUpdate.updateChildren(mapa);
+                    Toast.makeText(this, "Enhorabuena! Ya estas registrado en este evento", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }else{
+            Toast.makeText(this, "Usted ya esta apuntado a este evento", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean comprobarApuntado() {
+        boolean apuntado = false;
+
+        for (int i = 0; i < lista.size(); i++){
+            if(user.getUid().equals(lista.get(i).getUid())){
+                apuntado = true;
+            }
+        }
+        return apuntado;
+    }
+
+
     @Override
     public int cargarLayout() {
         return R.layout.activity_informacion_alertas;
@@ -173,6 +261,7 @@ public class Informacion_alertas  extends Base_Activity {
     public void onBackPressed() {
         super.onBackPressed();
         lista.clear();
+        listaCompletaUsuarios.clear();
         adaptador.clear();
     }
 }
