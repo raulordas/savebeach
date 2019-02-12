@@ -159,6 +159,7 @@
         android:layout_margin="@dimen/PADDING_15"
         android:background="@drawable/pressed_button_effect"
         android:fontFamily="@font/bambino"
+        android:onClick="apuntarse"
         android:text="Me Interesa"
         android:textColor="@color/blancoNieve"
         android:textSize="18sp" />

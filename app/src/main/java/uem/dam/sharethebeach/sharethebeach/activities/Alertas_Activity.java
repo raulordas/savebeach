@@ -15,7 +15,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,6 +50,7 @@ public class Alertas_Activity extends Base_Activity {
     ArrayList<Alerta> listaFiltrada = new ArrayList<>();
     FloatingActionButton boton;
     private TabLayout alertsTabs;
+    FirebaseUser user;
 
 
 
@@ -55,19 +59,19 @@ public class Alertas_Activity extends Base_Activity {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_alertas_);
 
-        //String id_usuario_creador = ((ContextoCustom) (getApplicationContext())).getUser().getUid();
+
         boton = findViewById(R.id.btnAniadirAlerta);
 
-        //Si el usuario que ha entrado no esta registrado no podra añadir alertas
-        /*
-        if(((ContextoCustom) (getApplicationContext())).getUser() == null){
+        user  = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(user == null){
 
             boton.setEnabled(false);
             boton.setVisibility(View.INVISIBLE);
 
 
         }
-        */
+
 
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
@@ -87,13 +91,17 @@ public class Alertas_Activity extends Base_Activity {
             @Override
             public void onClick(View v) {
 
-                Alerta al = lista.get(recicler.getChildAdapterPosition(v));
+                if (user != null) {
+                    Alerta al = lista.get(recicler.getChildAdapterPosition(v));
 
-                Intent i = new Intent(Alertas_Activity.this,Informacion_alertas.class);
+                    Intent i = new Intent(Alertas_Activity.this, Informacion_alertas.class);
 
-                i.putExtra(getString(R.string.CLAVE_ALERTA), al);
+                    i.putExtra(getString(R.string.CLAVE_ALERTA), al);
 
-                startActivity(i);
+                    startActivity(i);
+                }else{
+                    Toast.makeText(Alertas_Activity.this, "Para ver informacion detallada y unirse a eventos por favor logeate.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
