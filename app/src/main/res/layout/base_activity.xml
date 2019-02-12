@@ -20,7 +20,8 @@
         android:layout_gravity="start"
         app:headerLayout="@layout/app_bar_header"
         app:itemBackground="@android:color/background_light"
-        app:itemTextAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        app:itemIconTint="@color/colorMarronClaro"
+        app:itemTextAppearance="@style/TextAppearance.AppCompat.Body1"
         app:itemTextColor="@color/colorMarronClaro"
         app:menu="@menu/activity_test_drawer" />
 
