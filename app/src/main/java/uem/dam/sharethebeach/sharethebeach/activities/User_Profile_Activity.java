@@ -1,6 +1,7 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +22,7 @@ import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +48,7 @@ import uem.dam.sharethebeach.sharethebeach.Picador;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
 import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
+import uem.dam.sharethebeach.sharethebeach.views.IProgressBar;
 import uem.dam.sharethebeach.sharethebeach.views.info_UserProfile;
 
 public class User_Profile_Activity extends Base_Activity {
@@ -68,13 +72,17 @@ public class User_Profile_Activity extends Base_Activity {
     String descripcion;
     String URL;
     info_UserProfile infoUser;
+    Bitmap imageBitmap;
+    Uri uri;
+    int codigo = 0;
+
+    private Dialog miniProgressBar;
 
     StorageReference destino;
     StorageReference storage;
     DatabaseReference dbr;
     ChildEventListener cel;
     ArrayList<Usuario> listaUsuarios;
-
 
     private int dia;
     private int mes;
@@ -181,23 +189,35 @@ public class User_Profile_Activity extends Base_Activity {
     }
 
     public void aceptar(View view) {
+        mostrarMiniProgressBar();
         nombre = tvNombre.getText().toString();
         fecha = tvFecha.getText().toString();
         descripcion = tvDescripcion.getText().toString();
 
-        Usuario usuario = new Usuario(uid, emailF, nombre, fecha, descripcion, URL);
-
         if (nombre.trim().isEmpty() || fecha.trim().isEmpty() || descripcion.trim().isEmpty() || emailF.trim().isEmpty()) {
-            CustomDialog custom = new CustomDialog(this, R.string.debe_rellenar_todos_los_campos);
+            CustomDialog custom = new CustomDialog(User_Profile_Activity.this, R.string.debe_rellenar_todos_los_campos);
             custom.show();
-
         } else {
+            if (codigo == 1) {
+                subirImagen(getImageUri(this, imageBitmap));
+            } else if (codigo == 2) {
+                subirImagen(uri);
+            } else if (codigo == 0) {
 
-            dbr.child(uid).setValue(usuario);
-            Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this, Beach_List.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+                Usuario usuario = new Usuario(uid, emailF, nombre, fecha, descripcion, URL);
+
+                dbr.child(uid).setValue(usuario);
+                Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(User_Profile_Activity.this, Beach_List.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+
+                if (miniProgressBar.isShowing()) {
+                    miniProgressBar.cancel();
+                }
+            }
+
+
         }
     }
 
@@ -211,17 +231,21 @@ public class User_Profile_Activity extends Base_Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
+            ivFoto.setImageBitmap(imageBitmap);
+            codigo = 1;
 
-            subirImagen(getImageUri(this, imageBitmap));
+            infoUser = new info_UserProfile(User_Profile_Activity.this);
+            infoUser.show();
 
 
         } else if (requestCode == 10 && resultCode == RESULT_OK) {
-            Uri miPath = data.getData();
+            uri = data.getData();
+            Glide.with(User_Profile_Activity.this).load(uri).into(ivFoto);
+            codigo = 2;
 
-            subirImagen(miPath);
-
-            System.out.println(URL);
+            infoUser = new info_UserProfile(User_Profile_Activity.this);
+            infoUser.show();
         }
     }
 
@@ -246,10 +270,6 @@ public class User_Profile_Activity extends Base_Activity {
         this.anio = anio;
         mes = mes + 1;
         tvFecha.setText("Fecha Nacimiento: " + dia + "/" + mes + "/" + anio);
-    }
-
-    public void caca(View v) {
-
     }
 
     @Override
@@ -288,11 +308,23 @@ public class User_Profile_Activity extends Base_Activity {
                 if (task.isSuccessful()) {
                     Uri downloadUri = task.getResult();
                     URL = downloadUri.toString();  //URL DE DESCARGA
-                    System.out.println(URL);
-                    Glide.with(User_Profile_Activity.this).load(URL).into(ivFoto); //Mostramos imagen en imageview
 
-                    infoUser = new info_UserProfile(User_Profile_Activity.this);
-                    infoUser.show();
+                    nombre = tvNombre.getText().toString();
+                    fecha = tvFecha.getText().toString();
+                    descripcion = tvDescripcion.getText().toString();
+
+                    Usuario usuario = new Usuario(uid, emailF, nombre, fecha, descripcion, URL);
+
+                    dbr.child(uid).setValue(usuario);
+                    Toast.makeText(getApplicationContext(), "Los datos se han guardado correctamente", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(User_Profile_Activity.this, Beach_List.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+
+                    if (miniProgressBar.isShowing()) {
+                        miniProgressBar.cancel();
+                    }
+
 
                 } else {
                     //Posibles errores
@@ -374,5 +406,14 @@ public class User_Profile_Activity extends Base_Activity {
                 super.onRequestPermissionsResult(requestCode, permissions,
                         grantResults);
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void mostrarMiniProgressBar() {
+        miniProgressBar = new Dialog(this);
+        miniProgressBar.setContentView(R.layout.progbar_mini);
+        miniProgressBar.setCancelable(false);
+        miniProgressBar.show();
+        //Branch Change
     }
 }
