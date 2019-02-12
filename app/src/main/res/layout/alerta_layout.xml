@@ -13,6 +13,9 @@
         android:layout_width="340dp"
         android:layout_height="100dp"
         android:layout_weight="1"
+        android:cropToPadding="true"
+        android:paddingLeft="@dimen/PADDING_10"
+        android:paddingRight="@dimen/PADDING_10"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/common_google_signin_btn_icon_dark" />
 
