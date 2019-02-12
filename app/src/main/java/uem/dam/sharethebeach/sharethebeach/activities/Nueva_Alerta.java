@@ -252,7 +252,7 @@ public class Nueva_Alerta extends Base_Activity {
         String key = dbR.push().getKey();
 
         alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
-                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),new ArrayList<String>(),url);
+                playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),url);
 
         dbR.child(key).setValue(alert);
     }

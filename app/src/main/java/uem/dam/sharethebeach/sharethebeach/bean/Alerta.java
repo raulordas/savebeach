@@ -22,7 +22,7 @@ public class Alerta implements Parcelable {
     public Alerta() {
     }
 
-    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, ArrayList<String> usuarios_apuntados,String urlImg) {
+    public Alerta(String id, String id_creador, String descripcion, String titulo, String id_playa, String fecha, String hora, String urlImg) {
         this.id = id;
         this.id_creador = id_creador;
         this.descripcion = descripcion;
@@ -32,6 +32,7 @@ public class Alerta implements Parcelable {
         this.hora = hora;
         this.usuarios_apuntados = usuarios_apuntados;
         this.urlImg = urlImg;
+        this.usuarios_apuntados = new ArrayList<>();
     }
 
 
@@ -115,6 +116,10 @@ public class Alerta implements Parcelable {
 
     public void add_idUsu(String id){
         usuarios_apuntados.add(id);
+    }
+
+    public void inicializarLista(){
+        usuarios_apuntados =  new ArrayList<String>();;
     }
 
     public void setUrlImg(String urlImg) {

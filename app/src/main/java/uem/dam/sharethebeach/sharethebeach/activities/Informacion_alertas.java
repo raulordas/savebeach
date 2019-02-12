@@ -87,7 +87,7 @@ public class Informacion_alertas  extends Base_Activity {
         dbRUser = FirebaseDatabase.getInstance().getReference().child("Usuario");
         dbRUpdate = FirebaseDatabase.getInstance().getReference().child("Alerta");
 
-        addChildEventUsu();
+
 
         recicler = findViewById(R.id.reciUsuInfo);
         recicler.setHasFixedSize(true);
@@ -137,7 +137,10 @@ public class Informacion_alertas  extends Base_Activity {
             }
         }
 
+        addChildEventUsu();
+
         addChildEvent();
+
     }
     //Obtenemos la totalidad de los usuarios de la app
     private void addChildEventUsu() {
@@ -172,6 +175,7 @@ public class Informacion_alertas  extends Base_Activity {
                 }
             };
             dbRUser.addChildEventListener(celUsu);
+
         }
     }
 
@@ -181,8 +185,8 @@ public class Informacion_alertas  extends Base_Activity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     String id = dataSnapshot.getValue().toString();
-
                     for (int i= 0; i < listaCompletaUsuarios.size();i++){
+
                         if(listaCompletaUsuarios.get(i).getUid().equals(id)){
                             lista.add(listaCompletaUsuarios.get(i));
                         }
@@ -219,9 +223,14 @@ public class Informacion_alertas  extends Base_Activity {
     public void apuntarse(View v){
         if(!comprobarApuntado()){
             for (int i= 0; i < listaCompletaUsuarios.size();i++){
+
                 if(listaCompletaUsuarios.get(i).getUid().equals(user.getUid())){
 
-                    al.add_idUsu(listaCompletaUsuarios.get(i).getUid());
+                    if(al.getUsuarios_apuntados() == null){
+                        al.inicializarLista();
+                    }
+
+                    al.add_idUsu(user.getUid());
 
                     Map<String, Object> mapa = new HashMap<String, Object>();
                     mapa.put(al.getId(),al);

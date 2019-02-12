@@ -158,6 +158,7 @@ public class Alertas_Activity extends Base_Activity {
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                     Alerta alert = dataSnapshot.getValue(Alerta.class);
+
                     lista.add(alert);
                     listaCompleta.add(alert);
                     adaptador.notifyItemInserted(lista.size() - 1);
