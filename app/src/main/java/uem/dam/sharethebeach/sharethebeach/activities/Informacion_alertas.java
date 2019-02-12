@@ -54,6 +54,7 @@ public class Informacion_alertas  extends Base_Activity {
     private DatabaseReference dbRUser;
     private ChildEventListener cel;
     private ChildEventListener celUsu;
+    private ValueEventListener vel;
     RecyclerView recicler;
     LinearLayoutManager miLayoutManager;
     ArrayList<Usuario> lista = new ArrayList<>();
@@ -139,8 +140,6 @@ public class Informacion_alertas  extends Base_Activity {
 
         addChildEventUsu();
 
-        addChildEvent();
-
     }
     //Obtenemos la totalidad de los usuarios de la app
     private void addChildEventUsu() {
@@ -151,7 +150,6 @@ public class Informacion_alertas  extends Base_Activity {
 
                     Usuario usu =  dataSnapshot.getValue(Usuario.class);
                     listaCompletaUsuarios.add(usu);
-
                 }
 
                 @Override
@@ -177,6 +175,24 @@ public class Informacion_alertas  extends Base_Activity {
             dbRUser.addChildEventListener(celUsu);
 
         }
+
+
+        if (vel == null) {
+            vel = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    addChildEvent();
+                    //dbRUser.removeEventListener(vel);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            };
+            dbRUser.addListenerForSingleValueEvent(vel);
+        }
+
     }
 
     private void addChildEvent() {
