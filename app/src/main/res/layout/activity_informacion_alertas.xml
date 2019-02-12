@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/bambino"
             android:text="@string/textview"
-            android:textColor="@color/azulViento"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
         <ScrollView
