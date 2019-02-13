@@ -1,9 +1,12 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
@@ -31,11 +34,9 @@ public class Consulta_Usuarios_Final extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("1");
         adapter = new AdaptadorUsuarios(datos, this);
-        System.out.println("2");
         u = getIntent().getParcelableExtra("CLAVE");
-        System.out.println("3");
+
         nombre = findViewById(R.id.tvNombreF);
         email = findViewById(R.id.tvEmailF);
         fechaNac = findViewById(R.id.tvFechaNacF);
@@ -49,6 +50,10 @@ public class Consulta_Usuarios_Final extends Base_Activity {
         descripcion.setText(u.getDescripcion());
 
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
+    }
+
+    public void enviarMail(View view) {
+
     }
 
     @Override
