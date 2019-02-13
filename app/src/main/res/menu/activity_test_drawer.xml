@@ -14,7 +14,7 @@
             android:title="@string/beach_alerts" />
         <item
             android:id="@+id/nav_Beach_Map"
-            android:icon="@drawable/ic_marker_maps_ballena"
+            android:icon="@drawable/ic_location_on_black_24dp"
             android:title="@string/mapa" />
         <item
             android:id="@+id/nav_Usuarios"

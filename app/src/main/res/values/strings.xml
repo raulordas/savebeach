@@ -103,9 +103,9 @@
     <string name="info">Recuerde: Debe pulsar el botón aceptar para guardar los cambios</string>
     <string name="seleccionar_opcion">Seleccione una opcion:</string>
     <string name="seleccionar_playa">Seleccione una playa:</string>
-    <string name="localizacion">Localizacion:</string>
+    <string name="localizacion">Localización:</string>
     <string name="textview">TextView</string>
-    <string name="usuarios_interesados">Usuarios interesados:</string>
+    <string name="usuarios_interesados">Colaboradores:</string>
     <string name="CLAVE_ALERTA">CLAVE ALERTA</string>
     <string name="DIALOG_ACEPTAR">ACEPTAR</string>
     <string name="DIALOG_SEGURO_LOG_OUT">Esta seguro que desea desconectar la cuenta : %1$s</string>
