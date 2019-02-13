@@ -18,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -289,8 +290,13 @@ public abstract class Base_Activity extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_Usuarios) {
-            Intent i = new Intent(this,Todos_Usuarios.class);
-            startActivity(i);
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+                Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show();
+            } else {
+                Intent i = new Intent(this,Todos_Usuarios.class);
+                startActivity(i);
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
