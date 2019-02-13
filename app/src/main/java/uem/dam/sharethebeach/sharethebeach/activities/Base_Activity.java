@@ -1,6 +1,5 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.view.menu.MenuView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -36,10 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
-import uem.dam.sharethebeach.sharethebeach.views.CustomDialog;
 import uem.dam.sharethebeach.sharethebeach.views.DialogLogin;
 import uem.dam.sharethebeach.sharethebeach.views.DialogQuestion;
 
@@ -59,12 +55,15 @@ public abstract class Base_Activity extends AppCompatActivity
     private Menu menuv;
     private DialogLogin dialogLogin;
     private NavigationView navigationView;
+    private static boolean activityRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Activamos la funcionalidad de transiciones
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+
+        activityRefresh = false;
 
         /*
         Asignamos el layout del Base activity que contiene la barra de navegación y su menu
@@ -255,7 +254,6 @@ public abstract class Base_Activity extends AppCompatActivity
         } else if (id == R.id.nav_Login) {
             cargarDialogLogin();
 
-
             //Si el usuario hace Logout, le asigna null al usuario del contexto de la aplicación
         } else if (id == R.id.nav_Logout) {
 
@@ -276,6 +274,14 @@ public abstract class Base_Activity extends AppCompatActivity
 
                         navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
                         navigationView.getMenu().findItem(R.id.nav_Login).setVisible(true);
+
+                        if (activityRefresh) {
+                            Intent i = new Intent(Base_Activity.this, Alertas_Activity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
+                            finish();
+                        }
+
                     }
                 });
 
@@ -337,5 +343,9 @@ public abstract class Base_Activity extends AppCompatActivity
         });
         dialogLogin.show();
 
+    }
+
+    protected void setActivityAlertas() {
+        this.activityRefresh = true;
     }
 }
