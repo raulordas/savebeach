@@ -34,19 +34,20 @@ public class Consulta_Usuarios_Final extends Base_Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setTitle("Datos Usuario");
         adapter = new AdaptadorUsuarios(datos, this);
         u = getIntent().getParcelableExtra("CLAVE");
 
         nombre = findViewById(R.id.tvNombreF);
-        email = findViewById(R.id.tvEmailF);
+        //email = findViewById(R.id.tvEmailF);
         fechaNac = findViewById(R.id.tvFechaNacF);
         descripcion = findViewById(R.id.tvDescripcionF);
         fotoUsuario = findViewById(R.id.foto_UserF);
 
         Glide.with(this).load(u.getUrlFoto()).into(fotoUsuario);
         nombre.setText(u.getNombre_completo());
-        email.setText(u.getEmail());
-        fechaNac.setText("Fecha Nacimiento: " + u.getFechaNac());
+        //email.setText(u.getEmail());
+        fechaNac.setText(u.getFechaNac());
         descripcion.setText(u.getDescripcion());
 
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
@@ -63,6 +64,6 @@ public class Consulta_Usuarios_Final extends Base_Activity {
 
     @Override
     public boolean setDrawer() {
-        return true;
+        return false;
     }
 }
