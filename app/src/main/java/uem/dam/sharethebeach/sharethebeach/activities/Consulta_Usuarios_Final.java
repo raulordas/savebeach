@@ -52,7 +52,7 @@ public class Consulta_Usuarios_Final extends Base_Activity {
         Glide.with(this).load(u.getUrlFoto()).into(fotoUsuario);
         nombre.setText(u.getNombre_completo());
         email.setText(u.getEmail());
-        fechaNac.setText("Fecha Nacimiento: " + u.getFechaNac());
+        fechaNac.setText(u.getFechaNac());
         descripcion.setText(u.getDescripcion());
 
         emailEnviar = u.getEmail();
