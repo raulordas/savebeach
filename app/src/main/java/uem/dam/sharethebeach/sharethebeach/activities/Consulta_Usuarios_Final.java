@@ -1,9 +1,14 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +35,7 @@ public class Consulta_Usuarios_Final extends Base_Activity {
     TextView fechaNac;
     TextView descripcion;
     ImageView fotoUsuario;
+    String emailEnviar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +55,49 @@ public class Consulta_Usuarios_Final extends Base_Activity {
         fechaNac.setText("Fecha Nacimiento: " + u.getFechaNac());
         descripcion.setText(u.getDescripcion());
 
+        emailEnviar = u.getEmail();
+
         dbr = FirebaseDatabase.getInstance().getReference().child("Usuario");
     }
 
     public void enviarMail(View view) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_send_mail);
+        dialog.show();
 
+        final EditText asunto;
+        final EditText mensaje;
+        Button btnEnviar;
+
+        asunto = dialog.findViewById(R.id.etAsunto);
+        mensaje = dialog.findViewById(R.id.etMensaje);
+        btnEnviar = dialog.findViewById(R.id.btnEnviar);
+
+        btnEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txtAsunto = asunto.getText().toString();
+                String txtMensaje = mensaje.getText().toString();
+
+                String[] TO = {emailEnviar}; //aquí pon tu correo
+                String[] CC = {""};
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setData(Uri.parse("mailto:"));
+                emailIntent.setType("text/plain");
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                //Esto podrás modificarlo si quieres, el asunto y el cuerpo del mensaje
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, txtAsunto);
+                emailIntent.putExtra(Intent.EXTRA_TEXT, txtMensaje);
+
+                try {
+                    startActivity(Intent.createChooser(emailIntent, "Enviar email..."));
+                    finish();
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(Consulta_Usuarios_Final.this, "No tienes clientes de email instalados.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override
