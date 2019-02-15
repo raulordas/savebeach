@@ -41,9 +41,9 @@ public class Acerca_De_Activity extends AppCompatActivity {
         correodestinatario = getResources().getString(R.string.correo_desarrolladores);
         tvCorreo.setText(correodestinatario);
 
-        rellenarArrays();  // rellenadmos los arrays de nombres y descripciones de todos los desarrolladores
-        desarrolladoractual = 1;  // comenzamos pintando al desarrollador 1
-        rellenarViews();    // actualizamos los views
+        rellenarArrays();  // Rellenadmos los arrays de nombres y descripciones de todos los desarrolladores
+        desarrolladoractual = 1;  // Comenzamos pintando al desarrollador 1
+        rellenarViews();    // Actualizamos los views
 
         tvCorreo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +113,7 @@ public class Acerca_De_Activity extends AppCompatActivity {
     }
 
     // Metodo onTouchEvent
-    //Es un swap que
+    //Es un swap
     public boolean onTouchEvent(MotionEvent touchevent) {
         switch (touchevent.getAction()) {
             // Cuando pongo el dedo en la pantalla, me coge las cordenadas de X e Y
