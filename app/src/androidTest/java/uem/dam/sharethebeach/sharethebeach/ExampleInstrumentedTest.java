@@ -3,9 +3,12 @@ package uem.dam.sharethebeach.sharethebeach;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.test.ActivityInstrumentationTestCase2;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import uem.dam.sharethebeach.sharethebeach.activities.Login_Activity;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +19,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
     @Test
     public void useAppContext() {
         // Context of the app under Base_Activity.
