@@ -109,8 +109,8 @@
     <string name="CLAVE_ALERTA">CLAVE ALERTA</string>
     <string name="DIALOG_ACEPTAR">ACEPTAR</string>
     <string name="DIALOG_SEGURO_LOG_OUT">Esta seguro que desea desconectar la cuenta : %1$s</string>
-    <string name="enviar_mail">Enviar Mail</string>
     <string name="asunto">Asunto</string>
     <string name="contenido_del_mensaje">Contenido del mensaje</string>
     <string name="enviar">Enviar</string>
+    <string name="enviar_mail">Contactar</string>
 </resources>

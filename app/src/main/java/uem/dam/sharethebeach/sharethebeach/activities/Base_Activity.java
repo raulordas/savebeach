@@ -292,6 +292,7 @@ public abstract class Base_Activity extends AppCompatActivity
         } else if (id == R.id.nav_Usuarios) {
             if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show();
+
             } else {
                 Intent i = new Intent(this,Todos_Usuarios.class);
                 startActivity(i);

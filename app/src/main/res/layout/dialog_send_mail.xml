@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:paddingLeft="@dimen/PADDING_30"
+    android:paddingTop="20dp"
+    android:paddingRight="@dimen/PADDING_30"
+    android:paddingBottom="20dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:layout_weight="0"
+        app:srcCompat="@drawable/ic_email" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/PADDING_15"
         android:layout_weight="1"
-        android:fontFamily="@font/bambino_bold"
+        android:fontFamily="@font/bambino"
         android:gravity="center"
         android:text="Enviar Mail"
-        android:textColor="@android:color/black"
-        android:textSize="24sp" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
     <View
         android:id="@+id/divider9"
@@ -61,11 +73,12 @@
 
     <Button
         android:id="@+id/btnEnviar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@color/colorMarronClaro"
-        android:fontFamily="@font/bambino_bold"
-        android:text="@string/enviar" />
+        android:background="@drawable/borders"
+        android:fontFamily="@font/bambino"
+        android:text="@string/enviar"
+        android:textColor="@color/blancoNieve" />
 </LinearLayout>
