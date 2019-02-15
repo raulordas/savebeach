@@ -113,4 +113,18 @@
     <string name="contenido_del_mensaje">Contenido del mensaje</string>
     <string name="enviar">Enviar</string>
     <string name="enviar_mail">Contactar</string>
+
+    <!--ACERCA_DE-->
+    <string name="nombre_desarrollador_1">Miguel Sanchez</string>
+    <string name="descripcion_desarrollador_1">Programador maravilloso</string>
+    <string name="correo_desarrolladores">pepe@gmail.com</string>
+
+    <string name="nombre_desarrollador_2">Raul Ordas</string>
+    <string name="descripcion_desarrollador_2">Programador maravilloso2</string>
+
+    <string name="nombre_desarrollador_3">Juan Notario</string>
+    <string name="descripcion_desarrollador_3">Programador maravilloso3</string>
+
+    <string name="nombre_desarrollador_4">Andres Perez</string>
+    <string name="descripcion_desarrollador_4">Programador maravilloso4</string>
 </resources>
