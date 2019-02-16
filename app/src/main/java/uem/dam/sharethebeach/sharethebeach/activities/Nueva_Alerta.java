@@ -30,7 +30,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -209,7 +212,7 @@ public class Nueva_Alerta extends Base_Activity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 fecha.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
-        }, dia,mes,ano);
+        }, ano,mes,dia);
         datePickerDialog.show();
     }
 
@@ -254,7 +257,18 @@ public class Nueva_Alerta extends Base_Activity {
         alert = new Alerta(key,"id_creador",descripcion.getText().toString(),titulo.getText().toString(),
                 playaSel.getId(),fecha.getText().toString(),horaTxt.getText().toString(),url);
 
-        dbR.child(key).setValue(alert);
+        alert.inicializarLista();
+        alert.add_idUsu(FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+        dbR.child(key).setValue(alert).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast toast2 = Toast.makeText(getApplicationContext(), "Alerta añadida correctamente", Toast.LENGTH_SHORT);
+                toast2.show();
+                finish();
+            }
+        });
+
     }
 
     private void subirFoto() {

@@ -113,4 +113,18 @@
     <string name="contenido_del_mensaje">Contenido del mensaje</string>
     <string name="enviar">Enviar</string>
     <string name="enviar_mail">Contactar</string>
+
+    <!--ACERCA_DE-->
+    <string name="nombre_desarrollador_1">Miguel Sánchez</string>
+    <string name="descripcion_desarrollador_1">Software developer, Tester and Apprentice of the team</string>
+    <string name="correo_desarrolladores">savethebeachapp@gmail.com</string>
+
+    <string name="nombre_desarrollador_2">Raul Ordás</string>
+    <string name="descripcion_desarrollador_2">CEO, Software developer, Analyst and Master Designer</string>
+
+    <string name="nombre_desarrollador_3">Juan Notario</string>
+    <string name="descripcion_desarrollador_3">Software developer, Technical assistant and Junior Designer </string>
+
+    <string name="nombre_desarrollador_4">Andrés Pérez</string>
+    <string name="descripcion_desarrollador_4">Coordinator, Software developer, Analyst and Junior Designer</string>
 </resources>
