@@ -30,7 +30,6 @@ public class Alerta implements Parcelable {
         this.id_playa = id_playa;
         this.fecha = fecha;
         this.hora = hora;
-        this.usuarios_apuntados = usuarios_apuntados;
         this.urlImg = urlImg;
         this.usuarios_apuntados = new ArrayList<>();
     }
