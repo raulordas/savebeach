@@ -26,6 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import uem.dam.sharethebeach.sharethebeach.ContextoCustom;
 import uem.dam.sharethebeach.sharethebeach.R;
@@ -51,7 +53,7 @@ public class Alertas_Activity extends Base_Activity {
     FloatingActionButton boton;
     private TabLayout alertsTabs;
     FirebaseUser user;
-
+    Integer[] fechaActual;
 
 
     @Override
@@ -73,7 +75,7 @@ public class Alertas_Activity extends Base_Activity {
 
         }
 
-
+        fechaActual = obtenerFecha();
 
         dbR = FirebaseDatabase.getInstance().getReference().child("Alerta");
 
@@ -152,6 +154,22 @@ public class Alertas_Activity extends Base_Activity {
         addChildEvent();
     }
 
+    private Integer[] obtenerFecha() {
+
+        Integer [] fecha = new Integer[3];
+
+        Calendar c = Calendar.getInstance();
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+        int mes = c.get(Calendar.MONTH);
+        int ano = c.get(Calendar.YEAR);
+
+        fecha[0] = dia;
+        fecha[1] = mes + 1;
+        fecha[2] = ano;
+
+        return fecha;
+    }
+
     private void addChildEvent() {
         if(cel == null) {
             cel = new ChildEventListener() {
@@ -160,11 +178,12 @@ public class Alertas_Activity extends Base_Activity {
 
                     Alerta alert = dataSnapshot.getValue(Alerta.class);
 
-                    lista.add(alert);
-                    listaCompleta.add(alert);
-                    adaptador.notifyItemInserted(lista.size() - 1);
-                    filtrarLista("Todas las Alertas");
-
+                    if(comprobarFecha(alert)){
+                        lista.add(alert);
+                        listaCompleta.add(alert);
+                        adaptador.notifyItemInserted(lista.size() - 1);
+                        filtrarLista("Todas las Alertas");
+                    }
                 }
 
                 @Override
@@ -189,6 +208,41 @@ public class Alertas_Activity extends Base_Activity {
             };
             dbR.addChildEventListener(cel);
         }
+    }
+
+    public boolean comprobarFecha(Alerta al){
+        boolean valida = true;
+        int cont = 0;
+        Integer[] fechaAl = new Integer[3];
+        String fechaAle = al.getFecha();
+
+        StringTokenizer st = new StringTokenizer(fechaAle,"/");
+        while(st.hasMoreTokens()){
+            fechaAl[cont] = Integer.parseInt(st.nextToken());
+            cont++;
+        }
+
+
+
+        if(fechaActual[2] > fechaAl[2]){
+            valida = false;
+        }else if(fechaActual[2] < fechaAl[2]){
+            valida = true;
+        }else{
+            if(fechaActual[1] > fechaAl[1]){
+                valida = false;
+            }else if(fechaActual[1] < fechaAl[1]){
+                valida = true;
+            }else{
+                if(fechaActual[0] > fechaAl[0]){
+                    valida = false;
+                }else{
+                    valida = true;
+                }
+            }
+        }
+
+        return valida;
     }
 
     @Override
