@@ -209,7 +209,7 @@ public class Nueva_Alerta extends Base_Activity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 fecha.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
             }
-        }, dia,mes,ano);
+        }, ano,mes,dia);
         datePickerDialog.show();
     }
 

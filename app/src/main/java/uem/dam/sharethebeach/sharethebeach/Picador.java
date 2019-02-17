@@ -34,7 +34,7 @@ public class Picador extends DialogFragment implements DatePickerDialog.OnDateSe
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
                 */
-        return new DatePickerDialog(getActivity(), this, 2000, 12, 3);
+        return new DatePickerDialog(getActivity(), R.style.DialogTheme, this,2000, 12, 3);
     }
 
 

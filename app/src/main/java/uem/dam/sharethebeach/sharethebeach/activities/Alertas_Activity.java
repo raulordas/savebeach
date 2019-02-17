@@ -59,8 +59,6 @@ public class Alertas_Activity extends Base_Activity {
         super.onCreate(savedInstanceState);
        // setContentView(R.layout.activity_alertas_);
 
-        super.setActivityAlertas();
-
         boton = findViewById(R.id.btnAniadirAlerta);
 
         user  = FirebaseAuth.getInstance().getCurrentUser();
