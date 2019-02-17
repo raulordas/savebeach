@@ -57,6 +57,8 @@
         <activity android:name=".activities.Nueva_Alerta" />
         <activity android:name=".activities.Todos_Usuarios" />
         <activity android:name=".activities.Consulta_Usuarios_Final" />
-        <activity android:name=".activities.Informacion_alertas"></activity>
+        <activity android:name=".activities.Informacion_alertas" />
+        <activity android:name=".activities.Acerca_De_Activity"></activity>
     </application>
+
 </manifest>

@@ -226,6 +226,9 @@ public abstract class Base_Activity extends AppCompatActivity
         if (id == R.id.action_cuenta) {
             startActivity(new Intent(this, User_Profile_Activity.class));
         }
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, Acerca_De_Activity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }
