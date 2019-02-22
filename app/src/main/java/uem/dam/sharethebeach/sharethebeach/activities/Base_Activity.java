@@ -19,7 +19,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,15 +55,12 @@ public abstract class Base_Activity extends AppCompatActivity
     private Menu menuv;
     private DialogLogin dialogLogin;
     private NavigationView navigationView;
-    private static boolean activityRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Activamos la funcionalidad de transiciones
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
-
-        activityRefresh = false;
 
         /*
         Asignamos el layout del Base activity que contiene la barra de navegación y su menu
@@ -163,7 +159,6 @@ public abstract class Base_Activity extends AppCompatActivity
                             }
                         }
                     }
-
                 }
 
                 @Override
@@ -279,13 +274,10 @@ public abstract class Base_Activity extends AppCompatActivity
                         navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(false);
                         navigationView.getMenu().findItem(R.id.nav_Login).setVisible(true);
 
-                        if (activityRefresh) {
-                            Intent i = new Intent(Base_Activity.this, Alertas_Activity.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(i);
-                            finish();
-                        }
-
+                        Intent i = new Intent(Base_Activity.this, Beach_List.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(i);
+                        finish();
                     }
                 });
 
@@ -323,6 +315,7 @@ public abstract class Base_Activity extends AppCompatActivity
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         // Sign in success, update UI with the signed-in user's information
+                                        Toast.makeText(getApplicationContext(), "Bienvenid@ " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                                         navigationView.getMenu().findItem(R.id.nav_Logout).setVisible(true);
                                         navigationView.getMenu().findItem(R.id.nav_Login).setVisible(false);
                                         menuv.getItem(0).setVisible(true);
@@ -342,8 +335,7 @@ public abstract class Base_Activity extends AppCompatActivity
                                         dialogLogin.cancel();
 
                                     } else {
-                                        // Si falla mostramos un dialog que diga que no se ha podido conectar
-                                        //con dicha informacion. Pendiente de implementar
+                                        Toast.makeText(getApplicationContext(), "No se ha podido autenticar", Toast.LENGTH_SHORT).show();
 
                                     }
                                 }
@@ -353,9 +345,5 @@ public abstract class Base_Activity extends AppCompatActivity
         });
         dialogLogin.show();
 
-    }
-
-    protected void setActivityAlertas() {
-        this.activityRefresh = true;
     }
 }

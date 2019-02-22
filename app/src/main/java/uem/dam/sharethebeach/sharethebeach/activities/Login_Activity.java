@@ -95,7 +95,7 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         dialogLogin.cancel();
 
-                                        crearSnackBar("Se ha autenticado en la base de datos con ÉXITO");
+                                        crearSnackBar("Bienvenid@ " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
                                         //Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
                                           //      Toast.LENGTH_SHORT).show();
                                     } else {

@@ -4,12 +4,16 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.widget.Button;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import uem.dam.sharethebeach.sharethebeach.activities.Login_Activity;
 
+
+import static android.view.KeyEvent.KEYCODE_BACK;
 import static org.junit.Assert.*;
 
 /**
@@ -17,14 +21,23 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
 
-    @Test
-    public void useAppContext() {
-        // Context of the app under Base_Activity.
-        Context appContext = InstrumentationRegistry.getTargetContext();
+public class ExampleInstrumentedTest extends ActivityInstrumentationTestCase2<Login_Activity> {
+    private Button btnSplashLogin;
 
-        assertEquals("uem.dam.sharethebeach.sharethebeach", appContext.getPackageName());
+    public ExampleInstrumentedTest() {
+        super(Login_Activity.class);
+    }
+
+    protected void setUp() throws Exception {
+        super.setUp();
+        Login_Activity activity = getActivity();
+        btnSplashLogin = activity.findViewById(R.id.btnSplashLogin);
+        sendKeys(KEYCODE_BACK);
+
+    }
+
+    public void testLogin() {
+        TouchUtils.tapView(this, btnSplashLogin);
     }
 }
