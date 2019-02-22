@@ -40,5 +40,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation ('com.airbnb.android:lottie:2.5.1'){ exclude group: 'com.android.support' }
 }
 apply plugin: 'com.google.gms.google-services'

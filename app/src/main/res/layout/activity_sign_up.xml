@@ -130,7 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:layout_marginTop="60dp"
-            android:background="@color/colorMarronClaro"
+            android:background="@drawable/borders"
             android:fontFamily="@font/bambino"
             android:onClick="registrarUsuario"
             android:text="@string/VAL_REGISTRAR"

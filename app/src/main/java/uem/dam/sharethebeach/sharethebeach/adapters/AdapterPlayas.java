@@ -31,6 +31,11 @@ public class AdapterPlayas extends RecyclerView.Adapter<AdapterPlayas.HolderPlay
         this.context = context;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
     @NonNull
     @Override
     public HolderPlaya onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

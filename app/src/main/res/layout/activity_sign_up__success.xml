@@ -7,9 +7,17 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    android:onClick="backToSplash"
-    tools:context=".activities.SignUp_Success_Activity">
+    android:onClick="backToSplash">
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tvBienvenido"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/success">
+
+    </com.airbnb.lottie.LottieAnimationView>
     <TextView
         android:id="@+id/tvBienvenido"
         android:layout_width="match_parent"
@@ -27,10 +35,8 @@
         android:id="@+id/tvcorreo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/animation_view"
         android:layout_marginLeft="@dimen/PADDING_30"
-        android:layout_marginTop="424dp"
         android:layout_marginRight="@dimen/PADDING_30"
         android:fontFamily="@font/bambino_light"
         android:gravity="center"
@@ -42,10 +48,10 @@
         android:id="@+id/imgSuccess"
         android:layout_width="match_parent"
         android:layout_height="171dp"
-        android:layout_alignEnd="@+id/tvBienvenido"
         android:layout_alignParentTop="true"
         android:layout_marginTop="185dp"
         android:layout_marginEnd="0dp"
         android:contentDescription="@string/VAL_IMAGEN"
+        android:visibility="gone"
         app:srcCompat="@drawable/ic_circle" />
 </RelativeLayout>
