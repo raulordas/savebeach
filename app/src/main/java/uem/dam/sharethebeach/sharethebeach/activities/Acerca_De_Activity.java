@@ -57,7 +57,7 @@ public class Acerca_De_Activity extends AppCompatActivity {
                 i.setType("message/rfc822");
 
                 //Esta línea mete un asunto al correo que vamos a enviar
-                i.putExtra(Intent.EXTRA_SUBJECT, " Consulta usuario Shave the Beach");
+                i.putExtra(Intent.EXTRA_SUBJECT, " Consulta usuario SaveTheBeach");
 
                 i.putExtra(Intent.EXTRA_EMAIL,new String[]{correodestinatario} );
 
@@ -70,8 +70,6 @@ public class Acerca_De_Activity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     public void rellenarViews() {
@@ -143,7 +141,6 @@ public class Acerca_De_Activity extends AppCompatActivity {
                     }
                     rellenarViews();
                 }
-
                 break;
             }
         }

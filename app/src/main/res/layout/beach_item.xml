@@ -25,7 +25,7 @@
         android:layout_weight="1"
         android:background="@color/blancoNieve"
         android:fontFamily="@font/bambino"
-        android:paddingLeft="@dimen/PADDING_30"
+        android:paddingLeft="16dp"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp" />
 
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:paddingLeft="@dimen/PADDING_30"
+        android:paddingLeft="16dp"
         android:textColor="@color/colorPrimary" />
 
 </LinearLayout>

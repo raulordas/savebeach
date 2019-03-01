@@ -1,8 +1,12 @@
 package uem.dam.sharethebeach.sharethebeach.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,6 +45,8 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
     //Atributo Barra de Progreso
     private DialogProgressBar progressBar;
 
+    private Dialog miniProgressBar;
+
     //Atributo CustomDialog_Error
     private CustomDialog errorDialog;
 
@@ -68,12 +74,6 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
         logoSaveThebeach.startAnimation(animAlpha);
         isoLogo.startAnimation(anim);
 
-        /*Comprobamos si existe un usuario almacenado en el archivo sharedpreferences. En caso afirmativo
-        saltamos el splashscreen para cargar directamente el activity principal. Por esta razón asignamos
-        la vista tras invocar a este método.
-         */
-        //comprobarUsuario();
-
         //Inicialización de la vista Correspondiente al ProgressBar
         progressBar = new DialogProgressBar(this);
 
@@ -94,25 +94,28 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
                                         Log.d("EXITO", "signInWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
                                         dialogLogin.cancel();
-
                                         crearSnackBar("Bienvenid@ " + FirebaseAuth.getInstance().getCurrentUser().getEmail());
-                                        //Toast.makeText(Login_Activity.this, "USUARIO AUTENTICADO",
-                                          //      Toast.LENGTH_SHORT).show();
+                                        mostrarMiniProgressBar();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                startActivity(new Intent(Login_Activity.this, Beach_List.class));
+                                                finish();
+                                            }
+                                        }, 1500);
+
+
+
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("FRACASO", "signInWithEmail:failure", task.getException());
                                         crearSnackBar(task.getException().toString());
-                                        //Toast.makeText(Login_Activity.this, "USUARIO NO ENCONTRADO",
-                                          //      Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                 }
             }
         });
-        //DialogFragment newFragment = new Picador();
-        //newFragment.show(getSupportFragmentManager(),"t");
-
     }
 
     //Metodo que carga el activity Sign Up para dar de alta un usuario al pulsar en el botón de alta
@@ -131,47 +134,6 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
         dialogLogin.dismiss();
     }
 
-    /*
-    Método que comprueba al principio de la aplicación si hay algun usuario almacenado en el archivo
-    sharedpreferences. En caso afirmativo, contrasta dicha información con la persistencia.
-     */
-    /*
-    public void comprobarUsuario() {
-        String username = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("usuario", "");
-        String password = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE).getString("pass", "");
-        user = new Usuario(username, password);
-
-        if (!user.getUsuario().equals("")) {
-            //Comprobar credenciales. Si son correctas intent a la ventana principal, sino mensaje
-            //y eliminar lo que hubiera en el sharedpreferences.
-            PersistenciaUsuarios per = new PersistenciaUsuarios(this);
-            per.identificarUsuario(user);
-        }
-    }
-    /*
-    /*
-    Método que procesa el resultado que devuelve la persistencia mediante callback
-    En caso de que el resultado sea distinto de 0, almacena los datos del usuario en
-    un archivo sharedpreferences y lanza el activity principal de la aplicación
-     */
-    /*
-    @Override
-    public void resultadoPersistencia(int res, Object obj) {
-
-        Usuario user = (Usuario) obj;
-
-        if (res != 0){
-            SharedPreferences pref = this.getSharedPreferences("PREFERENCIAS_USUARIO", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = pref.edit();
-            editor.clear();
-            editor.putString("usuario", user.getUsuario().toString());
-            editor.putString("pass", user.getPassword().toString());
-            editor.commit();
-
-            startActivity(new Intent(this, User_Profile_Activity.class));
-        }
-    }
-    */
     //Muestra la barra de progreso de conexión al servidor
     @Override
     public void mostrarProgressBar(){
@@ -206,5 +168,14 @@ public class Login_Activity extends AppCompatActivity implements IProgressBar {
     public void crearSnackBar(String mensaje) {
         Snackbar snackbar = Snackbar.make(findViewById(R.id.rl_splash), mensaje, Snackbar.LENGTH_LONG);
         snackbar.show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void mostrarMiniProgressBar() {
+        miniProgressBar = new Dialog(this);
+        miniProgressBar.setContentView(R.layout.progbar_mini);
+        miniProgressBar.setCancelable(false);
+        miniProgressBar.show();
+        //Branch Change
     }
 }

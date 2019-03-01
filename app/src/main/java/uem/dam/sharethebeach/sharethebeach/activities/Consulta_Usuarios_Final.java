@@ -107,6 +107,6 @@ public class Consulta_Usuarios_Final extends Base_Activity {
 
     @Override
     public boolean setDrawer() {
-        return true;
+        return false;
     }
 }

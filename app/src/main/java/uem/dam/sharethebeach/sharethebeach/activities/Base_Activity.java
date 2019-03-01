@@ -30,9 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import uem.dam.sharethebeach.sharethebeach.R;
 import uem.dam.sharethebeach.sharethebeach.bean.Usuario;
@@ -243,7 +241,8 @@ public abstract class Base_Activity extends AppCompatActivity
             startActivity(new Intent(this, Beach_List.class));
 
         } else if (id == R.id.nav_Beach_Map) {
-            //Aquí va algo
+            Intent i = new Intent(this, MapsActivity.class);
+            startActivity(i);
 
         } else if (id == R.id.nav_Beach_Alerts) {
 

@@ -111,7 +111,7 @@
             android:layout_weight="0"
             android:contentDescription="@string/VAL_IMAGEN"
             android:scaleType="fitEnd"
-            android:tint="@color/azulViento"
+            android:tint="@color/blancoNieve"
             app:srcCompat="@drawable/ic_wind_svgrepo_com" />
 
         <TextView
@@ -171,7 +171,7 @@
             android:layout_weight="0"
             android:contentDescription="@string/VAL_IMAGEN"
             android:scaleType="fitEnd"
-            android:tint="@android:color/black"
+            android:tint="@color/blancoNieve"
             app:srcCompat="@drawable/ic_thermometer_temperature_control_tool_svgrepo_com" />
 
         <TextView

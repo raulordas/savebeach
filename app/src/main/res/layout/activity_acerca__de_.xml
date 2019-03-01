@@ -1,60 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.Acerca_De_Activity">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivFoto"
-        android:layout_width="202dp"
-        android:layout_height="198dp"
-        android:layout_alignEnd="@+id/tvDescripcion"
-        android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="-9dp"
-        android:foregroundGravity="top"
-        android:paddingTop="@dimen/PADDING_10"
-        app:srcCompat="@drawable/miguel" />
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
+        app:srcCompat="@drawable/ic_saveonlytext" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-18dp"
+        android:fontFamily="@font/bambino_light"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="SaveTheBeach Beta 1.0.5. Proyecto integrador de la Universidad Europea de Madrid."
+        android:textAlignment="center" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivFoto"
+            android:layout_width="202dp"
+            android:layout_height="198dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/miguel" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="20dp"
+            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
+    </FrameLayout><![CDATA[
+
+
         app:civ_border_color="#FF000000" />
+
+
+
+    ]]>
 
     <TextView
         android:id="@+id/tvNombre"
-        android:layout_width="185dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="105dp"
         android:fontFamily="@font/bambino_light"
         android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvDescripcion"
-        android:layout_width="181dp"
-        android:layout_height="124dp"
-        android:layout_alignStart="@+id/tvNombre"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/bambino_light"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvCorreo"
         android:layout_width="match_parent"
         android:layout_height="33dp"
-        android:layout_alignStart="@+id/tvNombre"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="-105dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="@font/bambino_light"
         android:gravity="center"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:text="TextView"
+        android:textAlignment="center"
         android:textSize="18sp" />
 
-</RelativeLayout>
+</LinearLayout>
