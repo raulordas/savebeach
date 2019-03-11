@@ -4,4 +4,4 @@
 ## SaveTheBeach es una aplicación que te conecta con una comunidad solidaria. Podrás consultar el estado de tus playas preferidas y colaborar en acciones solidarias como la recogida de residuos. Además, conectarás con gente que comparte tus mismas inquietudes. ¿No te parece genial? 
 
 
-https://www.youtube.com/watch?v=L7zsH-7yE5o&feature=youtu.be
+https://youtu.be/hh3VFAAjV8A
